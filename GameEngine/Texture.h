@@ -13,8 +13,8 @@ private:
 public:
     //we want it to be static cause we want to call it as a class function rather than a member function belonging to an object
     //that also means we won't have to instantiate an object of this class to call this function
-    static SDL_Texture& loadTexture(const std::string fileName);
-    static void draw(SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dest, const SDL_RendererFlip& flip);
+    static SDL_Texture* loadTexture(const std::string fileName);
+    static void draw(const std::string textureName, const SDL_Rect& src, const SDL_Rect& dest, const SDL_RendererFlip& flip);
 
     bool add(std::string name, std::string path);
 

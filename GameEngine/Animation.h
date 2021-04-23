@@ -1,6 +1,9 @@
 #ifndef GAME_ANIMATION_H
 #define GAME_ANIMATION_H
 
+#include "SDL.h"
+#include "Vector2D.h"
+
 class Animation {
 private:
     int index;
@@ -8,7 +11,8 @@ private:
     int speed;
 
 public:
-    explicit Animation(int index = 0, int frames = 1, int speed = 0);
+    Animation(int index, int frames, int speed);
+    void updateRect(SDL_Rect& srcRect);
 };
 
 #endif //GAME_ANIMATION_H

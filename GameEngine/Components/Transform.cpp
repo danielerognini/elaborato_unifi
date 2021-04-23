@@ -47,3 +47,7 @@ Transform::Transform(int x, int y, double direction, int speed, bool active) : d
     moving = 0;
     position = Vector2D(x, y);
 }
+
+Vector2D& Transform::getPosition() {
+    return position;
+}

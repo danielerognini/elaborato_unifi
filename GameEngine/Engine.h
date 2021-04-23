@@ -19,7 +19,7 @@ private:
     Engine(const char* title, int x, int y, int width, int height, bool fullscreen);
     SDL_Window *window;
 
-    static int scale;
+    static int& scale;
 
 public:
     //GameEngine();
@@ -33,9 +33,10 @@ public:
     bool isRunning() const;
     void quit();
 
-    static SDL_Renderer* getRenderer();
+    static SDL_Renderer * getRenderer();
 
     static int getScale();
+    static SDL_Rect & getCamera();
 };
 
 

@@ -30,6 +30,8 @@ public:
 
     bool isMoving() const;
     void setMoving(bool moving);
+
+    Vector2D& getPosition();
 };
 
 

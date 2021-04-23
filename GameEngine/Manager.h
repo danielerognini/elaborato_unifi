@@ -6,11 +6,17 @@
 
 class Manager {
 private:
+    std::map<std::string, Entity> entities;
+    bool active;
 
 public:
     void flush();
     void update();
-    void renderEntities();
+    void draw();
+
+    bool addEntity(std::string name);
+    bool removeEntity(std::string name);
+    Entity* getEntity(std::string name);
 };
 
 

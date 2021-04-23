@@ -20,7 +20,7 @@ void Engine::render() {
     SDL_RenderClear(renderer); //clean the previous render buffer
 
     for(std::map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++){
-        iter->second.renderEntities(); //we use second as a reference to the manager in the iter map to call the method to render the entities
+        iter->second.draw(); //we use second as a reference to the manager in the iter map to call the method to render the entities
     }
 }
 
@@ -45,5 +45,9 @@ int Engine::getScale(){
 
 SDL_Renderer* Engine::getRenderer() {
     return renderer;
+}
+
+SDL_Rect& Engine::getCamera() {
+    return camera;
 }
 
