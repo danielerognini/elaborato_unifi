@@ -1,7 +1,7 @@
 #ifndef GAME_TEXTURE_H
 #define GAME_TEXTURE_H
 
-#include "SDL.h"
+#include "SDL2/SDL.h"
 #include <string>
 #include <map>
 #include <iostream>

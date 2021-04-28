@@ -2,10 +2,10 @@
 #define GAME_ENGINE_H
 
 #include <map>
-#include "Manager.h"
-#include "SDL.h"
+#include "ECS/Manager.h"
+#include "SDL2/SDL.h"
 
-class Engine {
+class Engine{
 private:
     std::map<std::string, Manager> managers;
 

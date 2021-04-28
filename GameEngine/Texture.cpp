@@ -1,6 +1,6 @@
 #include "Texture.h"
 #include "Engine.h"
-#include "SDL_image.h"
+#include "SDL2/SDL_image.h"
 #include <iostream>
 
 SDL_Texture* Texture::loadTexture(const std::string textureName) {

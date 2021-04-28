@@ -1,7 +1,7 @@
 #ifndef GAME_INPUT_H
 #define GAME_INPUT_H
 
-#include "SDL.h"
+#include "SDL2/SDL.h"
 
 class Input {
 public:
