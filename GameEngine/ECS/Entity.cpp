@@ -50,7 +50,3 @@ void Entity::setLight(const Light &light) {
     Entity::light = light;
 }
 
-bool Entity::isActive() {
-    return active;
-}
-

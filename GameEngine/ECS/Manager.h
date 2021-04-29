@@ -9,7 +9,6 @@
 class Manager : public Activatable{
 private:
     std::unordered_map<std::string, Entity*> entities;
-    bool active;
 
 public:
     void flush();

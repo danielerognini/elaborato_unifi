@@ -9,8 +9,6 @@
 
 class Entity : public Activatable{
 public:
-    Entity();
-
     const Collider &getCollider() const;
 
     void setCollider(const Collider &collider);
@@ -30,9 +28,7 @@ public:
     void update();
     void draw();
 
-    bool isActive();
 private:
-    bool active;
     Collider collider;
     Sprite sprite;
     Transform transform;
