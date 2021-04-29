@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "../../Activatable.h"
 #include <string>
-#include <map>
+#include <unordered_map>
 
 class Sprite : public Activatable{
 private:
@@ -20,7 +20,7 @@ private:
     SDL_Rect* srcRect;
 
     std::string currentAnimation;
-    std::map<std::string, Animation> animations;
+    std::unordered_map<std::string, Animation> animations;
 
     SDL_RendererFlip flip;
 public:
