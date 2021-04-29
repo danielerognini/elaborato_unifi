@@ -3,12 +3,12 @@
 
 #include "Entity.h"
 #include "../Activatable.h"
-#include <map>
+#include <unordered_map>
 
 
 class Manager : public Activatable{
 private:
-    std::map<std::string, Entity> entities;
+    std::unordered_map<std::string, Entity*> entities;
     bool active;
 
 public:

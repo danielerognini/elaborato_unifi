@@ -1,13 +1,13 @@
 #ifndef GAME_ENGINE_H
 #define GAME_ENGINE_H
 
-#include <map>
+#include <unordered_map>
 #include "ECS/Manager.h"
 #include "SDL2/SDL.h"
 
 class Engine{
 private:
-    std::map<std::string, Manager> managers;
+    std::unordered_map<std::string, Manager> managers;
 
     static SDL_Renderer *renderer; //Because we plan to use always the same renderer it is more convenient to make it static and reference this instead of passing a pointer everytime
     //static SDL_Event event; //create an SDL_Event variable where we are going to poll SDL events into (we want to make it static so that we can access it from anywhere)

@@ -3,12 +3,12 @@
 
 #include "SDL2/SDL.h"
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <iostream>
 
 class Texture {
 private:
-    static std::map<std::string, std::string> texturePaths;
+    static std::unordered_map<std::string, std::string> texturePaths;
 
 public:
     //we want it to be static cause we want to call it as a class function rather than a member function belonging to an object

@@ -7,7 +7,7 @@ private:
     int x;
     int y;
 public:
-    explicit Vector2D(int x = 0.0f, int y = 0.0f);
+    explicit Vector2D(int x = 0, int y = 0);
 
     int getX() const;
     void setX(int x);
