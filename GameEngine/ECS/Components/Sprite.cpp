@@ -39,3 +39,11 @@ std::string Sprite::getCurrentAnimation() {
 SDL_RendererFlip& Sprite::getFlip() {
     return flip;
 }
+
+void Sprite::setTextureName(std::string textureName) {
+    this->textureName = textureName;
+}
+
+Sprite::Sprite(bool active) {
+    this->active = active;
+}

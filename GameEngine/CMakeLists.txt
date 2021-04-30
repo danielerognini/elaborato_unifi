@@ -16,6 +16,6 @@ set(ENGINE_SOURCE_FILES
         ECS/Components/Sprite.cpp ECS/Components/Sprite.h
         ECS/Components/Light.cpp ECS/Components/Light.h
         ECS/Components/Animation.cpp ECS/Components/Animation.h
-        Activatable.cpp Activatable.h)
+        Activatable.cpp Activatable.h Collision.cpp Collision.h)
 
 add_executable(GameEngine ${ENGINE_SOURCE_FILES})

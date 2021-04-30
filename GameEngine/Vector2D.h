@@ -15,6 +15,7 @@ public:
     void setY(int y);
 
     void add(const int x, const int y);
+    void subtract(const int x, const int y);
 
     //Methods for the various math operations:
     void add(const Vector2D& vector);

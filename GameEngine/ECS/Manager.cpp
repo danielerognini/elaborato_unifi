@@ -31,3 +31,19 @@ bool Manager::removeEntity(std::string name) {
 Entity* Manager::getEntity(std::string name) {
     return entities.find(name)->second;
 }
+
+bool Manager::isLocalCollisionsActive() const {
+    return localCollisionsActive;
+}
+
+void Manager::setLocalCollisionsActive(bool localCollisionsActive) {
+    this->localCollisionsActive = localCollisionsActive;
+}
+
+bool Manager::isGlobalCollisionsActive() const {
+    return globalCollisionsActive;
+}
+
+void Manager::setGlobalCollisionsActive(bool globalCollisionsActive) {
+    this->globalCollisionsActive = globalCollisionsActive;
+}

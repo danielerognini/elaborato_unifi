@@ -76,3 +76,8 @@ void Vector2D::add(const int x, const int y) {
     this->x += x;
     this->y += y;
 }
+
+void Vector2D::subtract(const int x, const int y) {
+    this->x -= x;
+    this->y -= y;
+}

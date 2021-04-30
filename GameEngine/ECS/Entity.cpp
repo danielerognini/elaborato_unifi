@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "../Engine.h"
 #include "../Texture.h"
+#include <cmath>
 
 void Entity::update() {
     transform.update();
@@ -16,14 +17,6 @@ void Entity::draw() {
     destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getCamera().y;
 
     Texture::draw(sprite.getTextureName(), sprite.getSrcRect(), destRect, sprite.getFlip());
-}
-
-const Collider& Entity::getCollider() const {
-    return collider;
-}
-
-void Entity::setCollider(const Collider &collider) {
-    Entity::collider = collider;
 }
 
 const Sprite& Entity::getSprite() const {
@@ -50,3 +43,21 @@ void Entity::setLight(const Light &light) {
     Entity::light = light;
 }
 
+const Collider *Entity::getCollider(std::string name) const {
+    return &colliders.find(name)->second;
+}
+
+bool Entity::addCollider(const std::string name, std::vector<Vector2D> &vertices) {
+    return colliders.emplace(name, Collider(vertices)).second;
+}
+
+bool Entity::removeCollider(const std::string name) {
+    return colliders.erase(name);
+}
+
+void Entity::resolveCollision(Entity &externalEntity, Vector2D &ownVertex, Vector2D &externalVertex) {
+    int speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? round(static_cast<float>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed())) : 1 : 0;
+    int x = ownVertex.getX() - (externalVertex.getX() + externalEntity.transform.getPosition().getX() - transform.getPosition().getX());
+    int y = ownVertex.getY() - (externalVertex.getY() + externalEntity.transform.getPosition().getY() - transform.getPosition().getY());
+    transform.getPosition().subtract(x * speedCoefficient, y * speedCoefficient);
+}

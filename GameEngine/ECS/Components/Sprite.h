@@ -25,6 +25,7 @@ private:
     SDL_RendererFlip flip;
 public:
     explicit Sprite(std::string textureName, bool active = true);
+    explicit Sprite(bool active = false);
 
     void update();
 
@@ -35,6 +36,7 @@ public:
     bool removeAnimation(std::string name);
 
     std::string getTextureName();
+    void setTextureName(std::string textureName);
 
     void setCurrentAnimation(std::string animationName);
     std::string getCurrentAnimation();

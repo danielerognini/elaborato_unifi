@@ -9,6 +9,8 @@
 class Manager : public Activatable{
 private:
     std::unordered_map<std::string, Entity*> entities;
+    bool localCollisionsActive;
+    bool globalCollisionsActive;
 
 public:
     void flush();
@@ -18,6 +20,14 @@ public:
     bool addEntity(std::string name);
     bool removeEntity(std::string name);
     Entity* getEntity(std::string name);
+
+    bool isLocalCollisionsActive() const;
+
+    void setLocalCollisionsActive(bool localCollisionsActive);
+
+    bool isGlobalCollisionsActive() const;
+
+    void setGlobalCollisionsActive(bool globalCollisionsActive);
 };
 
 

@@ -14,7 +14,7 @@ private:
     bool moving;
 
 public:
-    Transform(int x, int y, double direction = 0.0, int speed = 0, bool active = true);
+    explicit Transform(int x = 0, int y = 0, double direction = 0.0, int speed = 0, bool active = true);
 
     int getSpeed() const;
     void setSpeed(int speed);
