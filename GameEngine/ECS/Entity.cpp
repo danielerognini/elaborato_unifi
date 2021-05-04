@@ -61,3 +61,11 @@ void Entity::resolveCollision(Entity &externalEntity, Vector2D &ownVertex, Vecto
     int y = ownVertex.getY() - (externalVertex.getY() + externalEntity.transform.getPosition().getY() - transform.getPosition().getY());
     transform.getPosition().subtract(x * speedCoefficient, y * speedCoefficient);
 }
+
+bool Entity::isSolid() const {
+    return solid;
+}
+
+void Entity::setSolid(bool solid) {
+    this->solid = solid;
+}

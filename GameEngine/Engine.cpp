@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Collision.h"
+#include "Utility.h"
 #include <iostream>
 
 Engine::Engine(const char *title, int x, int y, int width, int height, bool fullscreen) {}
@@ -51,5 +52,35 @@ SDL_Renderer* Engine::getRenderer() {
 
 SDL_Rect& Engine::getCamera() {
     return camera;
+}
+
+bool Engine::addManager(std::string name) {
+    bool result = managers.emplace(name, Manager()).second;
+    if(result){
+        sequence.push_front(name);
+    }
+    return result;
+}
+
+Manager &Engine::getManager(std::string name) {
+    return managers.find(name)->second;
+}
+
+bool Engine::compare(std::string prev, std::string next) {
+    return managers.find(prev)->second.getPriority() < managers.find(next)->second.getPriority();
+}
+
+void Engine::refreshSequence() {
+    bubble_sort(sequence.begin(), sequence.end(), Engine::compare);
+}
+
+bool Engine::removeManager(std::string name) {
+    bool result = managers.erase(name);
+    if(result){
+        std::list<std::string>::iterator iter;
+        for(iter = sequence.begin(); name != *iter && iter != sequence.end(); iter++) {}
+        sequence.erase(iter);
+    }
+    return result;
 }
 

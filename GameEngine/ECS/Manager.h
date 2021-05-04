@@ -12,7 +12,11 @@ private:
     bool localCollisionsActive;
     bool globalCollisionsActive;
 
+    unsigned int priority;
+
 public:
+    explicit Manager(bool active = false);
+
     void flush();
     void update();
     void draw();
@@ -28,6 +32,10 @@ public:
     bool isGlobalCollisionsActive() const;
 
     void setGlobalCollisionsActive(bool globalCollisionsActive);
+
+    unsigned int getPriority() const;
+
+    void setPriority(unsigned int priority);
 };
 
 

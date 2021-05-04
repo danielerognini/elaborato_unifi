@@ -47,3 +47,15 @@ bool Manager::isGlobalCollisionsActive() const {
 void Manager::setGlobalCollisionsActive(bool globalCollisionsActive) {
     this->globalCollisionsActive = globalCollisionsActive;
 }
+
+unsigned int Manager::getPriority() const {
+    return priority;
+}
+
+void Manager::setPriority(unsigned int priority) {
+    this->priority = priority;
+}
+
+Manager::Manager(bool active) {
+    this->active = active;
+}

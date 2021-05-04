@@ -33,11 +33,16 @@ public:
 
     void resolveCollision(Entity& externalEntity, Vector2D& ownVertex, Vector2D& externalVertex);
 
+    bool isSolid() const;
+
+    void setSolid(bool solid);
+
 private:
     std::unordered_map<std::string, Collider> colliders;
     Sprite sprite;
     Transform transform;
     Light light;
+    bool solid;
 };
 
 #endif //GAME_ENTITY_H
