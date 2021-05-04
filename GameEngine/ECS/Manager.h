@@ -25,6 +25,9 @@ public:
     bool removeEntity(std::string name);
     Entity* getEntity(std::string name);
 
+    std::unordered_map<std::string, Entity*>::iterator getEntitiesBegin();
+    std::unordered_map<std::string, Entity*>::iterator getEntitiesEnd();
+
     bool isLocalCollisionsActive() const;
 
     void setLocalCollisionsActive(bool localCollisionsActive);

@@ -59,3 +59,11 @@ void Manager::setPriority(unsigned int priority) {
 Manager::Manager(bool active) {
     this->active = active;
 }
+
+std::unordered_map<std::string, Entity *>::iterator Manager::getEntitiesBegin() {
+    return entities.begin();
+}
+
+std::unordered_map<std::string, Entity *>::iterator Manager::getEntitiesEnd() {
+    return entities.end();
+}
