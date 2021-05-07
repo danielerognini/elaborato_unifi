@@ -16,12 +16,11 @@ private:
 
     static bool running;
     static SDL_Rect camera;
-    static Manager& manager;
 
     Engine(const char* title, int x, int y, int width, int height, bool fullscreen);
-    SDL_Window *window;
+    static SDL_Window *window;
 
-    static int& scale;
+    static int scale;
 
     static bool compare(std::string prev, std::string next);
 

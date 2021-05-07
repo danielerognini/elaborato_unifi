@@ -5,7 +5,7 @@ void Collision::update(std::unordered_map<std::string, Manager> &managers) {
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
         for(std::unordered_map<std::string, Entity*>::iterator subIter = iter->second.getEntitiesBegin(); subIter != iter->second.getEntitiesEnd(); subIter++) {
             for(std::unordered_map<std::string, Entity*>::iterator subSubIter = std::next(subIter, 1); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
-                resolveEntityCollisions(subIter->second, subSubIter);
+                resolveEntityCollisions(*subIter->second, *subSubIter->second);
             }
         }
     }
@@ -20,13 +20,9 @@ void Collision::resolveEntityCollisions(Entity &entity1, Entity &entity2) {
 }
 
 Vector2D Collision::controlEntityCollisions(Entity &reference, Entity &external) {
-    for()
-        for()
-            resolve referce
-            resolve external
-    return Vector2D;
+    return Vector2D();
 }
 
-void Collision::controlColliderCollision(Collider &reference, Collider &external) {
+void Collision::controlColliderCollisions(Collider &reference, Collider &external) {
 
 }

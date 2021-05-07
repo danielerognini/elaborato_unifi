@@ -10,7 +10,7 @@ public:
 private:
     static void resolveEntityCollisions(Entity& entity1, Entity& entity2);
     static Vector2D controlEntityCollisions(Entity& reference, Entity& external); //the reference entity is the one we are checking, the external one is the one we want to figure out if is colliding with our reference
-    static void controlColliderCollision(Collider& reference, Collider& external);
+    static void controlColliderCollisions(Collider& reference, Collider& external);
 };
 
 
