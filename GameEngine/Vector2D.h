@@ -3,19 +3,16 @@
 
 
 class Vector2D {
-private:
-    int x;
-    int y;
 public:
-    explicit Vector2D(int x = 0, int y = 0);
+    explicit Vector2D(const int& x = 0, const int& y = 0);
 
-    int getX() const;
-    void setX(int x);
-    int getY() const;
-    void setY(int y);
+    const int& getX() const;
+    void setX(const int& x);
+    const int& getY() const;
+    void setY(const int& y);
 
-    void add(const int x, const int y);
-    void subtract(const int x, const int y);
+    void add(const int& x, const int& y);
+    void subtract(const int& x, const int& y);
 
     //Methods for the various math operations:
     void add(const Vector2D& vector);
@@ -36,6 +33,10 @@ public:
     Vector2D& operator/=(const int& scalar);
 
     Vector2D& setToZero();
+
+private:
+    int x;
+    int y;
 };
 
 

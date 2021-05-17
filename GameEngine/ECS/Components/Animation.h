@@ -5,14 +5,14 @@
 #include "../../Vector2D.h"
 
 class Animation {
+public:
+    Animation(const int& index, const int& frames, const int& speed);
+    void updateRect(SDL_Rect& srcRect);
+
 private:
     int index;
     int frames;
     int speed;
-
-public:
-    Animation(int index, int frames, int speed);
-    void updateRect(SDL_Rect& srcRect);
 };
 
 #endif //GAME_ANIMATION_H

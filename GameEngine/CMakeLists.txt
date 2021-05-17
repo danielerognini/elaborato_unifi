@@ -9,12 +9,10 @@ set(ENGINE_SOURCE_FILES
         ECS/Entity.cpp Engine.h
         Input.cpp Input.h
         ECS/Manager.cpp ECS/Manager.h
-        Texture.cpp Texture.h
         Vector2D.cpp Vector2D.h
         ECS/Components/Transform.cpp ECS/Components/Transform.h
         ECS/Components/Collider.cpp ECS/Components/Collider.h
         ECS/Components/Sprite.cpp ECS/Components/Sprite.h
-        ECS/Components/Light.cpp ECS/Components/Light.h
         ECS/Components/Animation.cpp ECS/Components/Animation.h
         Activatable.cpp Activatable.h Collision.cpp Collision.h Utility.h)
 

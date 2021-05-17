@@ -7,38 +7,37 @@
 
 
 class Manager : public Activatable{
-private:
-    std::unordered_map<std::string, Entity*> entities;
-    bool localCollisionsActive;
-    bool globalCollisionsActive;
-
-    unsigned int priority;
-
 public:
-    explicit Manager(bool active = false);
+    explicit Manager(const bool& active = false);
 
     void flush();
     void update();
     void draw();
 
-    bool addEntity(std::string name);
-    bool removeEntity(std::string name);
-    Entity* getEntity(std::string name);
+    bool addEntity(const std::string& name, std::unique_ptr<Entity> entity);
+    bool removeEntity(const std::string& name);
+    std::unique_ptr<Entity>& getEntity(const std::string& name);
 
-    std::unordered_map<std::string, Entity*>::iterator getEntitiesBegin();
-    std::unordered_map<std::string, Entity*>::iterator getEntitiesEnd();
+    std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator getEntitiesBegin();
+    std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator getEntitiesEnd();
 
-    bool isLocalCollisionsActive() const;
+    const bool& isLocalCollisionsActive() const;
 
-    void setLocalCollisionsActive(bool localCollisionsActive);
+    void setLocalCollisionsActive(const bool& localCollisionsActive);
 
-    bool isGlobalCollisionsActive() const;
+    const bool& isGlobalCollisionsActive() const;
 
-    void setGlobalCollisionsActive(bool globalCollisionsActive);
+    void setGlobalCollisionsActive(const bool& globalCollisionsActive);
 
-    unsigned int getPriority() const;
+    const unsigned int& getPriority() const;
 
-    void setPriority(unsigned int priority);
+    void setPriority(const unsigned int& priority);
+
+private:
+    std::unordered_map<std::string, std::unique_ptr<Entity>> entities;
+    bool localCollisionsActive;
+    bool globalCollisionsActive;
+    unsigned int priority;
 };
 
 

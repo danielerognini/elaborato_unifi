@@ -1,6 +1,6 @@
 #include "Vector2D.h"
 
-Vector2D::Vector2D(int x, int y) : x(x), y(y) {}
+Vector2D::Vector2D(const int& x, const int& y) : x(x), y(y) {}
 
 //Methods for the various math operations:
 void Vector2D::add(const Vector2D& vector) {
@@ -56,28 +56,28 @@ Vector2D& Vector2D::setToZero() {
     y = 0;
 }
 
-int Vector2D::getX() const {
+const int& Vector2D::getX() const {
     return x;
 }
 
-void Vector2D::setX(int x) {
+void Vector2D::setX(const int& x) {
     this->x = x;
 }
 
-int Vector2D::getY() const {
+const int& Vector2D::getY() const {
     return y;
 }
 
-void Vector2D::setY(int y) {
+void Vector2D::setY(const int& y) {
     this->y = y;
 }
 
-void Vector2D::add(const int x, const int y) {
+void Vector2D::add(const int& x, const int& y) {
     this->x += x;
     this->y += y;
 }
 
-void Vector2D::subtract(const int x, const int y) {
+void Vector2D::subtract(const int& x, const int& y) {
     this->x -= x;
     this->y -= y;
 }

@@ -1,11 +1,11 @@
 #include "Transform.h"
 #include "../../Engine.h"
 
-int Transform::getSpeed() const {
+const int& Transform::getSpeed() const {
     return speed;
 }
 
-void Transform::setSpeed(int speed) {
+void Transform::setSpeed(const int& speed) {
     this->speed = speed;
 }
 
@@ -15,28 +15,33 @@ void Transform::update() {
     }
 }
 
-double Transform::getDirection() const {
+const double& Transform::getDirection() const {
     return direction;
 }
 
-void Transform::setDirection(double direction) {
+void Transform::setDirection(const double& direction) {
     this->direction = direction;
 }
 
-bool Transform::isMoving() const {
+const bool& Transform::isMoving() const {
     return moving;
 }
 
-void Transform::setMoving(bool moving) {
+void Transform::setMoving(const bool& moving) {
     this->moving = moving;
 }
 
-Transform::Transform(int x, int y, double direction, int speed, bool active) : direction(direction), speed(speed) {
+Transform::Transform(const int& x, const int& y, const double& direction, const int& speed, const bool& active) : direction(direction), speed(speed) {
     this->active = active;
-    moving = 0;
+    moving = false;
     position = Vector2D(x, y);
 }
 
-Vector2D& Transform::getPosition() {
+const Vector2D& Transform::getPosition() const {
     return position;
+}
+
+void Transform::setPosition(const int& x, const int& y) {
+    position.setX(x);
+    position.setY(y);
 }

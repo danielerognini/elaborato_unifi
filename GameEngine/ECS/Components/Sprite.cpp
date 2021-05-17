@@ -1,49 +1,49 @@
 #include "Sprite.h"
 
-Sprite::Sprite(std::string textureName, bool active) : textureName(textureName){
+Sprite::Sprite(const std::string& texturePath, const bool& active) : texturePath(texturePath), flip(SDL_FLIP_NONE){
     this->active = active;
 }
 
 void Sprite::update() {
-    animations.find(currentAnimation)->second.updateRect(*srcRect);
+    animations.find(currentAnimation)->second.updateRect(srcRect);
 }
 
-SDL_Rect& Sprite::getSrcRect() {
-    return *srcRect;
+const SDL_Rect& Sprite::getSrcRect() {
+    return srcRect;
 }
 
-void Sprite::setSrcRect(SDL_Rect rect) {
-    srcRect = &rect;
+void Sprite::setSrcRect(const SDL_Rect& rect) {
+    srcRect = rect;
 }
 
-bool Sprite::addAnimation(std::string name, int index, int frames, int speed) {
+bool Sprite::addAnimation(const std::string& name, const int& index, const int& frames, const int& speed) {
     return animations.emplace(name, Animation(index, frames, speed)).second;
 }
 
-bool Sprite::removeAnimation(std::string name) {
+bool Sprite::removeAnimation(const std::string& name) {
     return animations.erase(name);
 }
 
-std::string Sprite::getTextureName() {
-    return textureName;
+const std::string& Sprite::getTexturePath() {
+    return texturePath;
 }
 
-void Sprite::setCurrentAnimation(std::string animationName) {
-    currentAnimation = animationName;
+void Sprite::setCurrentAnimation(const std::string& name) {
+    currentAnimation = name;
 }
 
-std::string Sprite::getCurrentAnimation() {
+const std::string& Sprite::getCurrentAnimation() {
     return currentAnimation;
 }
 
-SDL_RendererFlip& Sprite::getFlip() {
+const SDL_RendererFlip& Sprite::getFlip() {
     return flip;
 }
 
-void Sprite::setTextureName(std::string textureName) {
-    this->textureName = textureName;
+void Sprite::setTexturePath(const std::string& texturePath) {
+    this->texturePath = texturePath;
 }
 
-Sprite::Sprite(bool active) {
-    this->active = active;
+void Sprite::setFlip(const SDL_RendererFlip& flip) {
+    this->flip = flip;
 }

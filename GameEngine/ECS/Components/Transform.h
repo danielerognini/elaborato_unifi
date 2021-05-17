@@ -6,28 +6,28 @@
 #include <cmath>
 
 class Transform : public Activatable{
-private:
+public:
+    explicit Transform(const int& x = 0, const int& y = 0, const double& direction = 0.0, const int& speed = 0, const bool& active = true);
 
+    const int& getSpeed() const;
+    void setSpeed(const int& speed);
+
+    void update();
+
+    const double& getDirection() const;
+    void setDirection(const double& direction);
+
+    const bool& isMoving() const;
+    void setMoving(const bool& moving);
+
+    const Vector2D& getPosition() const;
+    void setPosition(const int& x, const int& y);
+
+private:
     Vector2D position;
     double direction; //in radians
     int speed;
     bool moving;
-
-public:
-    explicit Transform(int x = 0, int y = 0, double direction = 0.0, int speed = 0, bool active = true);
-
-    int getSpeed() const;
-    void setSpeed(int speed);
-
-    void update();
-
-    double getDirection() const;
-    void setDirection(double direction);
-
-    bool isMoving() const;
-    void setMoving(bool moving);
-
-    Vector2D& getPosition();
 };
 
 

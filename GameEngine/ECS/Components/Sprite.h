@@ -8,40 +8,34 @@
 #include <unordered_map>
 
 class Sprite : public Activatable{
+public:
+    explicit Sprite(const std::string& texturePath, const bool& active = true);
+
+    void update();
+
+    const SDL_Rect& getSrcRect();
+    void setSrcRect(const SDL_Rect& rect);
+
+    bool addAnimation(const std::string& name, const int& index, const int& frames, const int& speed);
+    bool removeAnimation(const std::string& name);
+
+    const std::string& getTexturePath();
+    void setTexturePath(const std::string& texturePath);
+
+    void setCurrentAnimation(const std::string& name);
+    const std::string& getCurrentAnimation();
+
+    const SDL_RendererFlip& getFlip();
+    void setFlip(const SDL_RendererFlip& flip);
+
 private:
-    std::string textureName;
-
-    //variables used to manage animations
-    bool animated = false; //defines if a sprite is animated or not. By default the sprite is not animated
-    int frames = 0; //the number of frames of the animation
-    int speed = 100; //defines the speed of the animation. The value corresponds to the delay between each frame in milliseconds
-    int animationIndex;
-
-    SDL_Rect* srcRect;
+    std::string texturePath;
+    SDL_Rect srcRect;
 
     std::string currentAnimation;
     std::unordered_map<std::string, Animation> animations;
 
     SDL_RendererFlip flip;
-public:
-    explicit Sprite(std::string textureName, bool active = true);
-    explicit Sprite(bool active = false);
-
-    void update();
-
-    SDL_Rect& getSrcRect();
-    void setSrcRect(SDL_Rect rect);
-
-    bool addAnimation(std::string name, int index, int frames, int speed);
-    bool removeAnimation(std::string name);
-
-    std::string getTextureName();
-    void setTextureName(std::string textureName);
-
-    void setCurrentAnimation(std::string animationName);
-    std::string getCurrentAnimation();
-
-    SDL_RendererFlip& getFlip();
 };
 
 #endif //GAME_SPRITE_H

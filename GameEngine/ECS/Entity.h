@@ -3,45 +3,36 @@
 
 #include "Components/Collider.h"
 #include "Components/Sprite.h"
-#include "Components/Light.h"
 #include "Components/Transform.h"
 #include "../Activatable.h"
 
 class Entity : public Activatable{
 public:
+    explicit Entity(const std::string& texturePath, const bool& solid = true, const bool& active = true);
 
-    const Collider* getCollider(std::string name) const;
+    const Collider& getCollider(const std::string& name) const;
 
-    bool addCollider(const std::string name, std::vector<Vector2D> &vertices);
+    bool addCollider(const std::string& name, std::unique_ptr<std::vector<Vector2D>> vertices);
 
-    bool removeCollider(const std::string name);
+    bool removeCollider(const std::string& name);
 
-    const Sprite &getSprite() const;
+    const Sprite& getSprite() const;
 
-    void setSprite(const Sprite &sprite);
-
-    const Transform &getTransform() const;
-
-    void setTransform(const Transform &transform);
-
-    const Light &getLight() const;
-
-    void setLight(const Light &light);
+    const Transform& getTransform() const;
 
     void update();
     void draw();
 
-    void resolveCollision(Entity& externalEntity, Vector2D& ownVertex, Vector2D& externalVertex);
+    void resolveCollision(const Entity& externalEntity, const Vector2D& ownVertex, const Vector2D& externalVertex);
 
-    bool isSolid() const;
+    const bool& isSolid() const;
 
-    void setSolid(bool solid);
+    void setSolid(const bool& solid);
 
 private:
     std::unordered_map<std::string, Collider> colliders;
     Sprite sprite;
     Transform transform;
-    Light light;
     bool solid;
 };
 

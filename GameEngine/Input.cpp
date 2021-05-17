@@ -7,14 +7,33 @@ void Input::scanInput() {
         case SDL_KEYDOWN:
             keyDown(event);
             break;
+        case SDL_KEYUP:
+            keyUp(event);
+            break;
+        case SDL_MOUSEMOTION:
+            int x, y;
+            SDL_GetMouseState(&x, &y);
+            mouseMotion(x, y);
+            break;
+        case SDL_MOUSEBUTTONDOWN:
+            mouseButtonDown(event);
+            break;
+        case SDL_MOUSEBUTTONUP:
+            mouseButtonUp(event);
+            break;
+        case SDL_MOUSEWHEEL:
+            mouseWheel(event.wheel.x, event.wheel.y);
+            break;
+        case SDL_WINDOWEVENT:
+            windowEvent(event);
+            break;
         case SDL_QUIT:
             closeWindow();
             break;
-
     }
 }
 
-void Input::keyDown(SDL_Event& event) {
+void Input::keyDown(const SDL_Event& event) {
     switch(event.key.keysym.sym) {
         case SDLK_0:
             break;
@@ -121,5 +140,55 @@ void Input::keyDown(SDL_Event& event) {
 
         default:
             break;
+    }
+}
+
+void Input::keyUp(const SDL_Event &event) {
+
+}
+
+void Input::mouseButtonDown(const SDL_Event &event) {
+    switch (event.button.button) {
+        case SDL_BUTTON_LEFT:
+            mouseButtonLeftDown();
+            break;
+        case SDL_BUTTON_MIDDLE:
+            mouseButtonMiddleDown();
+            break;
+        case SDL_BUTTON_RIGHT:
+            mouseButtonRightDown();
+            break;
+        case SDL_BUTTON_X1:
+            mouseButtonX1Down();
+            break;
+        case SDL_BUTTON_X2:
+            mouseButtonX2Down();
+            break;
+    }
+}
+
+void Input::mouseButtonUp(const SDL_Event &event) {
+    switch (event.button.button) {
+        case SDL_BUTTON_LEFT:
+            mouseButtonLeftUp();
+            break;
+        case SDL_BUTTON_MIDDLE:
+            mouseButtonMiddleUp();
+            break;
+        case SDL_BUTTON_RIGHT:
+            mouseButtonRightUp();
+            break;
+        case SDL_BUTTON_X1:
+            mouseButtonX1Up();
+            break;
+        case SDL_BUTTON_X2:
+            mouseButtonX2Up();
+            break;
+    }
+}
+
+void Input::windowEvent(const SDL_Event &event) {
+    switch (event.window.event) {
+        //SDL_WindowEventID
     }
 }
