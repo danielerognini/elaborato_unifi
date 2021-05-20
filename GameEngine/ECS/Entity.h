@@ -10,7 +10,7 @@ class Entity : public Activatable{
 public:
     explicit Entity(const std::string& texturePath, const bool& solid = true, const bool& active = true);
 
-    const Collider& getCollider(const std::string& name) const;
+    const Collider& getCollider(const std::string& name);
 
     bool addCollider(const std::string& name, std::unique_ptr<std::vector<Vector2D>> vertices);
 
@@ -28,6 +28,11 @@ public:
     const bool& isSolid() const;
 
     void setSolid(const bool& solid);
+
+    bool isCollidersActive();
+
+    std::unordered_map<std::string, Collider>::iterator getCollidersBegin();
+    std::unordered_map<std::string, Collider>::iterator getCollidersEnd();
 
 private:
     std::unordered_map<std::string, Collider> colliders;

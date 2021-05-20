@@ -30,8 +30,12 @@ const Transform& Entity::getTransform() const {
     return transform;
 }
 
-const Collider &Entity::getCollider(const std::string& name) const {
-    return colliders.find(name)->second;
+const Collider &Entity::getCollider(const std::string& name) {
+    std::unordered_map<std::string, Collider>::iterator result = colliders.find(name);
+    if(result == colliders.end()) {
+        throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
+    }
+    return result->second;
 }
 
 bool Entity::addCollider(const std::string& name, std::unique_ptr<std::vector<Vector2D>> vertices) {
@@ -55,4 +59,23 @@ const bool& Entity::isSolid() const {
 
 void Entity::setSolid(const bool& solid) {
     this->solid = solid;
+}
+
+bool Entity::isCollidersActive() {
+    bool result = false;
+    for(std::unordered_map<std::string, Collider>::iterator iter = colliders.begin(); iter != colliders.end(); iter++) {
+        if(iter->second.isActive()) {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+
+std::unordered_map<std::string, Collider>::iterator Entity::getCollidersBegin() {
+    return colliders.begin();
+}
+
+std::unordered_map<std::string, Collider>::iterator Entity::getCollidersEnd() {
+    return colliders.end();
 }

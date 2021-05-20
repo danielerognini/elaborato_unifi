@@ -44,7 +44,7 @@ void Engine::update() {
         iter->second.flush(); //we use second as a reference to the manager in the iter map to flush inactive entities
         iter->second.update(); //we use second as a reference to the manager in the iter map to update the active entities
     }
-    Collision::update(managers);
+    ::update(managers);
 }
 
 void Engine::render() {

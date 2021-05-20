@@ -9,6 +9,10 @@
 class Collider : public Activatable{
 public:
     explicit Collider(std::unique_ptr<std::vector<Vector2D>> vertices, const bool& active = true);
+    std::vector<Vector2D>::iterator getVerticesBegin();
+    std::vector<Vector2D>::iterator getVerticesEnd();
+
+    Vector2D getCenter();
 
 private:
     std::unique_ptr<std::vector<Vector2D>> vertices;

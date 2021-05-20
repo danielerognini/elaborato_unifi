@@ -14,7 +14,7 @@ void bubble_sort(Iterator begin, Iterator end, Compare compare) {
             }
         }
         k++;
-    } while(!ordered && k < N - 1);
+    } while(!ordered);
 }
 
 #endif //GAME_UTILITY_H
