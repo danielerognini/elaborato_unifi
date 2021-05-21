@@ -25,7 +25,7 @@ public:
 
 private:
     Vector2D position;
-    double direction; //in radians
+    double direction; //in radians, clockwise is the positive direction, 0 is on the positive x axis (right side)
     int speed;
     bool moving;
 };

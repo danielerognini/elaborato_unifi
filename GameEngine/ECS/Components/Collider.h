@@ -12,7 +12,7 @@ public:
     std::vector<Vector2D>::iterator getVerticesBegin();
     std::vector<Vector2D>::iterator getVerticesEnd();
 
-    Vector2D getCenter();
+    const Vector2D& getCenter();
 
 private:
     std::unique_ptr<std::vector<Vector2D>> vertices;

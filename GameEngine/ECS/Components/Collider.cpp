@@ -14,8 +14,7 @@ std::vector<Vector2D>::iterator Collider::getVerticesEnd() {
     return vertices->end();
 }
 
-Vector2D Collider::getCenter() {
-    //TODO: calculate the center of the polygon
+const Vector2D& Collider::getCenter() {
     return center;
 }
 
@@ -23,8 +22,8 @@ Vector2D Collider::calculateCenter() {
     double area = calculateArea();
     double lengthH1 = calculateTriangleHeight(area / vertices->size(), (*vertices)[0] % (*vertices)[1]);
     double lengthH2 = calculateTriangleHeight(area / vertices->size(), (*vertices)[1] % (*vertices)[2]);
-    Vector2D vectorH1(lengthH1, acos(((*vertices)[1].getX() - (*vertices)[0].getX()) / ((*vertices)[0] % (*vertices)[1])));
-    Vector2D vectorH2(lengthH2, acos(((*vertices)[2].getX() - (*vertices)[1].getX()) / ((*vertices)[1] % (*vertices)[2])));
+    Vector2D vectorH1(lengthH1, - (M_PI_2 + acos(((*vertices)[1].getX() - (*vertices)[0].getX()) / ((*vertices)[0] % (*vertices)[1]))));
+    Vector2D vectorH2(lengthH2, - (M_PI_2 + acos(((*vertices)[2].getX() - (*vertices)[1].getX()) / ((*vertices)[1] % (*vertices)[2]))));
 
     return ::checkLinesIntersection(std::make_pair((*vertices)[0] + vectorH1, (*vertices)[1] + vectorH1), std::make_pair((*vertices)[1] + vectorH2, (*vertices)[2] + vectorH2));
 }
