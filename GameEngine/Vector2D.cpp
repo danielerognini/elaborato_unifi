@@ -1,4 +1,5 @@
 #include "Vector2D.h"
+#include <cmath>
 
 Vector2D::Vector2D(const int& x, const int& y) : x(x), y(y) {}
 
@@ -80,4 +81,14 @@ void Vector2D::add(const int& x, const int& y) {
 void Vector2D::subtract(const int& x, const int& y) {
     this->x -= x;
     this->y -= y;
+}
+
+double Vector2D::operator%(Vector2D &right) {
+    Vector2D vector = right - (*this);
+    return sqrt(vector.x * vector.x + vector.y * vector.y);
+}
+
+Vector2D::Vector2D(const double &radius, const double &alpha) {
+    x = radius * cos(alpha);
+    y = radius * sin(alpha);
 }

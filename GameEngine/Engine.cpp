@@ -2,6 +2,7 @@
 #include "Collision.h"
 #include "Utility.h"
 #include <iostream>
+#include <future>
 #include "SDL2/SDL_image.h"
 
 Engine::Engine(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen) {
@@ -40,11 +41,20 @@ Engine& Engine::getInstance(const std::string& title, const int& x, const int& y
 }
 
 void Engine::update() {
+    std::list<std::future<void>> asyncCalls;
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++){
-        iter->second.flush(); //we use second as a reference to the manager in the iter map to flush inactive entities
-        iter->second.update(); //we use second as a reference to the manager in the iter map to update the active entities
+        asyncCalls.push_front(std::async(std::launch::async, &Manager::flush, &iter->second));
     }
-    ::update(managers);
+    for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
+        iter->get();
+    }
+    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
+        asyncCalls.push_front(std::async(std::launch::async, &Manager::update, &iter->second));
+    }
+    for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
+        iter->get();
+    }
+    ::collisionUpdate(managers);
 }
 
 void Engine::render() {

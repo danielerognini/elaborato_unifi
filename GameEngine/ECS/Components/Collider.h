@@ -16,6 +16,10 @@ public:
 
 private:
     std::unique_ptr<std::vector<Vector2D>> vertices;
+    Vector2D center;
+    Vector2D calculateCenter();
+    double calculateArea();
+    double calculateTriangleHeight(double area, double base);
 };
 
 

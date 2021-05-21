@@ -5,6 +5,7 @@
 class Vector2D {
 public:
     explicit Vector2D(const int& x = 0, const int& y = 0);
+    explicit Vector2D(const double& radius = 0.0, const double& alpha = 0.0);
 
     const int& getX() const;
     void setX(const int& x);
@@ -25,6 +26,7 @@ public:
     Vector2D operator-(const Vector2D& right);
     Vector2D operator*(const int& scalar);
     Vector2D operator/(const int& scalar);
+    double operator%(Vector2D& right);
 
     //we also want to override the +=, -=, ... operators
     Vector2D& operator+=(const Vector2D& vector);

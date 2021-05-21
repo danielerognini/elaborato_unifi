@@ -47,10 +47,12 @@ bool Entity::removeCollider(const std::string& name) {
 }
 
 void Entity::resolveCollision(const Entity &externalEntity, const Vector2D &ownVertex, const Vector2D &externalVertex) {
-    int speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? round(static_cast<float>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed())) : 1 : 0;
-    int x = ownVertex.getX() - (externalVertex.getX() + externalEntity.transform.getPosition().getX() - transform.getPosition().getX());
-    int y = ownVertex.getY() - (externalVertex.getY() + externalEntity.transform.getPosition().getY() - transform.getPosition().getY());
-    transform.setPosition(transform.getPosition().getX() - x * speedCoefficient, transform.getPosition().getY() - y * speedCoefficient);
+    if(externalEntity.isSolid()) {
+        int speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? round(static_cast<float>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed())) : 1 : 0;
+        int y = ownVertex.getY() - (externalVertex.getY() + externalEntity.transform.getPosition().getY() - transform.getPosition().getY());
+        int x = ownVertex.getX() - (externalVertex.getX() + externalEntity.transform.getPosition().getX() - transform.getPosition().getX());
+        transform.setPosition(transform.getPosition().getX() - x * speedCoefficient, transform.getPosition().getY() - y * speedCoefficient);
+    }
 }
 
 const bool& Entity::isSolid() const {
@@ -62,14 +64,9 @@ void Entity::setSolid(const bool& solid) {
 }
 
 bool Entity::isCollidersActive() {
-    bool result = false;
-    for(std::unordered_map<std::string, Collider>::iterator iter = colliders.begin(); iter != colliders.end(); iter++) {
-        if(iter->second.isActive()) {
-            result = true;
-            break;
-        }
-    }
-    return result;
+    std::unordered_map<std::string, Collider>::iterator iter;
+    for(iter = colliders.begin(); !iter->second.isActive() && iter != colliders.end(); iter++) {}
+    return iter != colliders.end();
 }
 
 std::unordered_map<std::string, Collider>::iterator Entity::getCollidersBegin() {
