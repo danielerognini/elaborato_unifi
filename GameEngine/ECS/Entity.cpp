@@ -13,13 +13,13 @@ void Entity::update() {
 
 void Entity::draw() {
     SDL_Rect destRect = sprite.getSrcRect();
-    destRect.w *= Engine::getScale();
-    destRect.h *= Engine::getScale();
+    destRect.w *= Engine::getInstance().getScale();
+    destRect.h *= Engine::getInstance().getScale();
 
-    destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getCamera().x;
-    destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getCamera().y;
+    destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getInstance().getCamera().x;
+    destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
 
-    Engine::drawTexture(sprite.getTexturePath(), sprite.getSrcRect(), destRect, sprite.getFlip());
+    Engine::getInstance().drawTexture(sprite.getTexturePath(), sprite.getSrcRect(), destRect, sprite.getFlip());
 }
 
 const Sprite& Entity::getSprite() const {

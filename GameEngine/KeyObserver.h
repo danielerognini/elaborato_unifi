@@ -10,6 +10,8 @@ public:
     void append(SDL_Scancode scancode);
     void release(SDL_Scancode scancode);
 
+    virtual void update() = 0;
+    virtual ~KeyObserver();
 private:
     KeyNotifier& keyNotifier;
 };

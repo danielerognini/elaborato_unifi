@@ -6,9 +6,14 @@ Input &Input::getInstance() {
     return instance;
 }
 
-Input::Input() : keyState(SDL_GetKeyboardState(NULL)) {}
+Input::Input() {
+
+}
 
 void Input::update() {
-    SDL_PumpEvents();
+    while(SDL_PollEvent(&event)) {
+        notify(event.key.keysym.sym);
+        //TODO: handle all the other non-keyboard events (such as: mouse events, joystick events...)
+    }
 }
 

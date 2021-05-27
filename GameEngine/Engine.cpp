@@ -3,6 +3,7 @@
 #include "Utility.h"
 #include <iostream>
 #include <future>
+#include <functional>
 #include "SDL2/SDL_image.h"
 
 Engine::Engine(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen) {
@@ -10,6 +11,7 @@ Engine::Engine(const std::string& title, const int& x, const int& y, const int& 
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
     }
+    running = false;
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         window = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
         if (window) {
@@ -23,9 +25,6 @@ Engine::Engine(const std::string& title, const int& x, const int& y, const int& 
                 running = true;
             }
         }
-    }
-    else {
-        running = false;
     }
 }
 
@@ -43,13 +42,13 @@ Engine& Engine::getInstance(const std::string& title, const int& x, const int& y
 void Engine::update() {
     std::list<std::future<void>> asyncCalls;
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++){
-        asyncCalls.push_front(std::async(std::launch::async, &Manager::flush, &iter->second));
+        asyncCalls.push_back(std::async(std::launch::async, &Manager::flush, &iter->second));
     }
     for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();
     }
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
-        asyncCalls.push_front(std::async(std::launch::async, &Manager::update, &iter->second));
+        asyncCalls.push_back(std::async(std::launch::async, &Manager::update, &iter->second));
     }
     for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();
@@ -122,7 +121,7 @@ bool Engine::compare(const std::string& prev, const std::string& next) {
 }
 
 void Engine::refreshSequence() {
-    bubble_sort(sequence.begin(), sequence.end(), Engine::compare);
+    bubble_sort(sequence.begin(), sequence.end(), this);
 }
 
 bool Engine::removeManager(const std::string& name) {

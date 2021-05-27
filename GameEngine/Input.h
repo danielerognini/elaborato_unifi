@@ -2,18 +2,19 @@
 #define GAME_INPUT_H
 
 #include <memory>
+#include <unordered_map>
 #include "SDL2/SDL.h"
 #include "Vector2D.h"
-#include "KeyObserver.h"
+#include "KeyNotifier.h"
 
-class Input {
+class Input : public KeyNotifier{
 public:
     Input& getInstance();
     void update();
 
 private:
     Input();
-    std::unique_ptr<const Uint8> keyState;
+    SDL_Event event;
 };
 
 

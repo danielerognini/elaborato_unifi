@@ -5,7 +5,7 @@
 void collisionUpdate(std::unordered_map<std::string, Manager> &managers) {
     std::list<std::future<void>> asyncCalls;
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
-        asyncCalls.push_front(std::async(std::launch::async, ::resolveLocalCollisions, iter));
+        asyncCalls.push_back(std::async(std::launch::async, ::resolveLocalCollisions, iter));
     }
     for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();

@@ -13,7 +13,7 @@ void Manager::flush() {
 void Manager::update() {
     std::list<std::future<void>> asyncCalls;
     for(std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
-        asyncCalls.push_front(std::async(std::launch::async, &Entity::update, iter->second.get()));
+        asyncCalls.push_back(std::async(std::launch::async, &Entity::update, iter->second.get()));
     }
     for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();

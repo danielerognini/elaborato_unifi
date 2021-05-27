@@ -3,6 +3,11 @@
 
 Vector2D::Vector2D(const int& x, const int& y) : x(x), y(y) {}
 
+void Vector2D::setPolarVector2D(const double& radius, const double& alpha) {
+    x = radius * cos(alpha);
+    y = radius * sin(alpha);
+}
+
 //Methods for the various math operations:
 void Vector2D::add(const Vector2D& vector) {
     this->x += vector.x;
@@ -86,9 +91,4 @@ void Vector2D::subtract(const int& x, const int& y) {
 double Vector2D::operator%(Vector2D &right) {
     Vector2D vector = right - (*this);
     return sqrt(vector.x * vector.x + vector.y * vector.y);
-}
-
-Vector2D::Vector2D(const double &radius, const double &alpha) {
-    x = radius * cos(alpha);
-    y = radius * sin(alpha);
 }

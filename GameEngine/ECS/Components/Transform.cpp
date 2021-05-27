@@ -11,7 +11,7 @@ void Transform::setSpeed(const int& speed) {
 
 void Transform::update() {
     if(active && moving) {
-        this->position.add(speed * Engine::getScale() * cos(direction), speed * Engine::getScale() * sin(direction));
+        this->position.add(speed * Engine::getInstance().getScale() * cos(direction), speed * Engine::getInstance().getScale() * sin(direction));
     }
 }
 
