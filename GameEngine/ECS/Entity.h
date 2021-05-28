@@ -5,6 +5,7 @@
 #include "Components/Sprite.h"
 #include "Components/Transform.h"
 #include "../Activatable.h"
+#include "Components/Text.h"
 
 class Entity : public Activatable{
 public:
@@ -37,6 +38,7 @@ public:
 private:
     std::unordered_map<std::string, Collider> colliders;
     Sprite sprite;
+    Text text;
     Transform transform;
     bool solid;
 };

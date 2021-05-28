@@ -15,6 +15,7 @@ public:
     void update();
     void render();
     bool drawTexture(const std::string& texturePath, const SDL_Rect& src, const SDL_Rect& dest, const SDL_RendererFlip& flip);
+    bool drawText(const std::string& fontPath, const int& size, const std::string& text, const SDL_Color& color, const SDL_Rect& src, const SDL_Rect& dest);
     void clean();
 
     const bool& isRunning();

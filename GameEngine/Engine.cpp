@@ -4,6 +4,7 @@
 #include <iostream>
 #include <future>
 #include <functional>
+#include "SDL2/SDL_ttf.h"
 #include "SDL2/SDL_image.h"
 
 Engine::Engine(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen) {
@@ -66,12 +67,28 @@ void Engine::render() {
 
 bool Engine::drawTexture(const std::string& texturePath, const SDL_Rect& src, const SDL_Rect& dest, const SDL_RendererFlip& flip) {
     bool result = false;
-    if (SDL_Texture* texture = IMG_LoadTexture(Engine::getRenderer(), texturePath.c_str())) {
-        SDL_RenderCopyEx(Engine::getRenderer(), texture, &src, &dest, NULL, NULL, flip); //the nulls are because we are not implementing a sprite rotation but a flip
+    if (SDL_Texture* texture = IMG_LoadTexture(renderer, texturePath.c_str())) {
+        SDL_RenderCopyEx(renderer, texture, &src, &dest, NULL, NULL, flip); //the nulls are because we are not implementing a sprite rotation but a flip
+        SDL_DestroyTexture(texture);
         result = true;
     }
     return result;
 }
+
+bool Engine::drawText(const std::string& fontPath, const int& size, const std::string& text, const SDL_Color& color, const SDL_Rect& src, const SDL_Rect& dest) {
+    bool result = false;
+    if(TTF_Font* font = TTF_OpenFont(fontPath.c_str(), size)) {
+        SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+        SDL_RenderCopyEx(renderer, texture, &src, &dest, NULL, NULL, SDL_FLIP_NONE);
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+        result = true;
+    }
+    return result;
+}
+
+
 
 void Engine::clean() {
     SDL_DestroyWindow(window);

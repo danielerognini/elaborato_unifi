@@ -20,6 +20,16 @@ void Entity::draw() {
     destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
 
     Engine::getInstance().drawTexture(sprite.getTexturePath(), sprite.getSrcRect(), destRect, sprite.getFlip());
+
+    destRect = text.getRect();
+
+    destRect.w *= Engine::getInstance().getScale();
+    destRect.h *= Engine::getInstance().getScale();
+
+    destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getInstance().getCamera().x;
+    destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
+
+    Engine::getInstance().drawText(text.getFontPath(),text.getSize(), text.getMessage(), text.getColor(), text.getRect(), destRect);
 }
 
 const Sprite& Entity::getSprite() const {
