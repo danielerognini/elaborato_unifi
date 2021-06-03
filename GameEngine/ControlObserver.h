@@ -2,17 +2,19 @@
 #define GAME_CONTROLOBSERVER_H
 
 
+#include <functional>
 #include "ECS/Entity.h"
 
 class ControlObserver {
 public:
-    virtual void update() = 0;
+    void update();
 
-    ControlObserver(std::string control);
-    virtual ~ControlObserver();
+    ControlObserver(std::string control, std::function<void(Entity*)>);
+    ~ControlObserver();
     void release();
 private:
     Entity* entity;
+    std::function<void(Entity*)> function;
 };
 
 

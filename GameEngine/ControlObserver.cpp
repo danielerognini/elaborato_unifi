@@ -5,10 +5,14 @@ ControlObserver::~ControlObserver() {
     release();
 }
 
-ControlObserver::ControlObserver(std::string control) {
-    Input::getInstance().append(this, control)
+ControlObserver::ControlObserver(std::string control, std::function<void(Entity*)>) {
+    Input::getInstance().append(this, control);
 }
 
 void ControlObserver::release() {
     Input::getInstance().release(this);
+}
+
+void ControlObserver::update() {
+    function(entity);
 }

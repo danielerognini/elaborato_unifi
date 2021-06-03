@@ -15,9 +15,9 @@ public:
     void loadControlsMap(const std::string& filePath);
     void update();
 
-    void append(ControlObserver *pObserver, std::string basicString);
+    void append(ControlObserver* controlObserver, std::string control);
 
-    void release(ControlObserver *pObserver);
+    void release(ControlObserver* controlObserver);
 
 private:
     Input();
@@ -27,7 +27,8 @@ private:
 
     std::pair<std::list<std::string>, std::string> parseLine(std::string basicString);
 
-    void notify(std::list<std::string> list);
+    void notify();
+    std::list<std::string> matchControl();
 
     std::multimap<std::string, ControlObserver*> controlObservers;
 };

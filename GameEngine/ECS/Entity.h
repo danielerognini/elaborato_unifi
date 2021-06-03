@@ -6,6 +6,7 @@
 #include "Components/Transform.h"
 #include "../Activatable.h"
 #include "Components/Text.h"
+#include "../ControlObserver.h"
 
 class Entity : public Activatable{
 public:
@@ -41,6 +42,7 @@ private:
     Text text;
     Transform transform;
     bool solid;
+    std::list<ControlObserver> observers;
 };
 
 #endif //GAME_ENTITY_H

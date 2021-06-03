@@ -7,7 +7,7 @@
 
 class Transform : public Activatable{
 public:
-    explicit Transform(const int& x = 0, const int& y = 0, const double& direction = 0.0, const int& speed = 0, const bool& active = true);
+    explicit Transform(const int& x = 0, const int& y = 0, const double& direction = 0.0, const int& speed = 0, const bool& moving = false, const bool& active = true);
 
     const int& getSpeed() const;
     void setSpeed(const int& speed);

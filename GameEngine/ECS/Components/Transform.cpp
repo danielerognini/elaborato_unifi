@@ -11,7 +11,7 @@ void Transform::setSpeed(const int& speed) {
 
 void Transform::update() {
     if(active && moving) {
-        this->position.add(speed * Engine::getInstance().getScale() * cos(direction), speed * Engine::getInstance().getScale() * sin(direction));
+        position.add(speed * Engine::getInstance().getScale() * cos(direction), speed * Engine::getInstance().getScale() * sin(direction));
     }
 }
 
@@ -31,9 +31,8 @@ void Transform::setMoving(const bool& moving) {
     this->moving = moving;
 }
 
-Transform::Transform(const int& x, const int& y, const double& direction, const int& speed, const bool& active) : direction(direction), speed(speed) {
+Transform::Transform(const int& x, const int& y, const double& direction, const int& speed, const bool& moving, const bool& active) : direction(direction), speed(speed), moving(moving) {
     this->active = active;
-    moving = false;
     position = Vector2D(x, y);
 }
 
