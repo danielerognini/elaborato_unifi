@@ -14,6 +14,6 @@ set(ENGINE_SOURCE_FILES
         ECS/Components/Collider.cpp ECS/Components/Collider.h
         ECS/Components/Sprite.cpp ECS/Components/Sprite.h
         ECS/Components/Animation.cpp ECS/Components/Animation.h
-        Activatable.cpp Activatable.h Collision.cpp Collision.h Utility.h ECS/Components/Text.cpp ECS/Components/Text.h ControlObserver.cpp ControlObserver.h)
+        Activatable.cpp Activatable.h Collision.cpp Collision.h Utility.h ECS/Components/Text.cpp ECS/Components/Text.h ControlObserver.cpp ControlObserver.h Observer.cpp Observer.h)
 
 add_executable(GameEngine ${ENGINE_SOURCE_FILES})
