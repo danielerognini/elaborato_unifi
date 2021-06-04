@@ -1,17 +1,17 @@
 #ifndef GAME_CONTROLOBSERVER_H
 #define GAME_CONTROLOBSERVER_H
 
-
+#include "Observer.h"
 #include <functional>
 #include "ECS/Entity.h"
 
-class ControlObserver {
+class ControlObserver : public Observer {
 public:
-    void update();
+    void update() override;
 
-    ControlObserver(std::string control, std::function<void(Entity*)>);
+    ControlObserver(Entity* entity, std::function<void(Entity*)> function);
     ~ControlObserver();
-    void release();
+
 private:
     Entity* entity;
     std::function<void(Entity*)> function;

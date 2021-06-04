@@ -42,7 +42,6 @@ private:
     Text text;
     Transform transform;
     bool solid;
-    std::list<ControlObserver> observers;
 };
 
 #endif //GAME_ENTITY_H
