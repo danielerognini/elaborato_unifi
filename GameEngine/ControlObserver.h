@@ -7,7 +7,7 @@
 
 class ControlObserver : public Observer {
 public:
-    void update() override;
+    void update();
 
     ControlObserver(Entity* entity, std::function<void(Entity*)> function);
     ~ControlObserver();

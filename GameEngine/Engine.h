@@ -26,11 +26,12 @@ public:
     const int& getScale();
     SDL_Rect& getCamera();
 
-    bool addManager(const std::string& name);
+    bool addManager(const std::string &name, const unsigned int& priority);
     bool removeManager(const std::string& name);
     const Manager& getManager(const std::string& name);
 
     void refreshSequence(); //sorts managers by priority using bubble sort
+    bool compare(const std::string& prev, const std::string& next);
 
 private:
     std::unordered_map<std::string, Manager> managers;
@@ -45,7 +46,6 @@ private:
 
     int scale;
 
-    bool compare(const std::string& prev, const std::string& next);
 };
 
 

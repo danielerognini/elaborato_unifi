@@ -1,6 +1,7 @@
 #ifndef GAME_INPUT_H
 #define GAME_INPUT_H
 
+#include <future>
 #include <memory>
 #include <unordered_map>
 #include <list>

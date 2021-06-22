@@ -66,7 +66,7 @@ void Manager::setPriority(const unsigned int& priority) {
     this->priority = priority;
 }
 
-Manager::Manager(const bool& active) {
+Manager::Manager(const unsigned int& priority, const bool& active) : priority(priority){
     this->active = active;
 }
 

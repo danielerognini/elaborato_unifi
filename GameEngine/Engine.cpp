@@ -117,8 +117,8 @@ SDL_Rect& Engine::getCamera() {
     return camera;
 }
 
-bool Engine::addManager(const std::string& name) {
-    bool result = managers.emplace(name, Manager()).second;
+bool Engine::addManager(const std::string &name, const unsigned int& priority) {
+    bool result = managers.emplace(name, Manager(priority)).second;
     if(result){
         sequence.push_front(name);
     }
@@ -134,7 +134,7 @@ const Manager &Engine::getManager(const std::string& name) {
 }
 
 bool Engine::compare(const std::string& prev, const std::string& next) {
-    return managers.find(prev)->second.getPriority() < managers.find(next)->second.getPriority();
+    return managers.find(prev)->second.getPriority() > managers.find(next)->second.getPriority();
 }
 
 void Engine::refreshSequence() {

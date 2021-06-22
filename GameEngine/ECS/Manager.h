@@ -8,7 +8,7 @@
 
 class Manager : public Activatable{
 public:
-    explicit Manager(const bool& active = false);
+    explicit Manager(const unsigned int& priority, const bool& active = false);
 
     void flush();
     void update();

@@ -6,7 +6,6 @@
 #include "Components/Transform.h"
 #include "../Activatable.h"
 #include "Components/Text.h"
-#include "../ControlObserver.h"
 
 class Entity : public Activatable{
 public:

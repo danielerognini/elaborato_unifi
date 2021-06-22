@@ -11,3 +11,5 @@ void Activatable::toggle() {
 void Activatable::toggle(const bool& status) {
     active = status;
 }
+
+Activatable::~Activatable() {}
