@@ -7,6 +7,6 @@ set(gtest_SOURCE_DIR, ./lib/googletest/)
 
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-add_executable(Tests runAllTests.cpp)
+add_executable(Test ${TESTS})
 
 target_link_libraries(Tests gtest gtest_main core GameEngine)

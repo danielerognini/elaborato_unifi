@@ -22,7 +22,6 @@ public:
 private:
     Input();
     SDL_Event event;
-    std::list<std::string> buffer;
 
     void notify();
     void execute();

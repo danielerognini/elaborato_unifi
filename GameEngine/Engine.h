@@ -27,10 +27,10 @@ public:
     SDL_Rect& getCamera();
 
     bool addManager(const std::string& name);
-    const Manager& getManager(const std::string& name);
     bool removeManager(const std::string& name);
+    const Manager& getManager(const std::string& name);
 
-    void refreshSequence();
+    void refreshSequence(); //sorts managers by priority using bubble sort
 
 private:
     std::unordered_map<std::string, Manager> managers;

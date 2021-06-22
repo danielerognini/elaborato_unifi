@@ -22,8 +22,8 @@ public:
     const std::string& getTexturePath();
     void setTexturePath(const std::string& texturePath);
 
-    void setCurrentAnimation(const std::string& name);
     const std::string& getCurrentAnimation();
+    void setCurrentAnimation(const std::string& name);
 
     const SDL_RendererFlip& getFlip();
     void setFlip(const SDL_RendererFlip& flip);
