@@ -23,7 +23,7 @@ Vector2D Collider::calculateCenter() {
     double lengthH1 = calculateTriangleHeight(area / vertices->size(), (*vertices)[0] % (*vertices)[1]);
     double lengthH2 = calculateTriangleHeight(area / vertices->size(), (*vertices)[1] % (*vertices)[2]);
     Vector2D vectorH1;
-    vectorH1.setPolarVector2D(lengthH1, - (M_PI_2 + acos(((*vertices)[1].getX() - (*vertices)[0].getX()) / ((*vertices)[0] % (*vertices)[1]))));
+    vectorH1.setPolarVector2D(lengthH1, (M_PI_2 + acos(((*vertices)[1].getX() - (*vertices)[0].getX()) / ((*vertices)[0] % (*vertices)[1]))));
     Vector2D vectorH2;
     vectorH2.setPolarVector2D(lengthH2, - (M_PI_2 + acos(((*vertices)[2].getX() - (*vertices)[1].getX()) / ((*vertices)[1] % (*vertices)[2]))));
 

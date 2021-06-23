@@ -5,7 +5,7 @@
 class UtilityFixture : public ::testing::Test {
 protected:
     virtual void SetUp() {
-        intersection = checkLinesIntersection(std::make_pair<Vector2D, Vector2D>(Vector2D(0,0), Vector2D(2,2)), std::make_pair<Vector2D, Vector2D>(Vector2D(0,2), Vector2D(2,0)))
+        intersection = checkLinesIntersection(std::make_pair<Vector2D, Vector2D>(Vector2D(0,0), Vector2D(2,2)), std::make_pair<Vector2D, Vector2D>(Vector2D(0,2), Vector2D(2,0)));
     }
 
     Vector2D intersection;

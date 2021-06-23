@@ -4,8 +4,8 @@
 Vector2D::Vector2D(const int& x, const int& y) : x(x), y(y) {}
 
 void Vector2D::setPolarVector2D(const double& radius, const double& alpha) {
-    x = radius * cos(alpha);
-    y = radius * sin(alpha);
+    x = round(radius * cos(alpha));
+    y = round(radius * sin(alpha));
 }
 
 //Methods for the various math operations:

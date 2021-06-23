@@ -15,9 +15,9 @@ protected:
 
 
 TEST_F(EngineFixture, addManager){
-    EXPECT_TRUE(engine.addManager("3"));
-    EXPECT_TRUE(engine.addManager("4"));
-    EXPECT_FALSE(engine.addManager("4"));
+    EXPECT_TRUE(engine.addManager("3", 3));
+    EXPECT_TRUE(engine.addManager("4", 4));
+    EXPECT_FALSE(engine.addManager("4", 4));
 }
 
 TEST_F(EngineFixture, removeManager) {

@@ -20,4 +20,9 @@ set(ENGINE_SOURCE_FILES
         ControlObserver.cpp ControlObserver.h
         Observer.cpp Observer.h)
 
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2TTF REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
+
 add_library(GameEngine ${ENGINE_SOURCE_FILES})

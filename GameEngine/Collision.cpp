@@ -66,9 +66,8 @@ std::pair<Vector2D, Vector2D> controlEntityCollisions(Entity &reference, Entity 
     return std::make_pair(calculateResultingVector2D(referenceVectors), calculateResultingVector2D(externalVectors));
 }
 
-std::pair<Vector2D, Vector2D> controlColliderCollisions(Collider &reference, Vector2D referencePosition, Collider &external, Vector2D externalPosition) {
+std::pair<Vector2D, Vector2D> controlColliderCollisions(Collider& reference, Collider& external) {
     std::list<Vector2D> referenceVectors;
-    Vector2D distance = referencePosition - externalPosition;
     std::list<Vector2D> externalVectors;
 
     for(std::vector<Vector2D>::iterator iter = reference.getVerticesBegin(); iter != reference.getVerticesEnd(); iter++) {

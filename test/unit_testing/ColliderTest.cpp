@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
-#include "Collider.h"
+#include "ECS/Components/Collider.h"
+#include "iostream"
 
 
 class ColliderFixture : public ::testing::Test {

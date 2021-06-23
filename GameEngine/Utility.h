@@ -1,6 +1,8 @@
 #ifndef GAME_UTILITY_H
 #define GAME_UTILITY_H
 
+#include "Vector2D.h"
+
 template<class Iterator, class Object>
 void bubble_sort(Iterator begin, Iterator end, Object object) {
     bool ordered;
@@ -17,7 +19,7 @@ void bubble_sort(Iterator begin, Iterator end, Object object) {
     } while(!ordered);
 }
 
-Vector2D checkLinesIntersection(std::pair<Vector2D, Vector2D> reference, std::pair<Vector2D, Vector2D> external) {
+inline Vector2D checkLinesIntersection(std::pair<Vector2D, Vector2D> reference, std::pair<Vector2D, Vector2D> external) {
     //implement the line intersection check returning the intersection vector relative to the reference line (distance between intersection point and reference vertex)
     //we are going to use the formula: y = mx + q
     double m1 = static_cast<double>(reference.second.getY() - reference.first.getY()) / static_cast<double>(reference.second.getX() - reference.first.getX());

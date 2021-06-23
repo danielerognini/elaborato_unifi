@@ -4,8 +4,8 @@
 class Vector2DFixture : public ::testing::Test {
 protected:
     virtual void SetUp() {
-        vector1 = Vector(2, 4);
-        vector2 = Vector(3, 6);
+        vector1 = Vector2D(2, 4);
+        vector2 = Vector2D(3, 6);
     }
 
     Vector2D vector1;
@@ -18,8 +18,8 @@ TEST_F(Vector2DFixture, setToZero) {
 }
 
 TEST_F(Vector2DFixture, addCoordinate) {
-    Vector2D vector = vector1.add(1, 1);
-    EXPECT_TRUE(vector.getX() == 3 && vector.getY() == 5);
+    vector1.add(1, 1);
+    EXPECT_TRUE(vector1.getX() == 3 && vector1.getY() == 5);
 }
 
 TEST_F(Vector2DFixture, subtractCoordinate) {
@@ -28,8 +28,8 @@ TEST_F(Vector2DFixture, subtractCoordinate) {
 }
 
 TEST_F(Vector2DFixture, add) {
-    Vector2D vector = vector1.add(vector2);
-    EXPECT_TRUE(vector.getX() == 5 && vector.getY() == 10);
+    vector1.add(vector2);
+    EXPECT_TRUE(vector1.getX() == 5 && vector1.getY() == 10);
 }
 
 TEST_F(Vector2DFixture, subtract) {
@@ -47,8 +47,8 @@ TEST_F(Vector2DFixture, divide) {
     EXPECT_TRUE(vector.getX() == 1 && vector.getY() == 2);
 }
 
-TEST_F(Vector2DFixture, operator+) {
-    Vector vector = vector1 + vector2;
+TEST_F(Vector2DFixture, operatorSum) {
+    Vector2D vector = vector1 + vector2;
     EXPECT_TRUE(vector.getX() == 5 && vector.getY() == 10);
 }
 
@@ -71,7 +71,7 @@ TEST_F(Vector2DFixture, operator%) {
     EXPECT_TRUE(static_cast<int>(Vector(-1, 0) % vector1) = 5);
 }
 
-TEST_F(Vector2DFixture, operator+=) {
+TEST_F(Vector2DFixture, operatorSumAssignment) {
     vector1 += vector2;
     EXPECT_TRUE(vector1.getX() == 5 && vector1.getY() == 10);
 }
@@ -86,7 +86,7 @@ TEST_F(Vector2DFixture, operator*=) {
     EXPECT_TRUE(vector1.getX() == 4 && vector1.getY() == 8);
 }
 
-TEST_F(Vector2DFixture, operator/=) {
+TEST_F(Vector2DFixture, operatorDivisionAssignment) {
     vector1 /= 2;
     EXPECT_TRUE(vector1.getX() == 1 && vector1.getY() == 2);
 }
