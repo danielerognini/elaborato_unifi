@@ -29,9 +29,9 @@ Engine::Engine(const std::string& title, const int& x, const int& y, const int& 
     }
 }
 
-Engine::~Engine(){
-    delete renderer;
-    delete window;
+Engine::~Engine() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
 }
 
 Engine& Engine::getInstance(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen)
