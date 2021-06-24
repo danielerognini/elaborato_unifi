@@ -86,3 +86,11 @@ std::unordered_map<std::string, Collider>::iterator Entity::getCollidersBegin() 
 std::unordered_map<std::string, Collider>::iterator Entity::getCollidersEnd() {
     return colliders.end();
 }
+
+Text &Entity::getText() {
+    return text;
+}
+
+void Entity::setText(const Text &text) {
+    Entity::text = text;
+}

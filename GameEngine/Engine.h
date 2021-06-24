@@ -28,7 +28,7 @@ public:
 
     bool addManager(const std::string &name, const unsigned int& priority);
     bool removeManager(const std::string& name);
-    const Manager& getManager(const std::string& name);
+    Manager & getManager(const std::string& name);
 
     void refreshSequence(); //sorts managers by priority using bubble sort
     bool compare(const std::string& prev, const std::string& next);

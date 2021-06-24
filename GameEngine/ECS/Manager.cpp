@@ -3,7 +3,7 @@
 #include "Manager.h"
 
 void Manager::flush() {
-    for(std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
+    for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
         if(!iter->second->isActive()){
             removeEntity(iter->first);
         }
@@ -12,7 +12,7 @@ void Manager::flush() {
 
 void Manager::update() {
     std::list<std::future<void>> asyncCalls;
-    for(std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
+    for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
         asyncCalls.push_back(std::async(std::launch::async, &Entity::update, iter->second.get()));
     }
     for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
@@ -21,7 +21,7 @@ void Manager::update() {
 }
 
 void Manager::draw() {
-    for(std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
+    for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
         iter->second->draw();
     }
 }
@@ -34,8 +34,8 @@ bool Manager::removeEntity(const std::string& name) {
     return entities.erase(name);
 }
 
-std::unique_ptr<Entity>& Manager::getEntity(const std::string& name) {
-    std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator result = entities.find(name);
+std::shared_ptr<Entity> Manager::getEntity(const std::string& name) {
+    std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator result = entities.find(name);
     if (result == entities.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
     }
@@ -70,10 +70,10 @@ Manager::Manager(const unsigned int& priority, const bool& active) : priority(pr
     this->active = active;
 }
 
-std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator Manager::getEntitiesBegin() {
+std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator Manager::getEntitiesBegin() {
     return entities.begin();
 }
 
-std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator Manager::getEntitiesEnd() {
+std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator Manager::getEntitiesEnd() {
     return entities.end();
 }

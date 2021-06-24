@@ -125,7 +125,7 @@ bool Engine::addManager(const std::string &name, const unsigned int& priority) {
     return result;
 }
 
-const Manager &Engine::getManager(const std::string& name) {
+Manager & Engine::getManager(const std::string& name) {
     std::unordered_map<std::string, Manager>::iterator result = managers.find(name);
     if (result == managers.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map\"");

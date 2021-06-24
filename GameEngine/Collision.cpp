@@ -66,7 +66,12 @@ std::pair<Vector2D, Vector2D> controlEntityCollisions(Entity &reference, Entity 
     return std::make_pair(calculateResultingVector2D(referenceVectors), calculateResultingVector2D(externalVectors));
 }
 
-std::pair<Vector2D, Vector2D> controlColliderCollisions(Collider& reference, Collider& external) {
+std::pair<Vector2D, Vector2D> controlColliderCollisions(Collider& reference, const Vector2D& referencePosition, Collider& external, const Vector2D& externalPosition) {
+
+    /*
+     * vertices positions are relative to the entities transforms
+     */
+
     std::list<Vector2D> referenceVectors;
     std::list<Vector2D> externalVectors;
 
