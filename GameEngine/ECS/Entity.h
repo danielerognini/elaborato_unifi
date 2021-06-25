@@ -24,7 +24,7 @@ public:
     void update();
     void draw();
 
-    void resolveCollision(const Entity& externalEntity, const Vector2D& ownVertex, const Vector2D& externalVertex);
+    void resolveCollision(const Entity& externalEntity, const Vector2D& ownVertex);
 
     const bool& isSolid() const;
 

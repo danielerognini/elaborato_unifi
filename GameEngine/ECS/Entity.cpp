@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "../Engine.h"
 #include <cmath>
+#include <iostream>
 
 Entity::Entity(const std::string& texturePath, const bool& solid, const bool& active) : sprite(Sprite(texturePath)), transform(Transform()), solid(solid) {
     this->active = active;
@@ -56,7 +57,7 @@ bool Entity::removeCollider(const std::string& name) {
     return colliders.erase(name);
 }
 
-void Entity::resolveCollision(const Entity &externalEntity, const Vector2D &ownVertex, const Vector2D &externalVertex) {
+void Entity::resolveCollision(const Entity &externalEntity, const Vector2D &ownVertex) {
     if(externalEntity.isSolid()) {
         int speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? round(static_cast<float>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed())) : 1 : 0;
         int y = ownVertex.getY() - (externalVertex.getY() + externalEntity.transform.getPosition().getY() - transform.getPosition().getY());

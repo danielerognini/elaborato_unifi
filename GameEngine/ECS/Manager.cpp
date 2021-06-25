@@ -66,7 +66,7 @@ void Manager::setPriority(const unsigned int& priority) {
     this->priority = priority;
 }
 
-Manager::Manager(const unsigned int& priority, const bool& active) : priority(priority){
+Manager::Manager(const unsigned int& priority, const bool& localCollisionsActive, const bool& globalCollisionsActive, const bool& active) : priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive) {
     this->active = active;
 }
 

@@ -28,7 +28,7 @@ TEST_F(EntityFixture, resolveCollision) {
     external.getTransform().setDirection(-M_PI_2 * 3);
     external.getTransform().setMoving(true);
     external.addCollider("2", std::unique_ptr<std::vector<Vector2D>>(new std::vector<Vector2D>({Vector2D(0, 0), Vector2D(4, 0), Vector2D(4, 4), Vector2D(0, 4)})));
-    entity.getTransform().setPosition(1, 1);
+    entity.getTransform().setPosition(1, 2);
     entity.getTransform().setSpeed(1);
     entity.getTransform().setDirection(M_PI_2);
     entity.getTransform().setMoving(true);
@@ -43,8 +43,8 @@ TEST_F(EntityFixture, resolveCollision) {
         std::cout << "(" << std::next(external.getCollider("2").getVerticesBegin(), i)->getX() << ", " << std::next(external.getCollider("2").getVerticesBegin())->getY() << ") ";
     }
     std::cout << std::endl;
-    entity.resolveCollision(external, Vector2D(2, 2), Vector2D(-2, -2));
-    external.resolveCollision(entity, Vector2D(-2, -2), Vector2D(2, 2));
+    entity.resolveCollision(external, Vector2D(2, 3));
+    external.resolveCollision(entity, Vector2D(-2, -3));
     std::cout << "AFTER" << std::endl;
     std::cout << "Entity: (" << entity.getTransform().getPosition().getX() << ", " << entity.getTransform().getPosition().getY() << ") vertices: ";
     for (int i = 0; i < 4; i++) {
@@ -56,6 +56,6 @@ TEST_F(EntityFixture, resolveCollision) {
         std::cout << "(" << std::next(external.getCollider("2").getVerticesBegin(), i)->getX() << ", " << std::next(external.getCollider("2").getVerticesBegin())->getY() << ") ";
     }
     std::cout << std::endl;
-    EXPECT_TRUE(entity.getTransform().getPosition().getX() == 0 && entity.getTransform().getPosition().getY() == 0);
-    EXPECT_TRUE(external.getTransform().getPosition().getX() == 4 && external.getTransform().getPosition().getY() == 4);
+    EXPECT_TRUE(entity.getTransform().getPosition().getX() == 0 && entity.getTransform().getPosition().getY() == 4);
+    EXPECT_TRUE(external.getTransform().getPosition().getX() == 4 && external.getTransform().getPosition().getY() == 0);
 }

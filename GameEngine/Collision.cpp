@@ -1,16 +1,30 @@
 #include <future>
+#include <iostream>
 #include "Collision.h"
 #include "Utility.h"
 
 void collisionUpdate(std::unordered_map<std::string, Manager> &managers) {
     std::list<std::future<void>> asyncCalls;
+
+    /*
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
         asyncCalls.push_back(std::async(std::launch::async, ::resolveLocalCollisions, iter));
     }
     for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();
     }
-    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != std::prev(managers.end()); iter++) {
+     */
+    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
+        auto debug = iter->second.getEntitiesBegin();
+        resolveLocalCollisions(iter);
+    }
+    /*
+     * we replaced use async calls because of an error that occurred using gtest to test Collision.h
+     * the error we got was Process finished with exit code 139 (interrupted by signal 11: SIGSEGV)
+     * TODO: fix async calls errors
+     */
+
+    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); std::next(iter, 1) != managers.end(); iter++) {
         if(iter->second.isGlobalCollisionsActive()) {
             for(std::unordered_map<std::string, Manager>::iterator subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
                 if(subIter->second.isGlobalCollisionsActive()) {
@@ -29,9 +43,10 @@ void collisionUpdate(std::unordered_map<std::string, Manager> &managers) {
     }
 }
 
-void resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator iter) {
+void resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator& iter) {
     if (iter->second.isLocalCollisionsActive()) {
-        for(std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator subIter = iter->second.getEntitiesBegin(); subIter != std::prev(iter->second.getEntitiesEnd()); subIter++) {
+
+        for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subIter = iter->second.getEntitiesBegin(); std::next(subIter, 1) != iter->second.getEntitiesEnd(); subIter++) {
             if(subIter->second->isCollidersActive()) {
                 for (std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator subSubIter = std::next(subIter, 1); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
                     if(subSubIter->second->isCollidersActive()) {

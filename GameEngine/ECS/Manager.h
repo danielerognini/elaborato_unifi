@@ -8,7 +8,7 @@
 
 class Manager : public Activatable{
 public:
-    explicit Manager(const unsigned int& priority, const bool& active = false);
+    explicit Manager(const unsigned int& priority, const bool& localCollisionsActive = true, const bool& globalCollisionsActive = true, const bool& active = false);
 
     void flush();
     void update();
