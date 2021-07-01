@@ -94,7 +94,7 @@ INSTANTIATE_TEST_CASE_P(PrintingFailingParams,
                         FailingParamTest,
                         testing::Values(2));
 
-static const char kGoldenString[] = "\"Line\0 1\"\nLine 2";
+static const char kGoldenString[] = "\"Segment\0 1\"\nSegment 2";
 
 TEST(NonfatalFailureTest, EscapesStringOperands) {
   std::string actual = "actual \"string\"";
@@ -106,7 +106,7 @@ TEST(NonfatalFailureTest, EscapesStringOperands) {
 
 TEST(NonfatalFailureTest, DiffForLongStrings) {
   std::string golden_str(kGoldenString, sizeof(kGoldenString) - 1);
-  EXPECT_EQ(golden_str, "Line 2");
+  EXPECT_EQ(golden_str, "Segment 2");
 }
 
 // Tests catching a fatal failure in a subroutine.

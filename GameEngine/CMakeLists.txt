@@ -18,7 +18,7 @@ set(ENGINE_SOURCE_FILES
         Utility.h
         ECS/Components/Text.cpp ECS/Components/Text.h
         ControlObserver.cpp ControlObserver.h
-        Observer.cpp Observer.h)
+        Observer.cpp Observer.h Segment.cpp Segment.h)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)

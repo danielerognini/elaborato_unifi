@@ -130,8 +130,8 @@ TEST(MessageTest, StreamsInt) {
 // Tests that basic IO manipulators (endl, ends, and flush) can be
 // streamed to Message.
 TEST(MessageTest, StreamsBasicIoManip) {
-  EXPECT_EQ("Line 1.\nA NUL char \\0 in line 2.",
-               (Message() << "Line 1." << std::endl
+  EXPECT_EQ("Segment 1.\nA NUL char \\0 in line 2.",
+               (Message() << "Segment 1." << std::endl
                          << "A NUL char " << std::ends << std::flush
                          << " in line 2.").GetString());
 }

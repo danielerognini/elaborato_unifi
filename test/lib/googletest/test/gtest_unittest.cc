@@ -4625,9 +4625,9 @@ TEST(StreamableTest, NullCharPtr) {
 // streamed to testing::Message.
 TEST(StreamableTest, BasicIoManip) {
   EXPECT_FATAL_FAILURE({  // NOLINT
-    FAIL() << "Line 1." << std::endl
+    FAIL() << "Segment 1." << std::endl
            << "A NUL char " << std::ends << std::flush << " in line 2.";
-  }, "Line 1.\nA NUL char \\0 in line 2.");
+  }, "Segment 1.\nA NUL char \\0 in line 2.");
 }
 
 // Tests the macros that haven't been covered so far.

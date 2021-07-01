@@ -2,32 +2,32 @@
 #include "../../Utility.h"
 #include <cmath>
 
-Collider::Collider(std::unique_ptr<std::vector<Vector2D>> vertices, const bool& active) : vertices(std::move(vertices)), center(calculateCenter()){
+Collider::Collider(std::unique_ptr<std::vector<Segment>> borders, const bool& active) : borders(std::move(borders))/*, center(calculateCenter())*/{
     this->active = active;
 }
 
-std::vector<Vector2D>::iterator Collider::getVerticesBegin() {
-    return vertices->begin();
+std::vector<Segment>::iterator Collider::getBordersBegin() {
+    return borders->begin();
 }
 
-std::vector<Vector2D>::iterator Collider::getVerticesEnd() {
-    return vertices->end();
+std::vector<Segment>::iterator Collider::getBordersEnd() {
+    return borders->end();
 }
-
+/*
 const Vector2D& Collider::getCenter() {
     return center;
 }
 
 Vector2D Collider::calculateCenter() {
     double area = calculateArea();
-    double lengthH1 = calculateTriangleHeight(area / vertices->size(), (*vertices)[0] % (*vertices)[1]);
-    double lengthH2 = calculateTriangleHeight(area / vertices->size(), (*vertices)[1] % (*vertices)[2]);
+    double lengthH1 = calculateTriangleHeight(area / borders->size(), (*borders)[0] % (*borders)[1]);
+    double lengthH2 = calculateTriangleHeight(area / borders->size(), (*borders)[1] % (*borders)[2]);
     Vector2D vectorH1;
-    vectorH1.setPolarVector2D(lengthH1, (M_PI_2 + acos(((*vertices)[1].getX() - (*vertices)[0].getX()) / ((*vertices)[0] % (*vertices)[1]))));
+    vectorH1.setPolarVector2D(lengthH1, (M_PI_2 + acos(((*borders)[1].getX() - (*borders)[0].getX()) / ((*borders)[0] % (*borders)[1]))));
     Vector2D vectorH2;
-    vectorH2.setPolarVector2D(lengthH2, - (M_PI_2 + acos(((*vertices)[2].getX() - (*vertices)[1].getX()) / ((*vertices)[1] % (*vertices)[2]))));
+    vectorH2.setPolarVector2D(lengthH2, - (M_PI_2 + acos(((*borders)[2].getX() - (*borders)[1].getX()) / ((*borders)[1] % (*borders)[2]))));
 
-    return ::checkLinesIntersection(std::make_pair((*vertices)[0] + vectorH1, (*vertices)[1] + vectorH1), std::make_pair((*vertices)[1] + vectorH2, (*vertices)[2] + vectorH2));
+    return ::checkLinesIntersection(std::make_pair((*borders)[0] + vectorH1, (*borders)[1] + vectorH1), std::make_pair((*borders)[1] + vectorH2, (*borders)[2] + vectorH2));
 }
 
 double Collider::calculateArea() {
@@ -36,10 +36,10 @@ double Collider::calculateArea() {
     double b;
     double c;
 
-    for(std::vector<Vector2D>::iterator iter = std::next(vertices->begin(), 1); iter != std::prev(vertices->end(), 1); iter++) {
-        a = (*vertices)[0] % *iter;
+    for(std::vector<Vector2D>::iterator iter = std::next(borders->begin(), 1); iter != std::prev(borders->end(), 1); iter++) {
+        a = (*borders)[0] % *iter;
         b = *iter % *std::next(iter, 1);
-        c = *std::next(iter, 1) % (*vertices)[0];
+        c = *std::next(iter, 1) % (*borders)[0];
         double semiPerimeter = (a + b + c) / 2;
         area += sqrt(semiPerimeter * (semiPerimeter - a) * (semiPerimeter - b) * (semiPerimeter - c));
     }
@@ -50,3 +50,4 @@ double Collider::calculateArea() {
 double Collider::calculateTriangleHeight(double area, double base) {
     return (area * 2) / base;
 }
+*/

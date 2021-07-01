@@ -59,51 +59,44 @@ void resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator& 
 }
 
 void resolveEntityCollisions(Entity &entity1, Entity &entity2) {
-    std::pair<Vector2D, Vector2D> vectors = controlEntityCollisions(entity1, entity2);
-    entity1.resolveCollision(entity2, vectors.first, vectors.second);
-    entity2.resolveCollision(entity1, vectors.second, vectors.first);
+    Vector2D vector = controlEntityCollisions(entity1, entity2);
+    entity1.resolveCollision(entity2, vector);
+    entity2.resolveCollision(entity1, vector * (-1));
 }
 
-std::pair<Vector2D, Vector2D> controlEntityCollisions(Entity &reference, Entity &external) {
+Vector2D controlEntityCollisions(Entity &reference, Entity &external) {
     std::list<Vector2D> referenceVectors;
-    std::list<Vector2D> externalVectors;
     for(std::unordered_map<std::string, Collider>::iterator iter = reference.getCollidersBegin(); iter != reference.getCollidersEnd(); iter++) {
         if(iter->second.isActive()) {
             for (std::unordered_map<std::string, Collider>::iterator subIter = external.getCollidersBegin(); subIter != external.getCollidersEnd(); subIter++) {
                 if (subIter->second.isActive()) {
-                    std::pair<Vector2D, Vector2D> relativeVectors = controlColliderCollisions(iter->second,subIter->second);
-                    referenceVectors.push_back(relativeVectors.first);
-                    externalVectors.push_back(relativeVectors.second);
+                    referenceVectors.push_back(controlColliderCollisions(iter->second, reference.getTransform().getPosition(), subIter->second, external.getTransform().getPosition()));
                 }
             }
         }
     }
-    return std::make_pair(calculateResultingVector2D(referenceVectors), calculateResultingVector2D(externalVectors));
+    return calculateResultingVector2D(referenceVectors);
 }
 
-std::pair<Vector2D, Vector2D> controlColliderCollisions(Collider& reference, const Vector2D& referencePosition, Collider& external, const Vector2D& externalPosition) {
+Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referencePosition, Collider& external, const Vector2D& externalPosition) {
 
     /*
-     * vertices positions are relative to the entities transforms
+     * borders positions are relative to the entities transforms
      */
 
-    std::list<Vector2D> referenceVectors;
-    std::list<Vector2D> externalVectors;
-
-    for(std::vector<Vector2D>::iterator iter = reference.getVerticesBegin(); iter != reference.getVerticesEnd(); iter++) {
-        for(std::vector<Vector2D>::iterator subIter = external.getVerticesBegin(); subIter != external.getVerticesEnd(); subIter++) {
-            //checking collisions using the getCenter method from collider and calculating the distance from the center to one of the vertices, then check for intersections with the sides of the external collider
-            Vector2D referenceIntersection = ::checkLinesIntersection(std::make_pair(reference.getCenter(), *iter), std::make_pair(*subIter, std::next(subIter, 1) == external.getVerticesEnd() ? *external.getVerticesBegin() : *std::next(subIter, 1)));
+    std::list<Vector2D> collidersVectors;
+    /*TODO: implement collision detection by borders intersection.
+    for(std::vector<Vector2D>::iterator iter = reference.getBordersBegin(); iter != reference.getBordersEnd(); iter++) {
+        for(std::vector<Vector2D>::iterator subIter = external.getBordersBegin(); subIter != external.getBordersEnd(); subIter++) {
+            //checking collisions using the getCenter method from collider and calculating the distance from the center to one of the borders, then check for intersections with the sides of the external collider
+            Vector2D referenceIntersection = ::checkLinesIntersection(std::make_pair(reference.getCenter(), *iter), std::make_pair(*subIter, std::next(subIter, 1) == external.getBordersEnd() ? *external.getBordersBegin() : *std::next(subIter, 1)));
             if(referenceIntersection.getX() != 0 || referenceIntersection.getY() != 0) {
-                referenceVectors.push_back(*iter);
-            }
-            Vector2D externalIntersection = ::checkLinesIntersection(std::make_pair(external.getCenter(), *subIter), std::make_pair(*iter, std::next(iter, 1) == reference.getVerticesEnd() ? *reference.getVerticesBegin() : *std::next(iter, 1)));
-            if(externalIntersection.getX() != 0 || externalIntersection.getY() != 0) {
-                externalVectors.push_back(*subIter);
+                collidersVectors.push_back(*iter);
             }
         }
     }
-    return std::make_pair(calculateResultingVector2D(referenceVectors), calculateResultingVector2D(externalVectors));
+    */
+    return calculateResultingVector2D(collidersVectors);
 }
 
 Vector2D calculateResultingVector2D(std::list<Vector2D>& vectors) {

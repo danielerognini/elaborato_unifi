@@ -1638,15 +1638,15 @@ TEST(UniversalPrintTest, WorksForCString) {
 }
 
 TEST(UniversalPrintTest, WorksForCharArray) {
-  const char str[] = "\"Line\0 1\"\nLine 2";
+  const char str[] = "\"Segment\0 1\"\nSegment 2";
   ::std::stringstream ss1;
   UniversalPrint(str, &ss1);
-  EXPECT_EQ("\"\\\"Line\\0 1\\\"\\nLine 2\"", ss1.str());
+  EXPECT_EQ("\"\\\"Segment\\0 1\\\"\\nSegment 2\"", ss1.str());
 
-  const char mutable_str[] = "\"Line\0 1\"\nLine 2";
+  const char mutable_str[] = "\"Segment\0 1\"\nSegment 2";
   ::std::stringstream ss2;
   UniversalPrint(mutable_str, &ss2);
-  EXPECT_EQ("\"\\\"Line\\0 1\\\"\\nLine 2\"", ss2.str());
+  EXPECT_EQ("\"\\\"Segment\\0 1\\\"\\nSegment 2\"", ss2.str());
 }
 
 #if GTEST_HAS_TR1_TUPLE
