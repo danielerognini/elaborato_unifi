@@ -2,15 +2,15 @@
 #include "../../Utility.h"
 #include <cmath>
 
-Collider::Collider(std::unique_ptr<std::vector<Segment>> borders, const bool& active) : borders(std::move(borders))/*, center(calculateCenter())*/{
+Collider::Collider(std::unique_ptr<std::vector<Border>> borders, const bool& active) : borders(std::move(borders))/*, center(calculateCenter())*/{
     this->active = active;
 }
 
-std::vector<Segment>::iterator Collider::getBordersBegin() {
+std::vector<Border>::iterator Collider::getBordersBegin() {
     return borders->begin();
 }
 
-std::vector<Segment>::iterator Collider::getBordersEnd() {
+std::vector<Border>::iterator Collider::getBordersEnd() {
     return borders->end();
 }
 /*
@@ -25,7 +25,7 @@ Vector2D Collider::calculateCenter() {
     Vector2D vectorH1;
     vectorH1.setPolarVector2D(lengthH1, (M_PI_2 + acos(((*borders)[1].getX() - (*borders)[0].getX()) / ((*borders)[0] % (*borders)[1]))));
     Vector2D vectorH2;
-    vectorH2.setPolarVector2D(lengthH2, - (M_PI_2 + acos(((*borders)[2].getX() - (*borders)[1].getX()) / ((*borders)[1] % (*borders)[2]))));
+    vectorH2.toCartesian(lengthH2, - (M_PI_2 + acos(((*borders)[2].getX() - (*borders)[1].getX()) / ((*borders)[1] % (*borders)[2]))));
 
     return ::checkLinesIntersection(std::make_pair((*borders)[0] + vectorH1, (*borders)[1] + vectorH1), std::make_pair((*borders)[1] + vectorH2, (*borders)[2] + vectorH2));
 }

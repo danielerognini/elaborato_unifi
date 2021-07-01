@@ -5,7 +5,9 @@
 class Vector2D {
 public:
     explicit Vector2D(const int& x = 0, const int& y = 0);
-    void setPolarVector2D(const double& radius = 0.0, const double& alpha = 0.0);
+    static Vector2D toCartesian(const double& radius = 0.0, const double& angle = 0.0);
+    
+    void setVector(const int& x, const int& y);
 
     const int& getX() const;
     void setX(const int& x);
@@ -33,8 +35,6 @@ public:
     Vector2D& operator-=(const Vector2D& vector);
     Vector2D& operator*=(const int& scalar);
     Vector2D& operator/=(const int& scalar);
-
-    Vector2D& setToZero();
 
 private:
     int x;

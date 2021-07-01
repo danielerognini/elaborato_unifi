@@ -3,9 +3,8 @@
 
 Vector2D::Vector2D(const int& x, const int& y) : x(x), y(y) {}
 
-void Vector2D::setPolarVector2D(const double& radius, const double& alpha) {
-    x = round(radius * cos(alpha));
-    y = round(radius * sin(alpha));
+Vector2D Vector2D::toCartesian(const double& radius, const double& angle) {
+    return Vector2D(round(radius * cos(angle)), round(radius * sin(angle)));
 }
 
 //Methods for the various math operations:
@@ -57,10 +56,6 @@ Vector2D& Vector2D::operator/=(const int& scalar) {
     divide(scalar);
     return *this;
 }
-Vector2D& Vector2D::setToZero() {
-    x = 0;
-    y = 0;
-}
 
 const int& Vector2D::getX() const {
     return x;
@@ -91,4 +86,9 @@ void Vector2D::subtract(const int& x, const int& y) {
 double Vector2D::operator%(Vector2D &right) {
     Vector2D vector = right - (*this);
     return sqrt(vector.x * vector.x + vector.y * vector.y);
+}
+
+void Vector2D::setVector(const int& x, const int& y) {
+    this->x = x;
+    this->y = y;
 }

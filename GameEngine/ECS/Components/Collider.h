@@ -4,19 +4,19 @@
 #include <vector>
 #include <memory>
 #include "../../Activatable.h"
-#include "../../Segment.h"
+#include "../../Border.h"
 
 class Collider : public Activatable{
 public:
-    Collider(std::unique_ptr<std::vector<Segment>> borders, const bool& active);
+    Collider(std::unique_ptr<std::vector<Border>> borders, const bool& active);
     
-    std::vector<Segment>::iterator getBordersBegin();
-    std::vector<Segment>::iterator getBordersEnd();
+    std::vector<Border>::iterator getBordersBegin();
+    std::vector<Border>::iterator getBordersEnd();
 
     //const Vector2D& getCenter();
 
 private:
-    std::unique_ptr<std::vector<Segment>> borders;
+    std::unique_ptr<std::vector<Border>> borders;
     /*
     Vector2D center;
     Vector2D calculateCenter();

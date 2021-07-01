@@ -28,9 +28,9 @@ void collisionUpdate(std::unordered_map<std::string, Manager> &managers) {
         if(iter->second.isGlobalCollisionsActive()) {
             for(std::unordered_map<std::string, Manager>::iterator subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
                 if(subIter->second.isGlobalCollisionsActive()) {
-                    for(std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator subSubIter = iter->second.getEntitiesBegin(); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
+                    for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subSubIter = iter->second.getEntitiesBegin(); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
                         if(subSubIter->second->isCollidersActive()) {
-                            for (std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator subSubSubIter = subIter->second.getEntitiesBegin(); subSubSubIter != subIter->second.getEntitiesEnd(); subSubSubIter++) {
+                            for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subSubSubIter = subIter->second.getEntitiesBegin(); subSubSubIter != subIter->second.getEntitiesEnd(); subSubSubIter++) {
                                 if(subSubIter->second->isCollidersActive()) {
                                     resolveEntityCollisions(*subSubIter->second, *subSubSubIter->second);
                                 }
@@ -48,7 +48,7 @@ void resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator& 
 
         for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subIter = iter->second.getEntitiesBegin(); std::next(subIter, 1) != iter->second.getEntitiesEnd(); subIter++) {
             if(subIter->second->isCollidersActive()) {
-                for (std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator subSubIter = std::next(subIter, 1); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
+                for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subSubIter = std::next(subIter, 1); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
                     if(subSubIter->second->isCollidersActive()) {
                         resolveEntityCollisions(*subIter->second, *subSubIter->second);
                     }
@@ -83,20 +83,18 @@ Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referenc
     /*
      * borders positions are relative to the entities transforms
      */
-
-    std::list<Vector2D> collidersVectors;
-    /*TODO: implement collision detection by borders intersection.
-    for(std::vector<Vector2D>::iterator iter = reference.getBordersBegin(); iter != reference.getBordersEnd(); iter++) {
-        for(std::vector<Vector2D>::iterator subIter = external.getBordersBegin(); subIter != external.getBordersEnd(); subIter++) {
-            //checking collisions using the getCenter method from collider and calculating the distance from the center to one of the borders, then check for intersections with the sides of the external collider
-            Vector2D referenceIntersection = ::checkLinesIntersection(std::make_pair(reference.getCenter(), *iter), std::make_pair(*subIter, std::next(subIter, 1) == external.getBordersEnd() ? *external.getBordersBegin() : *std::next(subIter, 1)));
-            if(referenceIntersection.getX() != 0 || referenceIntersection.getY() != 0) {
-                collidersVectors.push_back(*iter);
-            }
+    std::list<Vector2D> intersections;
+    std::list<Border> intersectedBorders;
+    std::list<Vector2D> collisionVectors;
+    
+    for (std::vector<Border>::iterator iter = reference.getBordersBegin(); iter != reference.getBordersEnd(); iter++) {
+        for (std::vector<Border>::iterator subIter = external.getBordersBegin(); subIter != external.getBordersEnd(); subIter++) {
+            std::pair<std::pair<bool, Vector2D>, std::pair<bool, bool>> intersection = iter->checkBordersIntersection(*subIter);
+            //TODO: implement collision detection algorithm.
         }
     }
-    */
-    return calculateResultingVector2D(collidersVectors);
+    
+    return calculateResultingVector2D(collisionVectors);
 }
 
 Vector2D calculateResultingVector2D(std::list<Vector2D>& vectors) {
