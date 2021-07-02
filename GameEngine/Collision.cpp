@@ -1,11 +1,12 @@
 #include <future>
 #include <iostream>
+#include <map>
 #include "Collision.h"
 #include "Utility.h"
 
 void collisionUpdate(std::unordered_map<std::string, Manager> &managers) {
     std::list<std::future<void>> asyncCalls;
-
+    
     /*
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
         asyncCalls.push_back(std::async(std::launch::async, ::resolveLocalCollisions, iter));
@@ -13,7 +14,7 @@ void collisionUpdate(std::unordered_map<std::string, Manager> &managers) {
     for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();
     }
-     */
+    */
     for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
         auto debug = iter->second.getEntitiesBegin();
         resolveLocalCollisions(iter);
@@ -79,20 +80,71 @@ Vector2D controlEntityCollisions(Entity &reference, Entity &external) {
 }
 
 Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referencePosition, Collider& external, const Vector2D& externalPosition) {
-
+    
     /*
      * borders positions are relative to the entities transforms
      */
-    std::list<Vector2D> intersections;
-    std::list<Border> intersectedBorders;
+    std::map<int, std::pair<std::pair<Border, std::list<Vector2D>>, bool>> referenceIntersectedBorders;
+    std::map<int, std::pair<std::pair<Border, std::list<Vector2D>>, bool>> externalIntersectedBorders;
+    int referenceBorderIndex;
+    int externalBorderIndex;
+    std::list<Vector2D> referenceIncludedVertices;
+    std::list<Vector2D> externalIncludedVertices;
     std::list<Vector2D> collisionVectors;
     
     for (std::vector<Border>::iterator iter = reference.getBordersBegin(); iter != reference.getBordersEnd(); iter++) {
+        referenceBorderIndex = iter - reference.getBordersBegin();
         for (std::vector<Border>::iterator subIter = external.getBordersBegin(); subIter != external.getBordersEnd(); subIter++) {
-            std::pair<std::pair<bool, Vector2D>, std::pair<bool, bool>> intersection = iter->checkBordersIntersection(*subIter);
-            //TODO: implement collision detection algorithm.
+            externalBorderIndex = subIter - external.getBordersEnd();
+            std::pair<std::pair<bool, Vector2D>, std::pair<bool, bool>> intersection = iter->checkBordersIntersection(
+                    *subIter, referencePosition, externalPosition);
+            if (intersection.first.first) {
+                if (referenceIntersectedBorders.find(referenceBorderIndex) == referenceIntersectedBorders.end()) {
+                    referenceIntersectedBorders.emplace(referenceBorderIndex,
+                                                        std::make_pair(std::make_pair(*iter, std::list<Vector2D>()),
+                                                                       true));
+                }
+                std::pair<std::pair<Border, std::list<Vector2D>>, bool>& currentReferenceBorder = referenceIntersectedBorders.find(
+                        referenceBorderIndex)->second;
+                currentReferenceBorder.first.second.emplace_back(intersection.first.second);
+                currentReferenceBorder.second = currentReferenceBorder.second && intersection.second.first;
+                
+                if (externalIntersectedBorders.find(externalBorderIndex) == externalIntersectedBorders.end()) {
+                    externalIntersectedBorders.emplace(externalBorderIndex,
+                                                       std::make_pair(std::make_pair(*subIter, std::list<Vector2D>()),
+                                                                      true));
+                }
+                std::pair<std::pair<Border, std::list<Vector2D>>, bool>& currentExternalBorder = externalIntersectedBorders.find(
+                        externalBorderIndex)->second;
+                currentExternalBorder.first.second.emplace_back(intersection.first.second);
+                currentExternalBorder.second = currentExternalBorder.second && intersection.second.second;
+            }
         }
     }
+    
+    for (std::map<int, std::pair<std::pair<Border, std::list<Vector2D>>, bool>>::iterator iter = referenceIntersectedBorders.begin(); iter != referenceIntersectedBorders.end(); iter++) {
+        if (iter->second.second) {
+            referenceIncludedVertices.emplace_back(iter->second.first.first.getNextVertex());
+            for (std::vector<Border>::iterator subIter = std::next(reference.getBordersBegin(),
+                                                                   iter->first + 1); subIter - reference.getBordersBegin() != std::next(
+                    iter, 1)->first; subIter++) {
+                referenceIncludedVertices.emplace_back(subIter->getNextVertex());
+            }
+        }
+    }
+    
+    for (std::map<int, std::pair<std::pair<Border, std::list<Vector2D>>, bool>>::iterator iter = externalIntersectedBorders.begin(); iter != externalIntersectedBorders.end(); iter++) {
+        if (iter->second.second) {
+            externalIncludedVertices.emplace_back(iter->second.first.first.getNextVertex());
+            for (std::vector<Border>::iterator subIter = std::next(external.getBordersBegin(),
+                                                                   iter->first + 1); subIter - external.getBordersBegin() != std::next(
+                    iter, 1)->first; subIter++) {
+                externalIncludedVertices.emplace_back(subIter->getNextVertex());
+            }
+        }
+    }
+    
+    //TODO: calculate collisionVectors given the included Vertices of both colliders
     
     return calculateResultingVector2D(collisionVectors);
 }

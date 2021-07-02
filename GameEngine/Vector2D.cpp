@@ -26,16 +26,19 @@ void Vector2D::divide(const int& scalar) {
 }
 
 //overriding the operators
-Vector2D Vector2D::operator+(const Vector2D& right) {
+Vector2D Vector2D::operator+(const Vector2D& right) const {
     return Vector2D(this->x + right.x, this->y + right.y);
 }
-Vector2D Vector2D::operator-(const Vector2D& right) {
+
+Vector2D Vector2D::operator-(const Vector2D& right) const {
     return Vector2D(this->x - right.x, this->y - right.y);
 }
-Vector2D Vector2D::operator*(const int& scalar) {
+
+Vector2D Vector2D::operator*(const int& scalar) const {
     return Vector2D(this->x * scalar, this->y * scalar);
 }
-Vector2D Vector2D::operator/(const int& scalar) {
+
+Vector2D Vector2D::operator/(const int& scalar) const {
     return Vector2D(this->x / scalar, this->y / scalar);
 }
 

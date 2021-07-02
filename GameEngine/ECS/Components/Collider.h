@@ -8,6 +8,7 @@
 
 class Collider : public Activatable{
 public:
+    //borders must be directed and inserted clockwise
     Collider(std::unique_ptr<std::vector<Border>> borders, const bool& active);
     
     std::vector<Border>::iterator getBordersBegin();
