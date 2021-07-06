@@ -12,14 +12,17 @@ void Vector2D::add(const Vector2D& vector) {
     this->x += vector.x;
     this->y += vector.y;
 }
+
 void Vector2D::subtract(const Vector2D& vector) {
     this->x -= vector.x;
     this->y -= vector.y;
 }
+
 void Vector2D::multiply(const int& scalar) {
     this->x *= scalar;
     this->y *= scalar;
 }
+
 void Vector2D::divide(const int& scalar) {
     this->x /= scalar;
     this->y /= scalar;
@@ -47,14 +50,17 @@ Vector2D& Vector2D::operator+=(const Vector2D& vector) {
     add(vector);
     return *this;
 }
+
 Vector2D& Vector2D::operator-=(const Vector2D& vector) {
     subtract(vector);
     return *this;
 }
+
 Vector2D& Vector2D::operator*=(const int& scalar) {
     multiply(scalar);
     return *this;
 }
+
 Vector2D& Vector2D::operator/=(const int& scalar) {
     divide(scalar);
     return *this;
@@ -86,7 +92,7 @@ void Vector2D::subtract(const int& x, const int& y) {
     this->y -= y;
 }
 
-double Vector2D::operator%(Vector2D &right) {
+double Vector2D::operator%(Vector2D& right) {
     Vector2D vector = right - (*this);
     return sqrt(vector.x * vector.x + vector.y * vector.y);
 }

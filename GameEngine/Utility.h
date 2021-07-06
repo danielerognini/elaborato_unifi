@@ -9,14 +9,14 @@ void bubble_sort(Iterator begin, Iterator end, Object object) {
     int k = 0;
     do {
         ordered = true;
-        for(Iterator i = begin; i != std::prev(end, k); i++) {
-            if(object->compare(*i, *(std::prev(i, 1)))) {
+        for (Iterator i = begin; i != std::prev(end, k); i++) {
+            if (object->compare(*i, *(std::prev(i, 1)))) {
                 std::iter_swap(i, std::prev(i, 1));
                 ordered = false;
             }
         }
         k++;
-    } while(!ordered);
+    } while (!ordered);
 }
 
 inline Vector2D checkLinesIntersection(std::pair<Vector2D, Vector2D> reference, std::pair<Vector2D, Vector2D> external) {
@@ -28,7 +28,7 @@ inline Vector2D checkLinesIntersection(std::pair<Vector2D, Vector2D> reference, 
     double q2 = external.first.getY() - external.first.getX() * m2;
     int x = (q1 - q2) / (m2 - m1);
     int y = x * m2 + q2;
-
+    
     return Vector2D(x, y);
 }
 

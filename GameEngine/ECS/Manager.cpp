@@ -3,8 +3,8 @@
 #include "Manager.h"
 
 void Manager::flush() {
-    for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
-        if(!iter->second->isActive()){
+    for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++) {
+        if (!iter->second->isActive()) {
             removeEntity(iter->first);
         }
     }
@@ -12,16 +12,16 @@ void Manager::flush() {
 
 void Manager::update() {
     std::list<std::future<void>> asyncCalls;
-    for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
+    for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++) {
         asyncCalls.push_back(std::async(std::launch::async, &Entity::update, iter->second.get()));
     }
-    for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
+    for (std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();
     }
 }
 
 void Manager::draw() {
-    for(std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++){
+    for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator iter = entities.begin(); iter != entities.end(); iter++) {
         iter->second->draw();
     }
 }

@@ -34,24 +34,23 @@ Engine::~Engine() {
     SDL_DestroyWindow(window);
 }
 
-Engine& Engine::getInstance(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen)
-{
+Engine& Engine::getInstance(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen) {
     static Engine instance(title, x, y, width, height, fullscreen);
     return instance;
 }
 
 void Engine::update() {
     std::list<std::future<void>> asyncCalls;
-    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++){
+    for (std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
         asyncCalls.push_back(std::async(std::launch::async, &Manager::flush, &iter->second));
     }
-    for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
+    for (std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();
     }
-    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
+    for (std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
         asyncCalls.push_back(std::async(std::launch::async, &Manager::update, &iter->second));
     }
-    for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
+    for (std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
         iter->get();
     }
     ::collisionUpdate(managers);
@@ -59,8 +58,8 @@ void Engine::update() {
 
 void Engine::render() {
     SDL_RenderClear(renderer); //clean the previous render buffer
-
-    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++){
+    
+    for (std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
         iter->second.draw(); //we use second as a reference to the manager in the iter map to call the method to render the entities
     }
 }
@@ -77,7 +76,7 @@ bool Engine::drawTexture(const std::string& texturePath, const SDL_Rect& src, co
 
 bool Engine::drawText(const std::string& fontPath, const int& size, const std::string& text, const SDL_Color& color, const SDL_Rect& src, const SDL_Rect& dest) {
     bool result = false;
-    if(TTF_Font* font = TTF_OpenFont(fontPath.c_str(), size)) {
+    if (TTF_Font* font = TTF_OpenFont(fontPath.c_str(), size)) {
         SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
         SDL_RenderCopyEx(renderer, texture, &src, &dest, NULL, NULL, SDL_FLIP_NONE);
@@ -87,8 +86,6 @@ bool Engine::drawText(const std::string& fontPath, const int& size, const std::s
     }
     return result;
 }
-
-
 
 void Engine::clean() {
     SDL_DestroyWindow(window);
@@ -105,7 +102,7 @@ void Engine::quit() {
     running = false;
 }
 
-const int& Engine::getScale(){
+const int& Engine::getScale() {
     return scale;
 }
 
@@ -117,15 +114,15 @@ SDL_Rect& Engine::getCamera() {
     return camera;
 }
 
-bool Engine::addManager(const std::string &name, const unsigned int& priority) {
+bool Engine::addManager(const std::string& name, const unsigned int& priority) {
     bool result = managers.emplace(name, Manager(priority)).second;
-    if(result){
+    if (result) {
         sequence.push_front(name);
     }
     return result;
 }
 
-Manager & Engine::getManager(const std::string& name) {
+Manager& Engine::getManager(const std::string& name) {
     std::unordered_map<std::string, Manager>::iterator result = managers.find(name);
     if (result == managers.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map\"");
@@ -143,9 +140,9 @@ void Engine::refreshSequence() {
 
 bool Engine::removeManager(const std::string& name) {
     bool result = managers.erase(name);
-    if(result){
+    if (result) {
         std::list<std::string>::iterator iter;
-        for(iter = sequence.begin(); name != *iter && iter != sequence.end(); iter++) {}
+        for (iter = sequence.begin(); name != *iter && iter != sequence.end(); iter++) {}
         sequence.erase(iter);
     }
     return result;

@@ -10,7 +10,7 @@ void Transform::setSpeed(const int& speed) {
 }
 
 void Transform::update() {
-    if(active && moving) {
+    if (active && moving) {
         position.add(speed * Engine::getInstance().getScale() * cos(direction), speed * Engine::getInstance().getScale() * sin(direction));
     }
 }

@@ -5,60 +5,59 @@ Text::Text(bool active) {
 }
 
 Text::~Text() {
-
 }
 
-const SDL_Rect &Text::getRect() const {
+const SDL_Rect& Text::getRect() const {
     return rect;
 }
 
-void Text::setRect(const int &x, const int &y, const int &w, const int &h) {
+void Text::setRect(const int& x, const int& y, const int& w, const int& h) {
     rect.x = x;
     rect.y = y;
     rect.w = w;
     rect.h = h;
 }
 
-void Text::setX(const int &x) {
+void Text::setX(const int& x) {
     rect.x = x;
 }
 
-void Text::setY(const int &y) {
+void Text::setY(const int& y) {
     rect.y = y;
 }
 
-void Text::setW(const int &w) {
+void Text::setW(const int& w) {
     rect.w = w;
 }
 
-void Text::setH(const int &h) {
+void Text::setH(const int& h) {
     rect.h = h;
 }
 
-const std::string &Text::getMessage() const {
+const std::string& Text::getMessage() const {
     return message;
 }
 
-void Text::setMessage(const std::string &message) {
+void Text::setMessage(const std::string& message) {
     Text::message = message;
 }
 
-void Text::setColor(const uint8_t &r, const uint8_t &g, const uint8_t &b, const uint8_t &a) {
+void Text::setColor(const uint8_t& r, const uint8_t& g, const uint8_t& b, const uint8_t& a) {
     color.r = r;
     color.g = g;
     color.b = b;
     color.a = a;
 }
 
-void Text::setFontPath(const std::string &fontPath) {
+void Text::setFontPath(const std::string& fontPath) {
     this->fontPath = fontPath;
 }
 
-const std::string &Text::getFontPath() {
+const std::string& Text::getFontPath() {
     return fontPath;
 }
 
-const SDL_Color &Text::getColor() const {
+const SDL_Color& Text::getColor() const {
     return color;
 }
 

@@ -16,21 +16,21 @@ void Entity::draw() {
     SDL_Rect destRect = sprite.getSrcRect();
     destRect.w *= Engine::getInstance().getScale();
     destRect.h *= Engine::getInstance().getScale();
-
+    
     destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getInstance().getCamera().x;
     destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
-
+    
     Engine::getInstance().drawTexture(sprite.getTexturePath(), sprite.getSrcRect(), destRect, sprite.getFlip());
-
+    
     destRect = text.getRect();
-
+    
     destRect.w *= Engine::getInstance().getScale();
     destRect.h *= Engine::getInstance().getScale();
-
+    
     destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getInstance().getCamera().x;
     destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
-
-    Engine::getInstance().drawText(text.getFontPath(),text.getSize(), text.getMessage(), text.getColor(), text.getRect(), destRect);
+    
+    Engine::getInstance().drawText(text.getFontPath(), text.getSize(), text.getMessage(), text.getColor(), text.getRect(), destRect);
 }
 
 const Sprite& Entity::getSprite() const {
@@ -41,9 +41,9 @@ const Transform& Entity::getTransform() const {
     return transform;
 }
 
-const Collider &Entity::getCollider(const std::string& name) {
+const Collider& Entity::getCollider(const std::string& name) {
     std::unordered_map<std::string, Collider>::iterator result = colliders.find(name);
-    if(result == colliders.end()) {
+    if (result == colliders.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
     }
     return result->second;
@@ -57,8 +57,8 @@ bool Entity::removeCollider(const std::string& name) {
     return colliders.erase(name);
 }
 
-void Entity::resolveCollision(const Entity &externalEntity, const Vector2D &ownVertex) {
-    if(externalEntity.isSolid()) {
+void Entity::resolveCollision(const Entity& externalEntity, const Vector2D& ownVertex) {
+    if (externalEntity.isSolid()) {
         int speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? round(static_cast<float>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed())) : 1 : 0;
         int y = ownVertex.getY() - (externalVertex.getY() + externalEntity.transform.getPosition().getY() - transform.getPosition().getY());
         int x = ownVertex.getX() - (externalVertex.getX() + externalEntity.transform.getPosition().getX() - transform.getPosition().getX());
@@ -76,7 +76,7 @@ void Entity::setSolid(const bool& solid) {
 
 bool Entity::isCollidersActive() {
     std::unordered_map<std::string, Collider>::iterator iter;
-    for(iter = colliders.begin(); !iter->second.isActive() && iter != colliders.end(); iter++) {}
+    for (iter = colliders.begin(); !iter->second.isActive() && iter != colliders.end(); iter++) {}
     return iter != colliders.end();
 }
 
@@ -88,10 +88,10 @@ std::unordered_map<std::string, Collider>::iterator Entity::getCollidersEnd() {
     return colliders.end();
 }
 
-Text &Entity::getText() {
+Text& Entity::getText() {
     return text;
 }
 
-void Entity::setText(const Text &text) {
+void Entity::setText(const Text& text) {
     Entity::text = text;
 }

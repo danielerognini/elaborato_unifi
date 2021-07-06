@@ -5,21 +5,21 @@
 #include "../../Activatable.h"
 #include <cmath>
 
-class Transform : public Activatable{
+class Transform : public Activatable {
 public:
     explicit Transform(const int& x = 0, const int& y = 0, const double& direction = 0.0, const int& speed = 0, const bool& moving = false, const bool& active = true);
-
+    
     const int& getSpeed() const;
     void setSpeed(const int& speed);
-
+    
     void update();
-
+    
     const double& getDirection() const;
     void setDirection(const double& direction);
-
+    
     const bool& isMoving() const;
     void setMoving(const bool& moving);
-
+    
     const Vector2D& getPosition() const;
     void setPosition(const int& x, const int& y);
 
@@ -29,6 +29,5 @@ private:
     int speed;
     bool moving;
 };
-
 
 #endif //GAME_TRANSFORM_H

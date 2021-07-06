@@ -8,7 +8,7 @@ class Observer {
 public:
     virtual void update(const SDL_Event* event) = 0;
     virtual ~Observer();
-
+    
     void append();
     void release();
 };

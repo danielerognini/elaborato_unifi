@@ -1,14 +1,13 @@
 #ifndef GAME_VECTOR2D_H
 #define GAME_VECTOR2D_H
 
-
 class Vector2D {
 public:
     explicit Vector2D(const int& x = 0, const int& y = 0);
     static Vector2D toCartesian(const double& radius = 0.0, const double& angle = 0.0);
     
     void setVector(const int& x, const int& y);
-
+    
     const int& getX() const;
     void setX(const int& x);
     const int& getY() const;
@@ -40,6 +39,5 @@ private:
     int x;
     int y;
 };
-
 
 #endif //GAME_VECTOR2D_H

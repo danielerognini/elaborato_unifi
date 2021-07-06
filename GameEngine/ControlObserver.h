@@ -8,7 +8,7 @@
 class ControlObserver : public Observer {
 public:
     void update();
-
+    
     ControlObserver(Entity* entity, std::function<void(Entity*)> function);
     ~ControlObserver();
 
@@ -16,6 +16,5 @@ private:
     Entity* entity;
     std::function<void(Entity*)> function;
 };
-
 
 #endif //GAME_CONTROLOBSERVER_H

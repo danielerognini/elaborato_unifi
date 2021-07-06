@@ -1,7 +1,6 @@
 #ifndef GAME_ACTIVATABLE_H
 #define GAME_ACTIVATABLE_H
 
-
 class Activatable {
 public:
     const bool& isActive() const;
@@ -11,6 +10,5 @@ public:
 protected:
     bool active;
 };
-
 
 #endif //GAME_ACTIVATABLE_H
