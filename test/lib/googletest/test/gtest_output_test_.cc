@@ -94,26 +94,32 @@ INSTANTIATE_TEST_CASE_P(PrintingFailingParams,
                         FailingParamTest,
                         testing::Values(2));
 
-static const char kGoldenString[] = "\"Segment\0 1\"\nSegment 2";
+static const char kGoldenString[] = "\"Border\0 1\"\nBorder 2";
 
-TEST(NonfatalFailureTest, EscapesStringOperands) {
-  std::string actual = "actual \"string\"";
-  EXPECT_EQ(kGoldenString, actual);
+TEST(NonfatalFailureTest, EscapesStringOperands
+) {
+std::string actual = "actual \"string\"";
+EXPECT_EQ(kGoldenString, actual
+);
 
-  const char* golden = kGoldenString;
-  EXPECT_EQ(golden, actual);
+const char* golden = kGoldenString;
+EXPECT_EQ(golden, actual
+);
 }
 
-TEST(NonfatalFailureTest, DiffForLongStrings) {
-  std::string golden_str(kGoldenString, sizeof(kGoldenString) - 1);
-  EXPECT_EQ(golden_str, "Segment 2");
+TEST(NonfatalFailureTest, DiffForLongStrings
+) {
+std::string golden_str(kGoldenString, sizeof(kGoldenString) - 1);
+EXPECT_EQ(golden_str,
+"Border 2");
 }
 
 // Tests catching a fatal failure in a subroutine.
-TEST(FatalFailureTest, FatalFailureInSubroutine) {
-  printf("(expecting a failure that x should be 1)\n");
+TEST(FatalFailureTest, FatalFailureInSubroutine
+) {
+printf("(expecting a failure that x should be 1)\n");
 
-  TryTestSubroutine();
+TryTestSubroutine();
 }
 
 // Tests catching a fatal failure in a nested subroutine.

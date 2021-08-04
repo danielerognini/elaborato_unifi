@@ -1631,22 +1631,32 @@ TEST(UniversalPrintTest, WorksForCString) {
   UniversalPrint(s2, &ss2);
   EXPECT_EQ(PrintPointer(s2) + " pointing to \"abc\"", std::string(ss2.str()));
 
-  const char* s3 = NULL;
-  ::std::stringstream ss3;
-  UniversalPrint(s3, &ss3);
-  EXPECT_EQ("NULL", ss3.str());
+const char* s3 = NULL;
+::std::stringstream ss3;
+UniversalPrint(s3, & ss3
+);
+EXPECT_EQ("NULL", ss3.
+str()
+);
 }
 
-TEST(UniversalPrintTest, WorksForCharArray) {
-  const char str[] = "\"Segment\0 1\"\nSegment 2";
-  ::std::stringstream ss1;
-  UniversalPrint(str, &ss1);
-  EXPECT_EQ("\"\\\"Segment\\0 1\\\"\\nSegment 2\"", ss1.str());
+TEST(UniversalPrintTest, WorksForCharArray
+) {
+const char str[] = "\"Border\0 1\"\nBorder 2";
+::std::stringstream ss1;
+UniversalPrint(str, & ss1
+);
+EXPECT_EQ("\"\\\"Border\\0 1\\\"\\nBorder 2\"", ss1.
+str()
+);
 
-  const char mutable_str[] = "\"Segment\0 1\"\nSegment 2";
-  ::std::stringstream ss2;
-  UniversalPrint(mutable_str, &ss2);
-  EXPECT_EQ("\"\\\"Segment\\0 1\\\"\\nSegment 2\"", ss2.str());
+const char mutable_str[] = "\"Border\0 1\"\nBorder 2";
+::std::stringstream ss2;
+UniversalPrint(mutable_str, & ss2
+);
+EXPECT_EQ("\"\\\"Border\\0 1\\\"\\nBorder 2\"", ss2.
+str()
+);
 }
 
 #if GTEST_HAS_TR1_TUPLE

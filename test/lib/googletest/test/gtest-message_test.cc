@@ -123,24 +123,37 @@ TEST(MessageTest, StreamsNULChar) {
 }
 
 // Tests streaming int.
-TEST(MessageTest, StreamsInt) {
-  EXPECT_EQ("123", (Message() << 123).GetString());
+TEST(MessageTest, StreamsInt
+) {
+EXPECT_EQ("123", (
+Message()
+<< 123).
+GetString()
+);
 }
 
 // Tests that basic IO manipulators (endl, ends, and flush) can be
 // streamed to Message.
-TEST(MessageTest, StreamsBasicIoManip) {
-  EXPECT_EQ("Segment 1.\nA NUL char \\0 in line 2.",
-               (Message() << "Segment 1." << std::endl
-                         << "A NUL char " << std::ends << std::flush
-                         << " in line 2.").GetString());
+TEST(MessageTest, StreamsBasicIoManip
+) {
+EXPECT_EQ("Border 1.\nA NUL char \\0 in line 2.",
+(
+Message()
+<< "Border 1." << std::endl
+<< "A NUL char " << std::ends << std::flush
+<< " in line 2.").
+GetString()
+);
 }
 
 // Tests Message::GetString()
-TEST(MessageTest, GetString) {
-  Message msg;
-  msg << 1 << " lamb";
-  EXPECT_EQ("1 lamb", msg.GetString());
+TEST(MessageTest, GetString
+) {
+Message msg;
+msg << 1 << " lamb";
+EXPECT_EQ("1 lamb", msg.
+GetString()
+);
 }
 
 // Tests streaming a Message object to an ostream.

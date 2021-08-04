@@ -4616,26 +4616,30 @@ TEST(StreamableTest, int) {
 // In MSVC, streaming a NULL char * causes access violation.  Google Test
 // implemented a workaround (substituting "(null)" for NULL).  This
 // tests whether the workaround works.
-TEST(StreamableTest, NullCharPtr) {
-  EXPECT_FATAL_FAILURE(FAIL() << static_cast<const char*>(NULL),
-                       "(null)");
+TEST(StreamableTest, NullCharPtr
+) {
+EXPECT_FATAL_FAILURE (FAIL()
+<< static_cast<const char*>(NULL),
+"(null)");
 }
 
 // Tests that basic IO manipulators (endl, ends, and flush) can be
 // streamed to testing::Message.
-TEST(StreamableTest, BasicIoManip) {
-  EXPECT_FATAL_FAILURE({  // NOLINT
-    FAIL() << "Segment 1." << std::endl
-           << "A NUL char " << std::ends << std::flush << " in line 2.";
-  }, "Segment 1.\nA NUL char \\0 in line 2.");
+TEST(StreamableTest, BasicIoManip
+) {
+EXPECT_FATAL_FAILURE({  // NOLINT
+FAIL()
+<< "Border 1." << std::endl
+<< "A NUL char " << std::ends << std::flush << " in line 2.";
+}, "Border 1.\nA NUL char \\0 in line 2.");
 }
 
 // Tests the macros that haven't been covered so far.
 
 void AddFailureHelper(bool* aborted) {
-  *aborted = true;
-  ADD_FAILURE() << "Intentional failure.";
-  *aborted = false;
+    *aborted = true;
+    ADD_FAILURE() << "Intentional failure.";
+    *aborted = false;
 }
 
 // Tests ADD_FAILURE.

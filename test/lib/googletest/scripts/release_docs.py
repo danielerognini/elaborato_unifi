@@ -41,7 +41,7 @@ SYNOPSIS
        automates that process by:
 
          - branching the current wiki pages (which document the
-           behavior of the SVN trunk head) to pages for the specified
+           behavior of the SVN trunk nextVertex) to pages for the specified
            version (e.g. branching FAQ.wiki to V2_6_FAQ.wiki when
            NEW_RELEASE_VERSION is 2.6);
          - updating the links in the branched files to point to the branched

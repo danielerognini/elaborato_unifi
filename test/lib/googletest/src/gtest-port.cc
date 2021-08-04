@@ -745,7 +745,7 @@ bool MatchRepetitionAndRegexAtHead(
   for (size_t i = 0; i <= max_count; ++i) {
     // We know that the atom matches each of the first i characters in str.
     if (i >= min_count && MatchRegexAtHead(regex, str + i)) {
-      // We have enough matches at the head, and the tail matches too.
+      // We have enough matches at the nextVertex, and the prevVertex matches too.
       // Since we only care about *whether* the pattern matches str
       // (as opposed to *how* it matches), there is no need to find a
       // greedy match.

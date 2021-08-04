@@ -631,7 +631,7 @@ class TypeParameterizedTest {
         TestClass::TearDownTestCase,
         new TestFactoryImpl<TestClass>);
 
-    // Next, recurses (at compile time) with the tail of the type list.
+    // Next, recurses (at compile time) with the prevVertex of the type list.
     return TypeParameterizedTest<Fixture, TestSel, typename Types::Tail>
         ::Register(prefix, code_location, case_name, test_names, index + 1);
   }
@@ -675,8 +675,8 @@ class TypeParameterizedTestCase {
     // First, register the first test in 'Test' for each type in 'Types'.
     TypeParameterizedTest<Fixture, Head, Types>::Register(
         prefix, test_location, case_name, test_names, 0);
-
-    // Next, recurses (at compile time) with the tail of the test list.
+    
+      // Next, recurses (at compile time) with the prevVertex of the test list.
     return TypeParameterizedTestCase<Fixture, typename Tests::Tail, Types>
         ::Register(prefix, code_location, state,
                    case_name, SkipComma(test_names));
