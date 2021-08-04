@@ -3,11 +3,11 @@
 
 class EngineFixture : public ::testing::Test {
 protected:
-    EngineFixture() : engine(Engine()) {}
+    EngineFixture() : engine(Engine::getInstance()) {}
 
     virtual void SetUp() {
-        engine.addManager("1", <#initializer#>);
-        engine.addManager("2", <#initializer#>);
+        engine.addManager("1", 1);
+        engine.addManager("2", 2);
     }
 
     Engine engine;

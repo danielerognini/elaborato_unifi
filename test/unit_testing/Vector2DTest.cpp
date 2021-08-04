@@ -7,14 +7,14 @@ protected:
         vector1 = Vector2D(2, 4);
         vector2 = Vector2D(3, 6);
     }
-
+    
     Vector2D vector1;
     Vector2D vector2;
 };
 
-TEST_F(Vector2DFixture, setToZero) {
-    Vector2D vector = vector1.setToZero();
-    EXPECT_TRUE(vector.getX() == 0 && vector.getY() == 0);
+TEST_F(Vector2DFixture, setVector) {
+    vector1.setVector(4, 2);
+    EXPECT_TRUE(vector1.getX() == 4 && vector1.getY() == 2);
 }
 
 TEST_F(Vector2DFixture, addCoordinate) {
@@ -23,8 +23,8 @@ TEST_F(Vector2DFixture, addCoordinate) {
 }
 
 TEST_F(Vector2DFixture, subtractCoordinate) {
-    Vector2D vector = vector1.subtract(1, 1);
-    EXPECT_TRUE(vector.getX() == 1 && vector.getY() == 3);
+    vector1.subtract(1, 1);
+    EXPECT_TRUE(vector1.getX() == 1 && vector1.getY() == 3);
 }
 
 TEST_F(Vector2DFixture, add) {
@@ -33,18 +33,18 @@ TEST_F(Vector2DFixture, add) {
 }
 
 TEST_F(Vector2DFixture, subtract) {
-    Vector2D vector = vector1.subtract(vector2);
-    EXPECT_TRUE(vector.getX() == -1 && vector.getY() == -2);
+    vector1.subtract(vector2);
+    EXPECT_TRUE(vector2.getX() == -1 && vector2.getY() == -2);
 }
 
 TEST_F(Vector2DFixture, multiply) {
-    Vector2D vector = vector1.multiply(2);
-    EXPECT_TRUE(vector.getX() == 4 && vector.getY() == 8);
+    vector1.multiply(2);
+    EXPECT_TRUE(vector1.getX() == 4 && vector1.getY() == 8);
 }
 
 TEST_F(Vector2DFixture, divide) {
-    Vector2D vector = vector1.divide(2);
-    EXPECT_TRUE(vector.getX() == 1 && vector.getY() == 2);
+    vector1.divide(2);
+    EXPECT_TRUE(vector1.getX() == 1 && vector1.getY() == 2);
 }
 
 TEST_F(Vector2DFixture, operatorSum) {
@@ -52,23 +52,23 @@ TEST_F(Vector2DFixture, operatorSum) {
     EXPECT_TRUE(vector.getX() == 5 && vector.getY() == 10);
 }
 
-TEST_F(Vector2DFixture, operator-) {
-    Vector vector = vector1 - vector2;
+TEST_F(Vector2DFixture, operatorMinus) {
+    Vector2D vector = vector1 - vector2;
     EXPECT_TRUE(vector.getX() == -1 && vector.getY() == -2);
 }
 
-TEST_F(Vector2DFixture, operator*) {
-    Vector vector = vector1 * 2;
+TEST_F(Vector2DFixture, operatorStar) {
+    Vector2D vector = vector1 * 2;
     EXPECT_TRUE(vector.getX() == 4 && vector.getY() == 8);
 }
 
-TEST_F(Vector2DFixture, operator/) {
-    Vector vector = vector1 / 2;
+TEST_F(Vector2DFixture, operatorSlash) {
+    Vector2D vector = vector1 / 2;
     EXPECT_TRUE(vector.getX() == 1 && vector.getY() == 2);
 }
 
-TEST_F(Vector2DFixture, operator%) {
-    EXPECT_TRUE(static_cast<int>(Vector(-1, 0) % vector1) = 5);
+TEST_F(Vector2DFixture, operatorModule) {
+    EXPECT_TRUE(static_cast<int>(Vector2D(-1, 0) % vector1) == 5);
 }
 
 TEST_F(Vector2DFixture, operatorSumAssignment) {
@@ -76,12 +76,12 @@ TEST_F(Vector2DFixture, operatorSumAssignment) {
     EXPECT_TRUE(vector1.getX() == 5 && vector1.getY() == 10);
 }
 
-TEST_F(Vector2DFixture, operator-=) {
+TEST_F(Vector2DFixture, operatorMinusEqual) {
     vector1 -= vector2;
     EXPECT_TRUE(vector1.getX() == -1 && vector1.getY() == -2);
 }
 
-TEST_F(Vector2DFixture, operator*=) {
+TEST_F(Vector2DFixture, operatorStarEqual) {
     vector1 *= 2;
     EXPECT_TRUE(vector1.getX() == 4 && vector1.getY() == 8);
 }

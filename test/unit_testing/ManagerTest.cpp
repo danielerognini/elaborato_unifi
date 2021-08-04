@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Manager.h"
+#include "ECS/Manager.h"
 
 class ManagerFixture : public ::testing::Test {
 protected:

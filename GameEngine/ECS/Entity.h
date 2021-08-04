@@ -11,20 +11,23 @@ class Entity : public Activatable {
 public:
     explicit Entity(const std::string& texturePath, const bool& solid = true, const bool& active = true);
     
-    const Collider& getCollider(const std::string& name);
+    Collider& getCollider(const std::string& name);
     
-    bool addCollider(const std::string& name, std::unique_ptr<std::vector<Vector2D>> vertices);
+    bool addCollider(const std::string& name, std::unique_ptr<std::vector<Border>> borders, const bool& active);
     
     bool removeCollider(const std::string& name);
     
-    const Sprite& getSprite() const;
+    Sprite& getSprite();
     
-    const Transform& getTransform() const;
+    Transform& getTransform();
+    
+    Text& getText();
+    void setText(const Text& text);
     
     void update();
     void draw();
     
-    void resolveCollision(const Entity& externalEntity, const Vector2D& ownVertex);
+    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector);
     
     const bool& isSolid() const;
     

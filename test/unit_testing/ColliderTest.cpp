@@ -5,7 +5,7 @@
 
 class ColliderFixture : public ::testing::Test {
 protected:
-    ColliderFixture() : collider(Collider(new vector<Vector2D>({Vector2D(0,0), Vector2D(2,0), Vector2D(2,2), Vector2D(0,2)}))) {}
+    ColliderFixture() : collider(Collider(std::unique_ptr<std::vector<Border>>(new std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true)) {}
 
     virtual void SetUp() {
 
@@ -13,7 +13,4 @@ protected:
     Collider collider;
 };
 
-TEST_F(ColliderFixture, calculateCenter) {
-    Vector2D center = collider.getCenter();
-    EXPECT_TRUE(center.getX() == 1, center.getY() == 1);
-}
+//TODO: may be removed

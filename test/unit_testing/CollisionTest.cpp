@@ -11,22 +11,22 @@ protected:
         managers.emplace("2", Manager(2));
 
         managers.find("1")->second.addEntity("1", std::unique_ptr<Entity>(new Entity("")));
-        managers.find("1")->second.getEntity("1")->addCollider("1", std::unique_ptr<std::vector<Vector2D>>(new std::vector<Vector2D>({Vector2D(0, 0), Vector2D(4, 0), Vector2D(4, 4), Vector2D(0, 4)})));
+        managers.find("1")->second.getEntity("1")->addCollider("1", std::unique_ptr<std::vector<Border>>(new std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
         managers.find("1")->second.getEntity("1")->getTransform().setPosition(4, 2);
         managers.find("1")->second.getEntity("1")->getTransform().setMoving(true);
         managers.find("1")->second.getEntity("1")->getTransform().setSpeed(1);
         managers.find("1")->second.addEntity("2", std::unique_ptr<Entity>(new Entity("")));
-        managers.find("1")->second.getEntity("2")->addCollider("1", std::unique_ptr<std::vector<Vector2D>>(new std::vector<Vector2D>({Vector2D(0, 0), Vector2D(4, 0), Vector2D(4, 4), Vector2D(0, 4)})));
+        managers.find("1")->second.getEntity("2")->addCollider("1", std::unique_ptr<std::vector<Border>>(new std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
         managers.find("1")->second.getEntity("2")->getTransform().setPosition(9, 9);
         managers.find("1")->second.getEntity("2")->getTransform().setMoving(true);
         managers.find("1")->second.getEntity("2")->getTransform().setSpeed(1);
         managers.find("2")->second.addEntity("1", std::unique_ptr<Entity>(new Entity("")));
-        managers.find("2")->second.getEntity("1")->addCollider("1", std::unique_ptr<std::vector<Vector2D>>(new std::vector<Vector2D>({Vector2D(0, 0), Vector2D(4, 0), Vector2D(4, 4), Vector2D(0, 4)})));
+        managers.find("2")->second.getEntity("1")->addCollider("1", std::unique_ptr<std::vector<Border>>(new std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
         managers.find("2")->second.getEntity("1")->getTransform().setPosition(1, 5);
         managers.find("2")->second.getEntity("1")->getTransform().setMoving(true);
         managers.find("2")->second.getEntity("1")->getTransform().setSpeed(1);
         managers.find("2")->second.addEntity("2", std::unique_ptr<Entity>(new Entity("")));
-        managers.find("2")->second.getEntity("2")->addCollider("1", std::unique_ptr<std::vector<Vector2D>>(new std::vector<Vector2D>({Vector2D(0, 0), Vector2D(4, 0), Vector2D(4, 4), Vector2D(0, 4)})));
+        managers.find("2")->second.getEntity("2")->addCollider("1", std::unique_ptr<std::vector<Border>>(new std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
         managers.find("2")->second.getEntity("2")->getTransform().setPosition(7, 10);
         managers.find("2")->second.getEntity("2")->getTransform().setMoving(true);
         managers.find("2")->second.getEntity("2")->getTransform().setSpeed(1);

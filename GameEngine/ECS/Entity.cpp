@@ -33,15 +33,15 @@ void Entity::draw() {
     Engine::getInstance().drawText(text.getFontPath(), text.getSize(), text.getMessage(), text.getColor(), text.getRect(), destRect);
 }
 
-const Sprite& Entity::getSprite() const {
+Sprite& Entity::getSprite() {
     return sprite;
 }
 
-const Transform& Entity::getTransform() const {
+Transform& Entity::getTransform() {
     return transform;
 }
 
-const Collider& Entity::getCollider(const std::string& name) {
+Collider& Entity::getCollider(const std::string& name) {
     std::unordered_map<std::string, Collider>::iterator result = colliders.find(name);
     if (result == colliders.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
@@ -49,20 +49,18 @@ const Collider& Entity::getCollider(const std::string& name) {
     return result->second;
 }
 
-bool Entity::addCollider(const std::string& name, std::unique_ptr<std::vector<Vector2D>> vertices) {
-    return colliders.emplace(name, Collider(std::move(vertices))).second;
+bool Entity::addCollider(const std::string& name, std::unique_ptr<std::vector<Border>> borders, const bool& active) {
+    return colliders.emplace(name, Collider(std::move(borders), active)).second;
 }
 
 bool Entity::removeCollider(const std::string& name) {
     return colliders.erase(name);
 }
 
-void Entity::resolveCollision(const Entity& externalEntity, const Vector2D& ownVertex) {
+void Entity::resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) {
     if (externalEntity.isSolid()) {
-        int speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? round(static_cast<float>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed())) : 1 : 0;
-        int y = ownVertex.getY() - (externalVertex.getY() + externalEntity.transform.getPosition().getY() - transform.getPosition().getY());
-        int x = ownVertex.getX() - (externalVertex.getX() + externalEntity.transform.getPosition().getX() - transform.getPosition().getX());
-        transform.setPosition(transform.getPosition().getX() - x * speedCoefficient, transform.getPosition().getY() - y * speedCoefficient);
+        int speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? round(static_cast<float>(transform.getSpeed()) / static_cast<float>(transform.getSpeed() + externalEntity.transform.getSpeed())) : 1 : 0;
+        transform.setPosition(transform.getPosition().getX() - collisionVector.getX() * speedCoefficient, transform.getPosition().getY() - collisionVector.getY() * speedCoefficient);
     }
 }
 
