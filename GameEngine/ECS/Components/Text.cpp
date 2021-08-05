@@ -7,15 +7,13 @@ Text::Text(bool active) {
 Text::~Text() {
 }
 
-const SDL_Rect& Text::getRect() const {
+SDL_Rect& Text::getRect() {
     return rect;
 }
 
-void Text::setRect(const int& x, const int& y, const int& w, const int& h) {
+void Text::setRect(const int& x, const int& y) {
     rect.x = x;
     rect.y = y;
-    rect.w = w;
-    rect.h = h;
 }
 
 void Text::setX(const int& x) {
@@ -24,14 +22,6 @@ void Text::setX(const int& x) {
 
 void Text::setY(const int& y) {
     rect.y = y;
-}
-
-void Text::setW(const int& w) {
-    rect.w = w;
-}
-
-void Text::setH(const int& h) {
-    rect.h = h;
 }
 
 const std::string& Text::getMessage() const {

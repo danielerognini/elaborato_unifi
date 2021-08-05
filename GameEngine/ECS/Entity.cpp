@@ -24,9 +24,6 @@ void Entity::draw() {
     
     destRect = text.getRect();
     
-    destRect.w *= Engine::getInstance().getScale();
-    destRect.h *= Engine::getInstance().getScale();
-    
     destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getInstance().getCamera().x;
     destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
     

@@ -11,15 +11,15 @@ class Text : public Activatable {
 public:
     explicit Text(bool active = false);
     ~Text();
+
+    void update();
     
-    const SDL_Rect& getRect() const;
+    SDL_Rect& getRect();
     
-    void setRect(const int& x, const int& y, const int& w, const int& h);
+    void setRect(const int& x, const int& y);
     
     void setX(const int& x);
     void setY(const int& y);
-    void setW(const int& w);
-    void setH(const int& h);
     
     const std::string& getMessage() const;
     
@@ -31,12 +31,6 @@ public:
     
     const std::string& getFontPath();
 
-private:
-    SDL_Rect rect;
-    std::string message;
-    SDL_Color color;
-    std::string fontPath;
-public:
     const SDL_Color& getColor() const;
     
     const int& getSize() const;
@@ -46,6 +40,10 @@ public:
     void setSize(const int& size);
 
 private:
+    SDL_Rect rect;
+    std::string message;
+    SDL_Color color;
+    std::string fontPath;
     int size;
 };
 

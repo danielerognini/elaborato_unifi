@@ -74,10 +74,14 @@ bool Engine::drawTexture(const std::string& texturePath, const SDL_Rect& src, co
     return result;
 }
 
-bool Engine::drawText(const std::string& fontPath, const int& size, const std::string& text, const SDL_Color& color, const SDL_Rect& src, const SDL_Rect& dest) {
+bool Engine::drawText(const std::string& fontPath, const int& size, const std::string& text, const SDL_Color& color, SDL_Rect& src, SDL_Rect& dest) {
     bool result = false;
     if (TTF_Font* font = TTF_OpenFont(fontPath.c_str(), size)) {
         SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
+        src.w = surface->w;
+        src.h = surface->h;
+        dest.w = src.w * Engine::getInstance().getScale();
+        dest.h = src.h * Engine::getInstance().getScale();
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
         SDL_RenderCopyEx(renderer, texture, &src, &dest, NULL, NULL, SDL_FLIP_NONE);
         SDL_FreeSurface(surface);
