@@ -46,27 +46,6 @@ TEST_F(CollisionFixture, collisionUpdate) {
     EXPECT_TRUE(managers.find("2")->second.getEntity("1")->getTransform().getPosition().getX() == 0 && managers.find("2")->second.getEntity("1")->getTransform().getPosition().getY() == 5);
     EXPECT_TRUE(managers.find("2")->second.getEntity("2")->getTransform().getPosition().getX() == 6 && managers.find("2")->second.getEntity("2")->getTransform().getPosition().getY() == 11);
 }
-/*
-TEST_F(CollisionFixture, resolveEntityCollisions) {
-
-}
-
-TEST_F(CollisionFixture, controlEntityCollisions) {
-
-}
-
-TEST_F(CollisionFixture, controlColliderCollisions) {
-
-}
-
-TEST_F(CollisionFixture, calculateResultingVector2D) {
-
-}
-
-TEST_F(CollisionFixture, resolveLocalCollisions) {
-
-}
-*/
 
 
 
