@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 set(ENGINE_SOURCE_FILES
@@ -18,11 +18,14 @@ set(ENGINE_SOURCE_FILES
         Utility.h
         ECS/Components/Text.cpp ECS/Components/Text.h
         ControlObserver.cpp ControlObserver.h
-        Observer.cpp Observer.h Border.cpp Border.h)
+        Observer.cpp Observer.h
+        Border.cpp Border.h)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2TTF REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 
-add_library(GameEngine ${ENGINE_SOURCE_FILES})
+add_library(GameEngine STATIC ${ENGINE_SOURCE_FILES})
+target_link_libraries(GameEngine ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY})
+
