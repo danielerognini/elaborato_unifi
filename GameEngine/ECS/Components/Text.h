@@ -5,21 +5,20 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <memory>
+#include <Vector2D.h>
 #include "../../Activatable.h"
 
 class Text : public Activatable {
 public:
     explicit Text(bool active = false);
     ~Text();
-
-    void update();
     
     SDL_Rect& getRect();
-    
-    void setRect(const int& x, const int& y);
-    
-    void setX(const int& x);
-    void setY(const int& y);
+
+    void setOffset(const Vector2D& offset);
+    void setOffset(const int& x, const int& y);
+
+    const Vector2D& getOffset() const;
     
     const std::string& getMessage() const;
     
@@ -40,6 +39,7 @@ public:
     void setSize(const int& size);
 
 private:
+    Vector2D offset;
     SDL_Rect rect;
     std::string message;
     SDL_Color color;

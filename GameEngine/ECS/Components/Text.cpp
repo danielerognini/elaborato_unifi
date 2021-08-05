@@ -2,6 +2,8 @@
 
 Text::Text(bool active) {
     this->active = active;
+    rect.x = 0;
+    rect.y = 0;
 }
 
 Text::~Text() {
@@ -9,19 +11,6 @@ Text::~Text() {
 
 SDL_Rect& Text::getRect() {
     return rect;
-}
-
-void Text::setRect(const int& x, const int& y) {
-    rect.x = x;
-    rect.y = y;
-}
-
-void Text::setX(const int& x) {
-    rect.x = x;
-}
-
-void Text::setY(const int& y) {
-    rect.y = y;
 }
 
 const std::string& Text::getMessage() const {
@@ -61,4 +50,17 @@ void Text::setColor1(const SDL_Color& color) {
 
 void Text::setSize(const int& size) {
     this->size = size;
+}
+
+void Text::setOffset(const int& x, const int& y) {
+    offset.setX(x);
+    offset.setY(y);
+}
+
+void Text::setOffset(const Vector2D& offset) {
+    this->offset = offset;
+}
+
+const Vector2D &Text::getOffset() const{
+    return offset;
 }

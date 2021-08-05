@@ -17,15 +17,14 @@ void Entity::draw() {
     destRect.w *= Engine::getInstance().getScale();
     destRect.h *= Engine::getInstance().getScale();
     
-    destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getInstance().getCamera().x;
-    destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
+    destRect.x = transform.getPosition().getX();
+    destRect.y = transform.getPosition().getY();
     
     Engine::getInstance().drawTexture(sprite.getTexturePath(), sprite.getSrcRect(), destRect, sprite.getFlip());
     
     destRect = text.getRect();
-    
-    destRect.x = static_cast<int>(transform.getPosition().getX()) - Engine::getInstance().getCamera().x;
-    destRect.y = static_cast<int>(transform.getPosition().getY()) - Engine::getInstance().getCamera().y;
+    destRect.x = text.getOffset().getX() + transform.getPosition().getX();
+    destRect.y = text.getOffset().getY() + transform.getPosition().getY();
     
     Engine::getInstance().drawText(text.getFontPath(), text.getSize(), text.getMessage(), text.getColor(), text.getRect(), destRect);
 }
