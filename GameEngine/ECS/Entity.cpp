@@ -54,6 +54,9 @@ bool Entity::removeCollider(const std::string& name) {
 }
 
 void Entity::resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) {
+    if (transform.getPosition().getX() == 7 && transform.getPosition().getY() == 10 && externalEntity.transform.getPosition().getX() == 9 && externalEntity.transform.getPosition().getY() == 9) {
+        std::cout << "[" << collisionVector.getX() << ", " << collisionVector.getY() << "]" << std::endl;
+    }
     if (externalEntity.isSolid()) {
         double speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? static_cast<double>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed()) : 1 : 0;
         transform.setPosition(transform.getPosition().getX() - (static_cast<int>(round(static_cast<float>(collisionVector.getX() * speedCoefficient))) - (collisionVector.getX() % 2 == 1 && collisionVector.getX() > 0 && transform.getSpeed() == externalEntity.transform.getSpeed() ? 1 : 0)), transform.getPosition().getY() - (static_cast<int>(round(static_cast<float>(collisionVector.getY() * speedCoefficient))) - (collisionVector.getY() % 2 == 1 && collisionVector.getY() > 0 && transform.getSpeed() == externalEntity.transform.getSpeed() ? 1 : 0)));
