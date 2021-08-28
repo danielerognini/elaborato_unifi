@@ -46,11 +46,25 @@ To read the state of the object you can use the isActive function, that will ret
 
 -------
 ### Border
-// TODO
+Border is a class that we use to represent the border of a polygon.
+
+It's composed of 2 **[vector2d](#vector2d)**: prevVertex and nextVertex.
+
+It also has a boolean attribute to define the internal side of the border. To determine which side is the internal one: you have to "look" at nextVertex from the point of view of prevVertex: if the inner side is on the right, the attribute has to be set to true, otherwise it has to be set to false.
+
+The checkSide method receives a **[vector2d](#vector2d)** that represents a point. Then it returns true if the point is inside the polygon, otherwise it returns false.
+
+The checkBordersIntersection method controls if two borders intersect. It first calculates the intersection point of the lines passing by the vertices of the two borders, then it checks if the intersection is on the borders or on their extensions. It also checks if the nextVertex of a border is in the inner side of the other and viceversa.
 
 -------
 ### Collision
-// TODO
+It is a set of functions used to calculate the collisionVector between every colliding entity and pass it to the entity's resolveEntityCollision method to resolve the collisions.
+
+Because an entity can be composed by one or more colliders, the algorithm calculates the resulting vector from all the collider's collisions.
+
+> Warning: due to finite algebra approximation, the polygon algorithm is not working properly. This version of the engine only supports rectangular colliders.
+
+> Note: This algorithm has been created and completely implemented only by us to fit the particular needs of our code. We do not suggest to rely completely on our algorithm because of it's untested reliability.
 
 -------
 ### ControlObserver
@@ -88,7 +102,7 @@ The way updates are managed is:
 
 -------
 ### Observer
-// TODO
+This is an abstract class that follows the observer design pattern, revisited to take SDL events as update parameter.
 
 -------
 ### Utility
@@ -158,7 +172,7 @@ It is able to calculate the index of the sprite in a spritesheet composed of a g
 
 -------
 ### Collider
-// TODO
+Collider is essentially a vector of **[borders](#border)**.
 
 -------
 ### Sprite
@@ -237,4 +251,3 @@ The direction is a little bit tricky: it's measured in radians, the positive dir
 ![direction image](Direction.png)
 
 -------
-
