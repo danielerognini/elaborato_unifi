@@ -26,7 +26,8 @@ public:
 private:
     Vector2D position;
     double direction; //in radians, clockwise is the positive direction, 0 is on the positive x axis (right side)
-    int speed;
+    short int speed;
+    Uint32 lastMovement; // milliseconds of the last movement
     bool moving;
 };
 

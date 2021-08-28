@@ -101,3 +101,7 @@ void Vector2D::setVector(const int& x, const int& y) {
     this->x = x;
     this->y = y;
 }
+
+bool Vector2D::operator==(const Vector2D& vector) const {
+    return this->x == vector.x && this->y == vector.y;
+}

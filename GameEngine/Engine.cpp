@@ -152,3 +152,11 @@ bool Engine::removeManager(const std::string& name) {
     return result;
 }
 
+const Uint32& Engine::getFrameStart() const {
+    return frameStart;
+}
+
+void Engine::updateFrameStart() {
+    frameStart = SDL_GetTicks();
+}
+

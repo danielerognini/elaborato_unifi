@@ -5,6 +5,8 @@
 #include "Collision.h"
 #include "Utility.h"
 
+Vector2D& calculatePolygonCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections, Vector2D& result);
+
 void collisionUpdate(std::unordered_map<std::string, Manager>& managers) {
     std::list<std::future<void>> asyncCalls;
     
@@ -134,38 +136,77 @@ Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referenc
     }
     Vector2D result = Vector2D(0, 0);
     if (referenceIncludedVertices.size() > 0 || externalIncludedVertices.size() > 0) {
-        Vector2D averageIntersection(std::accumulate(intersections.begin(), intersections.end(), Vector2D(0, 0)));
-        averageIntersection /= intersections.size();
-        if (intersections.size() == 2) {
-            Border intersectionSegment = Border(intersections.front(), intersections.back(), true);
+        //result = calculatePolygonCollisionVector(referenceIncludedVertices, externalIncludedVertices, intersections);
+        result = calculateRectCollisionVector(referenceIncludedVertices, externalIncludedVertices, intersections);
+    }
+    return result;
+}
+
+Vector2D& calculateRectCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
+    Vector2D result = Vector2D(0, 0);
+    Vector2D referenceVector = Vector2D(0, 0);
+    Vector2D externalVector = Vector2D(0, 0);
+    if (intersections.size() == 2) {
+        if (intersections.front().getX() == intersections.end()->getX()) {
             if (referenceIncludedVertices.size() > 0) {
-                if (bool side = !intersectionSegment.checkSide(referenceIncludedVertices.front())) {
-                    intersectionSegment.setInnerSide(side);
-                }
-                //arccos[(xa * xb + ya * yb) / (√(xa2 + ya2) * √(xb2 + yb2))]
-                Vector2D intersectionVector;
-                if (intersectionSegment.isInnerSide()) {
-                    intersectionVector = intersectionSegment.getNextVertex() - intersectionSegment.getPrevVertex();
-                }
-                double angle = acos(intersectionVector.getX() / sqrt(pow(intersectionVector.getX(), 2) + pow(intersectionVector.getY(), 2)));
-                for (std::list<Vector2D>::iterator iter = referenceIncludedVertices.begin(); iter != referenceIncludedVertices.end(); iter++) {
-                    *iter -= averageIntersection;
-                    iter->setVector(iter->getX() * cos(angle) + iter->getY() * sin(angle), -iter->getX() * sin(angle) + iter->getY() * cos(angle));
-                }
-                double counter_angle = angle - 2 * M_PI;
-                for (std::list<Vector2D>::iterator iter = externalIncludedVertices.begin(); iter != externalIncludedVertices.end(); iter++) {
-                    *iter -= averageIntersection;
-                    iter->setVector(iter->getX() * cos(counter_angle) + iter->getY() * sin(counter_angle), -iter->getX() * sin(counter_angle) + iter->getY() * cos(counter_angle));
-                }
-                result = calculateResultingVector2D(referenceIncludedVertices) - calculateResultingVector2D(externalIncludedVertices);
-                angle *= -1;
-                result.setVector(result.getX() * cos(angle) + result.getY() * sin(angle), -result.getX() * sin(angle) + result.getY() * cos(angle));
+                referenceVector = Vector2D(referenceIncludedVertices.front().getX() - intersections.front().getX(), 0);
+            }
+            if (externalIncludedVertices.size() > 0) {
+                externalVector = Vector2D(externalIncludedVertices.front().getX() - intersections.front().getX(), 0);
+            }
+        } else if (intersections.front().getY() == intersections.end()->getY()) {
+            if (referenceIncludedVertices.size() > 0) {
+                referenceVector = Vector2D(0, referenceIncludedVertices.front().getY() - intersections.front().getY());
+            }
+            if (externalIncludedVertices.size() > 0) {
+                externalVector = Vector2D(0, externalIncludedVertices.front().getY() - intersections.front().getY());
             }
         } else {
-            //TODO: exceptional case to handle
+            referenceVector = referenceIncludedVertices.front() - externalIncludedVertices.front();
+        }
+        result = referenceVector - externalVector;
+    } else if (intersections.size() == 4) {
+        if (referenceIncludedVertices.front().getX() == referenceIncludedVertices.back().getX()) {
+            result = Vector2D(referenceIncludedVertices.front().getX() - externalIncludedVertices.front().getX(), 0);
+        } else {
+            result = Vector2D(0, referenceIncludedVertices.front().getY() - externalIncludedVertices.front().getY());
         }
     }
-    
+    return result;
+}
+
+Vector2D& calculatePolygonCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
+    Vector2D result = Vector2D(0, 0);
+    Vector2D averageIntersection(std::accumulate(intersections.begin(), intersections.end(), Vector2D(0, 0)));
+    averageIntersection /= intersections.size();
+    if (intersections.size() == 2) {
+        Border intersectionSegment = Border(intersections.front(), intersections.back(), true);
+        if (referenceIncludedVertices.size() > 0) {
+            if (bool side = !intersectionSegment.checkSide(referenceIncludedVertices.front())) {
+                intersectionSegment.setInnerSide(side);
+            }
+            //arccos[(xa * xb + ya * yb) / (√(xa2 + ya2) * √(xb2 + yb2))]
+            Vector2D intersectionVector;
+            if (intersectionSegment.isInnerSide()) {
+                intersectionVector = intersectionSegment.getNextVertex() - intersectionSegment.getPrevVertex();
+            }
+            double angle = acos(intersectionVector.getX() / sqrt(pow(intersectionVector.getX(), 2) + pow(intersectionVector.getY(), 2)));
+            for (std::__cxx11::list<Vector2D>::iterator iter = referenceIncludedVertices.begin(); iter != referenceIncludedVertices.end(); iter++) {
+                *iter -= averageIntersection;
+                iter->setVector(iter->getX() * cos(angle) + iter->getY() * sin(angle), -iter->getX() * sin(angle) + iter->getY() * cos(angle));
+            }
+            double counter_angle = angle - 2 * M_PI;
+            for (std::__cxx11::list<Vector2D>::iterator iter = externalIncludedVertices.begin(); iter != externalIncludedVertices.end(); iter++) {
+                *iter -= averageIntersection;
+                iter->setVector(iter->getX() * cos(counter_angle) + iter->getY() * sin(counter_angle), -iter->getX() * sin(counter_angle) + iter->getY() * cos(counter_angle));
+            }
+            result = calculateResultingVector2D(referenceIncludedVertices) - calculateResultingVector2D(externalIncludedVertices);
+            angle *= -1;
+            result.setVector(result.getX() * cos(angle) + result.getY() * sin(angle), -result.getX() * sin(angle) + result.getY() * cos(angle));
+        }
+    } else {
+        //TODO: exceptional case to handle
+    }
     return result;
 }
 

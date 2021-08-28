@@ -34,6 +34,8 @@ public:
     Vector2D& operator-=(const Vector2D& vector);
     Vector2D& operator*=(const int& scalar);
     Vector2D& operator/=(const int& scalar);
+    
+    bool operator==(const Vector2D& vector) const;
 
 private:
     int x;

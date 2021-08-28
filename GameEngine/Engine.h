@@ -19,6 +19,8 @@ public:
     void clean();
     
     const bool& isRunning();
+    const Uint32& getFrameStart() const;
+    void updateFrameStart();
     void quit();
     
     SDL_Renderer* getRenderer();
@@ -43,6 +45,7 @@ private:
     //static SDL_Event event; //create an SDL_Event variable where we are going to poll SDL events into (we want to make it static so that we can access it from anywhere)
     SDL_Rect camera;
     bool running;
+    Uint32 frameStart;
     
     int scale;
 };
