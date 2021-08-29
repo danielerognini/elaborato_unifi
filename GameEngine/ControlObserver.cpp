@@ -2,7 +2,7 @@
 #include "Input.h"
 
 ControlObserver::ControlObserver(Entity* entity, std::function<void(Entity*, const SDL_Event*)> function) : entity(entity), function(function) {
-    Input::getInstance().append(this);
+    Input::getInstance().append(this, <#initializer#>, <#initializer#>);
 }
 
 void ControlObserver::update(const SDL_Event* event) {
