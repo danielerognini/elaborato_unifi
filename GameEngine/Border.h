@@ -4,11 +4,18 @@
 #include <utility>
 #include "Vector2D.h"
 
+typedef struct {
+    bool intersected;
+    Vector2D intersection;
+    bool refIncoming;
+    bool extIncoming;
+} IntersectionResult;
+
 class Border {
 public:
     Border(const Vector2D& prevVertex, const Vector2D& nextVertex, const bool& innerSide = true);
     
-    std::pair<std::pair<bool, Vector2D>, std::pair<bool, bool>> checkBordersIntersection(const Border& border, const Vector2D& referencePosition = Vector2D(0, 0), const Vector2D& externalPosition = Vector2D(0, 0));
+    IntersectionResult checkBordersIntersection(const Border& border, const Vector2D& referencePosition = Vector2D(0, 0), const Vector2D& externalPosition = Vector2D(0, 0));
     
     bool checkSide(const Vector2D& vertex) const;
     

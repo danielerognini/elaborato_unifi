@@ -4,8 +4,8 @@
 
 Border::Border(const Vector2D& prevVertex, const Vector2D& nextVertex, const bool& innerSide) : prevVertex(prevVertex), nextVertex(nextVertex), innerSide(innerSide) {}
 
-std::pair<std::pair<bool, Vector2D>, std::pair<bool, bool>> Border::checkBordersIntersection(const Border& border, const Vector2D& referencePosition, const Vector2D& externalPosition) {
-    std::pair<std::pair<bool, Vector2D>, std::pair<bool, bool>> result = std::make_pair(std::make_pair(false, Vector2D(0, 0)), std::make_pair(false, false));
+IntersectionResult Border::checkBordersIntersection(const Border& border, const Vector2D& referencePosition, const Vector2D& externalPosition) {
+    IntersectionResult result = {false, Vector2D(0, 0), false, false};
     Border reference = Border(*this);
     reference.setPrevVertex(reference.getPrevVertex() + referencePosition);
     reference.setNextVertex(reference.getNextVertex() + referencePosition);
@@ -25,12 +25,12 @@ std::pair<std::pair<bool, Vector2D>, std::pair<bool, bool>> Border::checkBorders
     if (determinant != 0) {
         int x = static_cast<int>(round((b2 * c1 - b1 * c2) / determinant));
         int y = static_cast<int>(round((a1 * c2 - a2 * c1) / determinant));
-        result.first.second.setVector(x, y);
-        result.second.first = reference.checkSide(external.nextVertex);
-        result.second.second = external.checkSide(reference.nextVertex);
+        result.intersection.setVector(x, y);
+        result.refIncoming = external.checkSide(reference.nextVertex);
+        result.extIncoming = reference.checkSide(external.nextVertex);
     
         if (x <= std::min(std::max(reference.prevVertex.getX(), reference.nextVertex.getX()), std::max(external.prevVertex.getX(), external.nextVertex.getX())) && x >= std::max(std::min(reference.prevVertex.getX(), reference.nextVertex.getX()), std::min(external.prevVertex.getX(), external.nextVertex.getX())) && y <= std::min(std::max(reference.prevVertex.getY(), reference.nextVertex.getY()), std::max(external.prevVertex.getY(), external.nextVertex.getY())) && y >= std::max(std::min(reference.prevVertex.getY(), reference.nextVertex.getY()), std::min(external.prevVertex.getY(), external.nextVertex.getY()))) {
-            result.first.first = true;
+            result.intersected = true;
         }
     }
     return result;
