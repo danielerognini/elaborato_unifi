@@ -13,7 +13,7 @@
   - [GameEngine/ECS/](#gameengineecs)
     - [Entity](#entity)
     - [Manager](#manager)
-    - [GameEngine/Components/](#gameenginecomponents)
+    - [GameEngine/ECS/Components/](#gameengineecscomponents)
       - [Animation](#animation)
       - [Collider](#collider)
       - [Sprite](#sprite)
@@ -93,7 +93,7 @@ The way updates are managed is:
 - using the update function in the engine we update every single manager that is active (take a look at **[activatable](#activatable)** for an explanation);
 - inside each **[manager](#manager)** we have another update function that updates every single active **[entity](#entity)** inside that **[manager](#manager)**;
 - inside each **[entity](#entity)** there's another update function that updates all the active components of that entity;
-- inside each **[components](#gameenginecomponents)** there's an update function, the scope of that function will differ depending on the tipe of the **[components](#gameenginecomponents)**.
+- inside each **[components](#gameengineecscomponents)** there's an update function, the scope of that function will differ depending on the tipe of the **[components](#gameengineecscomponents)**.
 
 
 -------
@@ -126,8 +126,8 @@ The coordinates are managed like so:
 ## GameEngine/ECS
 > Note: ECS stands for entity component system.
 
-To manage the entities in our game we needed a few things: some way to manage them on different layers (to render one entity on top of another for example) and to figure out a way to attach some "**[components](#gameenginecomponents)**" to them.
-To do so we first created the **[manager class](#manager)** and the **[entity class](#entity)**. Then we decided to put all of the components in a separated folder, called **[Components](#gameenginecomponents)**.
+To manage the entities in our game we needed a few things: some way to manage them on different layers (to render one entity on top of another for example) and to figure out a way to attach some "**[components](#gameengineecscomponents)**" to them.
+To do so we first created the **[manager class](#manager)** and the **[entity class](#entity)**. Then we decided to put all of the components in a separated folder, called **[Components](#gameengineecscomponents)**.
 
 ### Entity
 An **entity** can be anything in a game: if an object has a **[sprite](#sprite)**, a **[collider](#collider)** or there's some **[text](#text)** then that thing is an **entity** with it's **[components](#components)**.
@@ -158,7 +158,7 @@ These two fields respectively define if the collisions (between entities) inside
 > Note: If you have two managers and one has globalCollisionsActive set to true and the other one has not, then all collisions appening between the entities of the two colliders are ignored and the entities that are part of the manager with the highest priority are rendered on top of the entities of the other manager.
 
 -------
-## GameEngine/Components
+## GameEngine/ECS/Components
 So, what is a component? It is a class. An **[entity](#entity)** has an object (or a map containing objects) from that class. Since they derived from activatable they will be active only on entities that require them.
 
 > Example: Let's imagine that we have two **[entities](#entity)** inside our game: a **character** and an **invisible barrier**. When creating those **[entities](#entity)** the programmer is going to activate the **[sprite component](#sprite)** of the **character** to make it visible (and maybe adding an animation for the movement) and activate the **[collider component](#collider)** of both the **character** and **invisible barrier**. 
@@ -251,3 +251,4 @@ The direction is a little bit tricky: it's measured in radians, the positive dir
 ![direction image](Direction.png)
 
 -------
+
