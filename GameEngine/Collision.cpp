@@ -29,11 +29,11 @@ void collisionUpdate(std::unordered_map<std::string, Manager>& managers) {
         if (iter->second.isGlobalCollisionsActive()) {
             for (std::unordered_map<std::string, Manager>::iterator subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
                 if (subIter->second.isGlobalCollisionsActive()) {
-                    for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subSubIter = iter->second.getEntitiesBegin(); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
-                        if (subSubIter->second->isCollidersActive()) {
-                            for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subSubSubIter = subIter->second.getEntitiesBegin(); subSubSubIter != subIter->second.getEntitiesEnd(); subSubSubIter++) {
-                                if (subSubIter->second->isCollidersActive()) {
-                                    resolveEntityCollisions(*subSubIter->second, *subSubSubIter->second);
+                    for (std::unordered_map<std::string, Entity>::iterator subSubIter = iter->second.getEntitiesBegin(); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
+                        if (subSubIter->second.isCollidersActive()) {
+                            for (std::unordered_map<std::string, Entity>::iterator subSubSubIter = subIter->second.getEntitiesBegin(); subSubSubIter != subIter->second.getEntitiesEnd(); subSubSubIter++) {
+                                if (subSubIter->second.isCollidersActive()) {
+                                    resolveEntityCollisions(subSubIter->second, subSubSubIter->second);
                                 }
                             }
                         }
@@ -47,11 +47,11 @@ void collisionUpdate(std::unordered_map<std::string, Manager>& managers) {
 void resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator& iter) {
     if (iter->second.isLocalCollisionsActive()) {
     
-        for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subIter = iter->second.getEntitiesBegin(); std::next(subIter, 1) != iter->second.getEntitiesEnd(); subIter++) {
-            if (subIter->second->isCollidersActive()) {
-                for (std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator subSubIter = std::next(subIter, 1); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
-                    if (subSubIter->second->isCollidersActive()) {
-                        resolveEntityCollisions(*subIter->second, *subSubIter->second);
+        for (std::unordered_map<std::string, Entity>::iterator subIter = iter->second.getEntitiesBegin(); std::next(subIter, 1) != iter->second.getEntitiesEnd(); subIter++) {
+            if (subIter->second.isCollidersActive()) {
+                for (std::unordered_map<std::string, Entity>::iterator subSubIter = std::next(subIter, 1); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
+                    if (subSubIter->second.isCollidersActive()) {
+                        resolveEntityCollisions(subIter->second, subSubIter->second);
                     }
                 }
             }
@@ -154,7 +154,7 @@ Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referenc
     return result;
 }
 
-Vector2D& calculateRectCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
+Vector2D calculateRectCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
     Vector2D result = Vector2D(0, 0);
     Vector2D referenceVector = Vector2D(0, 0);
     Vector2D externalVector = Vector2D(0, 0);
@@ -193,7 +193,7 @@ Vector2D& calculateRectCollisionVector(std::list<Vector2D>& referenceIncludedVer
     return result;
 }
 
-Vector2D& calculatePolygonCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
+Vector2D calculatePolygonCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
     Vector2D result = Vector2D(0, 0);
     Vector2D averageIntersection(std::accumulate(intersections.begin(), intersections.end(), Vector2D(0, 0)));
     averageIntersection /= intersections.size();

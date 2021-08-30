@@ -9,8 +9,8 @@ class Transform : public Activatable {
 public:
     explicit Transform(const int& x = 0, const int& y = 0, const double& direction = 0.0, const int& speed = 0, const bool& moving = false, const bool& active = true);
     
-    const int& getSpeed() const;
-    void setSpeed(const int& speed);
+    const unsigned short int& getSpeed() const;
+    void setSpeed(const unsigned short int& speed);
     
     void update();
     
@@ -26,7 +26,7 @@ public:
 private:
     Vector2D position;
     double direction; //in radians, clockwise is the positive direction, 0 is on the positive x axis (right side)
-    short int speed;
+    unsigned short int speed;
     unsigned int lastMovement; // milliseconds of the last movement
     bool moving;
 };

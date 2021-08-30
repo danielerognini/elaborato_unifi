@@ -1,11 +1,11 @@
 #include "Transform.h"
 #include "../../Engine.h"
 
-const int& Transform::getSpeed() const {
+const unsigned short int& Transform::getSpeed() const {
     return speed;
 }
 
-void Transform::setSpeed(const int& speed) {
+void Transform::setSpeed(const unsigned short int& speed) {
     this->speed = speed;
 }
 

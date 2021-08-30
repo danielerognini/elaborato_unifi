@@ -13,12 +13,12 @@ public:
     void update();
     void draw();
     
-    bool addEntity(const std::string& name, std::unique_ptr<Entity> entity);
+    bool addEntity(const std::string& name, Entity entity);
     bool removeEntity(const std::string& name);
-    std::shared_ptr<Entity> getEntity(const std::string& name);
+    Entity& getEntity(const std::string& name);
     
-    std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator getEntitiesBegin();
-    std::unordered_map<std::string, std::shared_ptr<Entity>>::iterator getEntitiesEnd();
+    std::unordered_map<std::string, Entity>::iterator getEntitiesBegin();
+    std::unordered_map<std::string, Entity>::iterator getEntitiesEnd();
     
     const bool& isLocalCollisionsActive() const;
     
@@ -33,7 +33,7 @@ public:
     void setPriority(const unsigned int& priority);
 
 private:
-    std::unordered_map<std::string, std::shared_ptr<Entity>> entities;
+    std::unordered_map<std::string, Entity> entities;
     bool localCollisionsActive;
     bool globalCollisionsActive;
     unsigned int priority;
