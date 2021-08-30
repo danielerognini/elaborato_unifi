@@ -2,16 +2,16 @@
 #include "../../Utility.h"
 #include <cmath>
 
-Collider::Collider(std::unique_ptr<std::vector<Border>> borders, const bool& active) : borders(std::move(borders))/*, center(calculateCenter())*/{
+Collider::Collider(std::vector<Border> borders, const bool& active) : borders(std::move(borders))/*, center(calculateCenter())*/{
     this->active = active;
 }
 
 std::vector<Border>::iterator Collider::getBordersBegin() {
-    return borders->begin();
+    return borders.begin();
 }
 
 std::vector<Border>::iterator Collider::getBordersEnd() {
-    return borders->end();
+    return borders.end();
 }
 /*
 const Vector2D& Collider::getCenter() {

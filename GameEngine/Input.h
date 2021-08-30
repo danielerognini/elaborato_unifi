@@ -11,11 +11,9 @@
 #include "ControlObserver.h"
 #include "Observer.h"
 
-typedef;
-
 typedef struct {
-    std::function<int()> findIndex;
-    std::multimap<int, Observer*> subEvents;
+    std::function<unsigned int()> findIndex;
+    std::multimap<unsigned int, Observer*> subEvents;
 } EventWrapper;
 
 class Input {
@@ -23,14 +21,14 @@ public:
     static Input& getInstance();
     void update();
     
-    void append(Observer* observer, const int& type, const int& subType);
-    void release(Observer* observer, const int& type, const int& subType);
+    void append(Observer* observer, const unsigned int& type, const unsigned int& subType);
+    void release(Observer* observer, const unsigned int& type, const unsigned int& subType);
 
 private:
     Input();
     SDL_Event event;
     std::array<EventWrapper, 47> events;
-    std::pair<std::multimap<int, Observer*>::iterator, std::multimap<int, Observer*>::iterator> observers;
+    std::pair<std::multimap<unsigned int, Observer*>::iterator, std::multimap<unsigned int, Observer*>::iterator> observers;
     
     void notify();
     void execute();

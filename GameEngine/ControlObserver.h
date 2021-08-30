@@ -9,8 +9,8 @@ class ControlObserver : public Observer {
 public:
     void update(const SDL_Event* event) override;
     
-    ControlObserver(Entity* entity, std::function<void(Entity*, const SDL_Event*)> function);
-    ~ControlObserver();
+    ControlObserver(std::list<Signature> signatures, Entity* entity, std::function<void(Entity*, const SDL_Event*)> function);
+    ~ControlObserver() override = default;
 
 private:
     Entity* entity;

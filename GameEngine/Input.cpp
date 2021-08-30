@@ -10,7 +10,7 @@ Input& Input::getInstance() {
 }
 
 Input::Input() {
-    std::function<int()> zero = [&]() { return 0; };
+    std::function<unsigned int()> zero = [&]() { return 0; };
     events[SDL_QUIT].findIndex = zero;
     events[SDL_APP_TERMINATING].findIndex = zero;
     events[SDL_APP_LOWMEMORY].findIndex = zero;
@@ -69,18 +69,18 @@ void Input::update() {
 
 void Input::notify() {
     observers = events[event.type - 1].subEvents.equal_range(events[event.type - 1].findIndex());
-    for (std::multimap<int, Observer*>::iterator iter = observers.first; iter != observers.second; iter++) {
+    for (std::multimap<unsigned int, Observer*>::iterator iter = observers.first; iter != observers.second; iter++) {
         asyncCalls.push_back(std::async(std::launch::async, &Observer::update, iter->second, &event));
     }
 }
 
-void Input::append(Observer* observer, const int& type, const int& subType) {
+void Input::append(Observer* observer, const unsigned int& type, const unsigned int& subType) {
     events[type].subEvents.emplace(subType, observer);
 }
 
-void Input::release(Observer* observer, const int& type, const int& subType) {
-    std::pair<std::multimap<int, Observer*>::iterator, std::multimap<int, Observer*>::iterator> extremes = events[event.type - 1].subEvents.equal_range(events[event.type - 1].findIndex());
-    std::multimap<int, Observer*>::iterator iter;
+void Input::release(Observer* observer, const unsigned int& type, const unsigned int& subType) {
+    std::pair<std::multimap<unsigned int, Observer*>::iterator, std::multimap<unsigned int, Observer*>::iterator> extremes = events[event.type - 1].subEvents.equal_range(events[event.type - 1].findIndex());
+    std::multimap<unsigned int, Observer*>::iterator iter;
     for (iter = extremes.first; iter != extremes.second && iter->second != observer; iter++) {}
     events[event.type - 1].subEvents.erase(iter);
 }
@@ -90,7 +90,7 @@ void Input::execute() {
         iter->get();
     }
     asyncCalls.clear();
-    for (std::multimap<int, Observer*>::iterator iter = observers.first; iter != observers.second; iter++) {
+    for (std::multimap<unsigned int, Observer*>::iterator iter = observers.first; iter != observers.second; iter++) {
         iter->second->update(nullptr);
     }
 }

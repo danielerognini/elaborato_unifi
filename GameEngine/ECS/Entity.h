@@ -13,7 +13,7 @@ public:
     
     Collider& getCollider(const std::string& name);
     
-    bool addCollider(const std::string& name, std::unique_ptr<std::vector<Border>> borders, const bool& active);
+    bool addCollider(const std::string& name, std::vector<Border> borders, const bool& active);
     
     bool removeCollider(const std::string& name);
     
