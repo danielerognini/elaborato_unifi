@@ -4,11 +4,11 @@
 #include <utility>
 #include "Vector2D.h"
 
-typedef struct {
-    bool intersected;
-    Vector2D intersection;
-    bool refIncoming;
-    bool extIncoming;
+typedef struct IntersectionResult {
+    bool intersected{false};
+    Vector2D intersection{Vector2D(0, 0)};
+    bool refIncoming{false};
+    bool extIncoming{false};
 } IntersectionResult;
 
 class Border {

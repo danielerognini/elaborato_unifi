@@ -16,7 +16,7 @@ public:
     SDL_Rect& getRect();
 
     void setOffset(const Vector2D& offset);
-    void setOffset(const int& x, const int& y);
+    void setOffset(int x, int y);
 
     const Vector2D& getOffset() const;
     
@@ -24,7 +24,7 @@ public:
     
     void setMessage(const std::string& message);
     
-    void setColor(const uint8_t& r, const uint8_t& g, const uint8_t& b, const uint8_t& a);
+    void setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
     
     void setFontPath(const std::string& fontPath);
     
@@ -32,11 +32,11 @@ public:
 
     const SDL_Color& getColor() const;
     
-    const int& getSize() const;
+    int getSize() const;
     
     void setColor1(const SDL_Color& color);
     
-    void setSize(const int& size);
+    void setSize(int size);
 
 private:
     Vector2D offset;

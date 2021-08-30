@@ -9,14 +9,14 @@
 
 class Sprite : public Activatable {
 public:
-    explicit Sprite(const std::string& texturePath, const bool& active = true);
+    explicit Sprite(const std::string& texturePath, bool active = true);
     
     void update();
     
     const SDL_Rect& getSrcRect();
     void setSrcRect(const SDL_Rect& rect);
     
-    bool addAnimation(const std::string& name, const int& index, const int& frames, const int& speed);
+    bool addAnimation(const std::string& name, int index, int frames, int speed);
     bool removeAnimation(const std::string& name);
     
     const std::string& getTexturePath();

@@ -21,8 +21,8 @@ public:
     static Input& getInstance();
     void update();
     
-    void append(Observer* observer, const unsigned int& type, const unsigned int& subType);
-    void release(Observer* observer, const unsigned int& type, const unsigned int& subType);
+    void append(Observer* observer, unsigned int type, unsigned int subType);
+    void release(Observer* observer, unsigned int type, unsigned int subType);
 
 private:
     Input();

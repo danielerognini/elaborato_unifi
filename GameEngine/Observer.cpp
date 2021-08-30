@@ -4,14 +4,14 @@
 #include "Input.h"
 
 void Observer::append() {
-    for (std::list<Signature>::iterator iter = signatures.begin(); iter != signatures.end(); iter++) {
-        Input::getInstance().append(this, iter->event, iter->subEvent);
+    for (auto& signature: signatures) {
+        Input::getInstance().append(this, signature.event, signature.subEvent);
     }
 }
 
 void Observer::release() {
-    for (std::list<Signature>::iterator iter = signatures.begin(); iter != signatures.end(); iter++) {
-        Input::getInstance().release(this, iter->event, iter->subEvent);
+    for (auto& signature: signatures) {
+        Input::getInstance().release(this, signature.event, signature.subEvent);
     }
 }
 
@@ -22,4 +22,8 @@ Observer::~Observer() {
 Observer::Observer(std::list<Signature> signatures) {
     this->signatures = std::move(signatures);
     append();
+}
+
+void Observer::pushEvent(const SDL_Event event) {
+    buffer.push(event);
 }

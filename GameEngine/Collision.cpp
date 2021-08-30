@@ -4,36 +4,25 @@
 #include "Collision.h"
 #include "Utility.h"
 
-void collisionUpdate(std::unordered_map<std::string, Manager>& managers) {
+void Collision::collisionUpdate(std::unordered_map<std::string, Manager>& managers) {
     std::list<std::future<void>> asyncCalls;
     
-    /*
-    for(std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
-        asyncCalls.push_back(std::async(std::launch::async, ::resolveLocalCollisions, iter));
+    for (auto iter = managers.begin(); iter != managers.end(); iter++) {
+        asyncCalls.push_back(std::async(std::launch::async, &Collision::resolveLocalCollisions, iter));
     }
-    for(std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
-        iter->get();
+    for (auto& asyncCall: asyncCalls) {
+        asyncCall.get();
     }
-    */
-    for (std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); iter != managers.end(); iter++) {
-        auto debug = iter->second.getEntitiesBegin();
-        resolveLocalCollisions(iter);
-    }
-    /*
-     * we replaced use async calls because of an error that occurred using gtest to test Collision.h
-     * the error we got was Process finished with exit code 139 (interrupted by signal 11: SIGSEGV)
-     * TODO: fix async calls errors
-     */
     
-    for (std::unordered_map<std::string, Manager>::iterator iter = managers.begin(); std::next(iter, 1) != managers.end(); iter++) {
+    for (auto iter = managers.begin(); std::next(iter, 1) != managers.end(); iter++) {
         if (iter->second.isGlobalCollisionsActive()) {
-            for (std::unordered_map<std::string, Manager>::iterator subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
+            for (auto subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
                 if (subIter->second.isGlobalCollisionsActive()) {
-                    for (std::unordered_map<std::string, Entity>::iterator subSubIter = iter->second.getEntitiesBegin(); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
+                    for (auto subSubIter = iter->second.begin(); subSubIter != iter->second.end(); subSubIter++) {
                         if (subSubIter->second.isCollidersActive()) {
-                            for (std::unordered_map<std::string, Entity>::iterator subSubSubIter = subIter->second.getEntitiesBegin(); subSubSubIter != subIter->second.getEntitiesEnd(); subSubSubIter++) {
+                            for (auto& subSubSubIter: subIter->second) {
                                 if (subSubIter->second.isCollidersActive()) {
-                                    resolveEntityCollisions(subSubIter->second, subSubSubIter->second);
+                                    Collision::resolveEntityCollisions(subSubIter->second, subSubSubIter.second);
                                 }
                             }
                         }
@@ -44,14 +33,14 @@ void collisionUpdate(std::unordered_map<std::string, Manager>& managers) {
     }
 }
 
-void resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator& iter) {
+void Collision::resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator iter) {
     if (iter->second.isLocalCollisionsActive()) {
-    
-        for (std::unordered_map<std::string, Entity>::iterator subIter = iter->second.getEntitiesBegin(); std::next(subIter, 1) != iter->second.getEntitiesEnd(); subIter++) {
+        
+        for (auto subIter = iter->second.begin(); std::next(subIter, 1) != iter->second.end(); subIter++) {
             if (subIter->second.isCollidersActive()) {
-                for (std::unordered_map<std::string, Entity>::iterator subSubIter = std::next(subIter, 1); subSubIter != iter->second.getEntitiesEnd(); subSubIter++) {
+                for (auto subSubIter = std::next(subIter, 1); subSubIter != iter->second.end(); subSubIter++) {
                     if (subSubIter->second.isCollidersActive()) {
-                        resolveEntityCollisions(subIter->second, subSubIter->second);
+                        Collision::resolveEntityCollisions(subIter->second, subSubIter->second);
                     }
                 }
             }
@@ -59,27 +48,27 @@ void resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator& 
     }
 }
 
-void resolveEntityCollisions(Entity& entity1, Entity& entity2) {
-    Vector2D vector = controlEntityCollisions(entity1, entity2);
+void Collision::resolveEntityCollisions(Entity& entity1, Entity& entity2) {
+    Vector2D vector = Collision::controlEntityCollisions(entity1, entity2);
     entity1.resolveCollision(entity2, vector);
     entity2.resolveCollision(entity1, vector * (-1));
 }
 
-Vector2D controlEntityCollisions(Entity& reference, Entity& external) {
+Vector2D Collision::controlEntityCollisions(Entity& reference, Entity& external) {
     std::list<Vector2D> referenceVectors;
-    for (std::unordered_map<std::string, Collider>::iterator iter = reference.getCollidersBegin(); iter != reference.getCollidersEnd(); iter++) {
-        if (iter->second.isActive()) {
-            for (std::unordered_map<std::string, Collider>::iterator subIter = external.getCollidersBegin(); subIter != external.getCollidersEnd(); subIter++) {
-                if (subIter->second.isActive()) {
-                    referenceVectors.push_back(controlColliderCollisions(iter->second, reference.getTransform().getPosition(), subIter->second, external.getTransform().getPosition()));
+    for (auto& ref: reference) {
+        if (ref.second.isActive()) {
+            for (auto& ext: external) {
+                if (ext.second.isActive()) {
+                    referenceVectors.push_back(Collision::controlColliderCollisions(ref.second, reference.getTransform().getPosition(), ext.second, external.getTransform().getPosition()));
                 }
             }
         }
     }
-    return calculateResultingVector2D(referenceVectors);
+    return Collision::calculateResultingVector2D(referenceVectors);
 }
 
-Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referencePosition, Collider& external, const Vector2D& externalPosition) {
+Vector2D Collision::controlColliderCollisions(Collider& reference, const Vector2D& referencePosition, Collider& external, const Vector2D& externalPosition) {
     
     /*
      * borders positions are relative to the entities transforms
@@ -106,10 +95,10 @@ Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referenc
     std::list<Vector2D> referenceIncludedVertices;
     std::list<Vector2D> externalIncludedVertices;
     
-    for (std::vector<Border>::iterator iter = reference.getBordersBegin(); iter != reference.getBordersEnd(); iter++) {
-        referenceBorderIndex = iter - reference.getBordersBegin();
-        for (std::vector<Border>::iterator subIter = external.getBordersBegin(); subIter != external.getBordersEnd(); subIter++) {
-            externalBorderIndex = subIter - external.getBordersBegin();
+    for (auto iter = reference.begin(); iter != reference.end(); iter++) {
+        referenceBorderIndex = static_cast<int>(iter - reference.begin());
+        for (auto subIter = external.begin(); subIter != external.end(); subIter++) {
+            externalBorderIndex = static_cast<int>(subIter - external.begin());
             IntersectionResult intersection = iter->checkBordersIntersection(*subIter, referencePosition, externalPosition);
             if (intersection.intersected) {
                 if (referenceIntersectedBorders.find(referenceBorderIndex) == referenceIntersectedBorders.end()) {
@@ -128,49 +117,49 @@ Vector2D controlColliderCollisions(Collider& reference, const Vector2D& referenc
         }
     }
     
-    for (std::map<int, RefBorder>::iterator iter = referenceIntersectedBorders.begin(); iter != referenceIntersectedBorders.end(); iter++) {
+    for (auto iter = referenceIntersectedBorders.begin(); iter != referenceIntersectedBorders.end(); iter++) {
         if (iter->second.incoming) {
             referenceIncludedVertices.emplace_back(iter->second.border.getNextVertex());
-            for (std::vector<Border>::iterator subIter = std::next(reference.getBordersBegin(), iter->first + 1) != reference.getBordersEnd() ? std::next(reference.getBordersBegin(), iter->first + 1) : reference.getBordersBegin(); std::next(iter, 1) != referenceIntersectedBorders.end() ? subIter - reference.getBordersBegin() != std::next(iter, 1)->first : subIter - reference.getBordersBegin() != referenceIntersectedBorders.begin()->first; std::next(subIter, 1) != reference.getBordersEnd() ? subIter++ : subIter = reference.getBordersBegin()) {
+            for (auto subIter = std::next(reference.begin(), iter->first + 1) != reference.end() ? std::next(reference.begin(), iter->first + 1) : reference.begin(); std::next(iter, 1) != referenceIntersectedBorders.end() ? subIter - reference.begin() != std::next(iter, 1)->first : subIter - reference.begin() != referenceIntersectedBorders.begin()->first; std::next(subIter, 1) != reference.end() ? subIter++ : subIter = reference.begin()) {
                 referenceIncludedVertices.emplace_back(subIter->getNextVertex());
             }
         }
     }
     std::list<Vector2D> intersections;
-    for (std::map<int, ExtBorder>::iterator iter = externalIntersectedBorders.begin(); iter != externalIntersectedBorders.end(); iter++) {
-        intersections.emplace_back(std::accumulate(iter->second.intersections.begin(), iter->second.intersections.end(), Vector2D(0, 0)) / iter->second.intersections.size());
+    for (auto iter = externalIntersectedBorders.begin(); iter != externalIntersectedBorders.end(); iter++) {
+        intersections.emplace_back(std::accumulate(iter->second.intersections.begin(), iter->second.intersections.end(), Vector2D(0, 0)) / static_cast<int>(iter->second.intersections.size()));
         if (iter->second.incoming) {
             externalIncludedVertices.emplace_back(iter->second.border.getNextVertex());
-            for (std::vector<Border>::iterator subIter = std::next(external.getBordersBegin(), iter->first + 1) != external.getBordersEnd() ? std::next(external.getBordersBegin(), iter->first + 1) : external.getBordersBegin(); std::next(iter, 1) != externalIntersectedBorders.end() ? subIter - external.getBordersBegin() != std::next(iter, 1)->first : subIter - external.getBordersBegin() != externalIntersectedBorders.begin()->first; std::next(subIter, 1) != external.getBordersEnd() ? subIter++ : subIter = external.getBordersBegin()) {
+            for (auto subIter = std::next(external.begin(), iter->first + 1) != external.end() ? std::next(external.begin(), iter->first + 1) : external.begin(); std::next(iter, 1) != externalIntersectedBorders.end() ? subIter - external.begin() != std::next(iter, 1)->first : subIter - external.begin() != externalIntersectedBorders.begin()->first; std::next(subIter, 1) != external.end() ? subIter++ : subIter = external.begin()) {
                 externalIncludedVertices.emplace_back(subIter->getNextVertex());
             }
         }
     }
     Vector2D result = Vector2D(0, 0);
-    if (referenceIncludedVertices.size() > 0 || externalIncludedVertices.size() > 0) {
+    if (!referenceIncludedVertices.empty() || !externalIncludedVertices.empty()) {
         //result = calculatePolygonCollisionVector(referenceIncludedVertices, externalIncludedVertices, intersections);
-        result = calculateRectCollisionVector(referenceIncludedVertices, externalIncludedVertices, intersections);
+        result = Collision::calculateRectCollisionVector(referenceIncludedVertices, externalIncludedVertices, intersections);
     }
     return result;
 }
 
-Vector2D calculateRectCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
+Vector2D Collision::calculateRectCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
     Vector2D result = Vector2D(0, 0);
     Vector2D referenceVector = Vector2D(0, 0);
     Vector2D externalVector = Vector2D(0, 0);
     if (intersections.size() == 2) {
         if (intersections.front().getX() == intersections.end()->getX()) {
-            if (referenceIncludedVertices.size() > 0) {
+            if (!referenceIncludedVertices.empty()) {
                 referenceVector = Vector2D(referenceIncludedVertices.front().getX() - intersections.front().getX(), 0);
             }
-            if (externalIncludedVertices.size() > 0) {
+            if (!externalIncludedVertices.empty()) {
                 externalVector = Vector2D(externalIncludedVertices.front().getX() - intersections.front().getX(), 0);
             }
         } else if (intersections.front().getY() == intersections.end()->getY()) {
-            if (referenceIncludedVertices.size() > 0) {
+            if (!referenceIncludedVertices.empty()) {
                 referenceVector = Vector2D(0, referenceIncludedVertices.front().getY() - intersections.front().getY());
             }
-            if (externalIncludedVertices.size() > 0) {
+            if (!externalIncludedVertices.empty()) {
                 externalVector = Vector2D(0, externalIncludedVertices.front().getY() - intersections.front().getY());
             }
         } else {
@@ -193,13 +182,14 @@ Vector2D calculateRectCollisionVector(std::list<Vector2D>& referenceIncludedVert
     return result;
 }
 
-Vector2D calculatePolygonCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
+/* TODO: solve in finite algebra
+Vector2D Collision::calculatePolygonCollisionVector(std::list<Vector2D>& referenceIncludedVertices, std::list<Vector2D>& externalIncludedVertices, std::list<Vector2D>& intersections) {
     Vector2D result = Vector2D(0, 0);
     Vector2D averageIntersection(std::accumulate(intersections.begin(), intersections.end(), Vector2D(0, 0)));
-    averageIntersection /= intersections.size();
+    averageIntersection /= static_cast<int>(intersections.size());
     if (intersections.size() == 2) {
         Border intersectionSegment = Border(intersections.front(), intersections.back(), true);
-        if (referenceIncludedVertices.size() > 0) {
+        if (!referenceIncludedVertices.empty()) {
             if (bool side = !intersectionSegment.checkSide(referenceIncludedVertices.front())) {
                 intersectionSegment.setInnerSide(side);
             }
@@ -209,41 +199,42 @@ Vector2D calculatePolygonCollisionVector(std::list<Vector2D>& referenceIncludedV
                 intersectionVector = intersectionSegment.getNextVertex() - intersectionSegment.getPrevVertex();
             }
             double angle = acos(intersectionVector.getX() / sqrt(pow(intersectionVector.getX(), 2) + pow(intersectionVector.getY(), 2)));
-            for (std::__cxx11::list<Vector2D>::iterator iter = referenceIncludedVertices.begin(); iter != referenceIncludedVertices.end(); iter++) {
-                *iter -= averageIntersection;
-                iter->setVector(iter->getX() * cos(angle) + iter->getY() * sin(angle), -iter->getX() * sin(angle) + iter->getY() * cos(angle));
+            for (auto & iter : referenceIncludedVertices) {
+                iter -= averageIntersection;
+                iter.setVector(static_cast<int>(iter.getX() * cos(angle) + iter.getY() * sin(angle)), static_cast<int>(-iter.getX() * sin(angle) + iter.getY() * cos(angle)));
             }
             double counter_angle = angle - 2 * M_PI;
-            for (std::__cxx11::list<Vector2D>::iterator iter = externalIncludedVertices.begin(); iter != externalIncludedVertices.end(); iter++) {
-                *iter -= averageIntersection;
-                iter->setVector(iter->getX() * cos(counter_angle) + iter->getY() * sin(counter_angle), -iter->getX() * sin(counter_angle) + iter->getY() * cos(counter_angle));
+            for (auto & iter : externalIncludedVertices) {
+                iter -= averageIntersection;
+                iter.setVector(static_cast<int>(iter.getX() * cos(counter_angle) + iter.getY() * sin(counter_angle)), static_cast<int>(-iter.getX() * sin(counter_angle) + iter.getY() * cos(counter_angle)));
             }
             result = calculateResultingVector2D(referenceIncludedVertices) - calculateResultingVector2D(externalIncludedVertices);
             angle *= -1;
-            result.setVector(result.getX() * cos(angle) + result.getY() * sin(angle), -result.getX() * sin(angle) + result.getY() * cos(angle));
+            result.setVector(static_cast<int>(result.getX() * cos(angle) + result.getY() * sin(angle)), static_cast<int>(-result.getX() * sin(angle) + result.getY() * cos(angle)));
         }
     } else {
         //TODO: exceptional case to handle
     }
     return result;
 }
+*/
 
-Vector2D calculateResultingVector2D(std::list<Vector2D>& vectors) {
+Vector2D Collision::calculateResultingVector2D(std::list<Vector2D>& vectors) {
     int maxUp = 0;
     int maxDown = 0;
     int maxLeft = 0;
     int maxRight = 0;
     
-    for (std::list<Vector2D>::iterator iter = vectors.begin(); iter != vectors.end(); iter++) {
-        if (iter->getX() > maxRight) {
-            maxRight = iter->getX();
-        } else if (iter->getX() < maxLeft) {
-            maxLeft = iter->getX();
+    for (auto& iter: vectors) {
+        if (iter.getX() > maxRight) {
+            maxRight = iter.getX();
+        } else if (iter.getX() < maxLeft) {
+            maxLeft = iter.getX();
         }
-        if (iter->getY() > maxDown) {
-            maxDown = iter->getY();
-        } else if (iter->getY() < maxUp) {
-            maxUp = iter->getY();
+        if (iter.getY() > maxDown) {
+            maxDown = iter.getY();
+        } else if (iter.getY() < maxUp) {
+            maxUp = iter.getY();
         }
     }
     return Vector2D(maxRight + maxLeft, maxDown + maxUp);

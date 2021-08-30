@@ -6,10 +6,10 @@ Border::Border(const Vector2D& prevVertex, const Vector2D& nextVertex, const boo
 
 IntersectionResult Border::checkBordersIntersection(const Border& border, const Vector2D& referencePosition, const Vector2D& externalPosition) {
     IntersectionResult result = {false, Vector2D(0, 0), false, false};
-    Border reference = Border(*this);
+    auto reference = Border(*this);
     reference.setPrevVertex(reference.getPrevVertex() + referencePosition);
     reference.setNextVertex(reference.getNextVertex() + referencePosition);
-    Border external = Border(border);
+    auto external = Border(border);
     external.setPrevVertex(external.getPrevVertex() + externalPosition);
     external.setNextVertex(external.getNextVertex() + externalPosition);
     double a1 = reference.nextVertex.getY() - reference.prevVertex.getY();
@@ -37,8 +37,8 @@ IntersectionResult Border::checkBordersIntersection(const Border& border, const 
 }
 
 bool Border::checkSide(const Vector2D& vertex) const {
-    Border line = Border(*this);
-    Vector2D point = Vector2D(vertex);
+    auto line = Border(*this);
+    auto point = Vector2D(vertex);
     line.nextVertex.setX(line.nextVertex.getX() - line.prevVertex.getX());
     line.nextVertex.setY(line.nextVertex.getY() - line.prevVertex.getY());
     point.setX(point.getX() - line.prevVertex.getX());

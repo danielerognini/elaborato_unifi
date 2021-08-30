@@ -2,15 +2,15 @@
 #include "../../Utility.h"
 #include <cmath>
 
-Collider::Collider(std::vector<Border> borders, const bool& active) : borders(std::move(borders))/*, center(calculateCenter())*/{
+Collider::Collider(std::vector<Border> borders, bool active) : borders(std::move(borders))/*, center(calculateCenter())*/{
     this->active = active;
 }
 
-std::vector<Border>::iterator Collider::getBordersBegin() {
+std::vector<Border>::iterator Collider::begin() {
     return borders.begin();
 }
 
-std::vector<Border>::iterator Collider::getBordersEnd() {
+std::vector<Border>::iterator Collider::end() {
     return borders.end();
 }
 /*

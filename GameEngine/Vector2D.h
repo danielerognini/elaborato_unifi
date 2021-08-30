@@ -3,18 +3,18 @@
 
 class Vector2D {
 public:
-    explicit Vector2D(const int& x = 0, const int& y = 0);
-    static Vector2D toCartesian(const double& radius = 0.0, const double& angle = 0.0);
+    explicit Vector2D(int x = 0, int y = 0);
+    static Vector2D toCartesian(double radius = 0.0, double angle = 0.0);
     
-    void setVector(const int& x, const int& y);
+    void setVector(int x, int y);
     
-    const int& getX() const;
-    void setX(const int& x);
-    const int& getY() const;
-    void setY(const int& y);
+    int getX() const;
+    void setX(int x);
+    int getY() const;
+    void setY(int y);
     
-    void add(const int& x, const int& y);
-    void subtract(const int& x, const int& y);
+    void add(int x, int y);
+    void subtract(int x, int y);
     
     //Methods for the various math operations:
     void add(const Vector2D& vector);
@@ -25,15 +25,15 @@ public:
     //overriding the operators
     Vector2D operator+(const Vector2D& right) const;
     Vector2D operator-(const Vector2D& right) const;
-    Vector2D operator*(const int& scalar) const;
-    Vector2D operator/(const int& scalar) const;
+    Vector2D operator*(int scalar) const;
+    Vector2D operator/(int scalar) const;
     double operator%(Vector2D& right);
     
     //we also want to override the +=, -=, ... operators
     Vector2D& operator+=(const Vector2D& vector);
     Vector2D& operator-=(const Vector2D& vector);
-    Vector2D& operator*=(const int& scalar);
-    Vector2D& operator/=(const int& scalar);
+    Vector2D& operator*=(int scalar);
+    Vector2D& operator/=(int scalar);
     
     bool operator==(const Vector2D& vector) const;
 

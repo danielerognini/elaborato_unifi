@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-Entity::Entity(const std::string& texturePath, const bool& solid, const bool& active) : sprite(Sprite(texturePath)), transform(Transform()), solid(solid) {
+Entity::Entity(const std::string& texturePath, bool solid, bool active) : sprite(Sprite(texturePath)), transform(Transform()), solid(solid) {
     this->active = active;
 }
 
@@ -38,7 +38,7 @@ Transform& Entity::getTransform() {
 }
 
 Collider& Entity::getCollider(const std::string& name) {
-    std::unordered_map<std::string, Collider>::iterator result = colliders.find(name);
+    auto result = colliders.find(name);
     if (result == colliders.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
     }
@@ -60,11 +60,11 @@ void Entity::resolveCollision(const Entity& externalEntity, const Vector2D& coll
     }
 }
 
-const bool& Entity::isSolid() const {
+bool Entity::isSolid() const {
     return solid;
 }
 
-void Entity::setSolid(const bool& solid) {
+void Entity::setSolid(bool solid) {
     this->solid = solid;
 }
 
@@ -74,11 +74,11 @@ bool Entity::isCollidersActive() {
     return iter != colliders.end();
 }
 
-std::unordered_map<std::string, Collider>::iterator Entity::getCollidersBegin() {
+std::unordered_map<std::string, Collider>::iterator Entity::begin() {
     return colliders.begin();
 }
 
-std::unordered_map<std::string, Collider>::iterator Entity::getCollidersEnd() {
+std::unordered_map<std::string, Collider>::iterator Entity::end() {
     return colliders.end();
 }
 

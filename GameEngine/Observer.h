@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <functional>
 #include <list>
+#include <queue>
 
 typedef struct {
     unsigned int event;
@@ -12,13 +13,14 @@ typedef struct {
 
 class Observer {
 public:
-    Observer(std::list<Signature> signatures);
-    virtual void update(const SDL_Event* event) = 0;
+    explicit Observer(std::list<Signature> signatures);
+    void pushEvent(SDL_Event event);
+    virtual void update() = 0;
     virtual ~Observer();
 
 private:
     std::list<Signature> signatures;
-    std::list<SDL_Event> buffer;
+    std::queue<SDL_Event> buffer;
     
     void append();
     void release();

@@ -3,26 +3,26 @@
 #include "Manager.h"
 
 void Manager::flush() {
-    for (std::unordered_map<std::string, Entity>::iterator iter = entities.begin(); iter != entities.end(); iter++) {
-        if (!iter->second.isActive()) {
-            removeEntity(iter->first);
+    for (auto& entity: entities) {
+        if (!entity.second.isActive()) {
+            removeEntity(entity.first);
         }
     }
 }
 
 void Manager::update() {
     std::list<std::future<void>> asyncCalls;
-    for (std::unordered_map<std::string, Entity>::iterator iter = entities.begin(); iter != entities.end(); iter++) {
-        asyncCalls.push_back(std::async(std::launch::async, &Entity::update, iter->second));
+    for (auto& entity: entities) {
+        asyncCalls.push_back(std::async(std::launch::async, &Entity::update, entity.second));
     }
-    for (std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
-        iter->get();
+    for (auto& asyncCall: asyncCalls) {
+        asyncCall.get();
     }
 }
 
 void Manager::draw() {
-    for (std::unordered_map<std::string, Entity>::iterator iter = entities.begin(); iter != entities.end(); iter++) {
-        iter->second.draw();
+    for (auto& entity: entities) {
+        entity.second.draw();
     }
 }
 
@@ -35,45 +35,45 @@ bool Manager::removeEntity(const std::string& name) {
 }
 
 Entity& Manager::getEntity(const std::string& name) {
-    std::unordered_map<std::string, Entity>::iterator result = entities.find(name);
+    auto result = entities.find(name);
     if (result == entities.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
     }
     return result->second;
 }
 
-const bool& Manager::isLocalCollisionsActive() const {
+bool Manager::isLocalCollisionsActive() const {
     return localCollisionsActive;
 }
 
-void Manager::setLocalCollisionsActive(const bool& localCollisionsActive) {
+void Manager::setLocalCollisionsActive(bool localCollisionsActive) {
     this->localCollisionsActive = localCollisionsActive;
 }
 
-const bool& Manager::isGlobalCollisionsActive() const {
+bool Manager::isGlobalCollisionsActive() const {
     return globalCollisionsActive;
 }
 
-void Manager::setGlobalCollisionsActive(const bool& globalCollisionsActive) {
+void Manager::setGlobalCollisionsActive(bool globalCollisionsActive) {
     this->globalCollisionsActive = globalCollisionsActive;
 }
 
-const unsigned int& Manager::getPriority() const {
+unsigned int Manager::getPriority() const {
     return priority;
 }
 
-void Manager::setPriority(const unsigned int& priority) {
+void Manager::setPriority(unsigned int priority) {
     this->priority = priority;
 }
 
-Manager::Manager(const unsigned int& priority, const bool& localCollisionsActive, const bool& globalCollisionsActive, const bool& active) : priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive) {
+Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive) {
     this->active = active;
 }
 
-std::unordered_map<std::string, Entity>::iterator Manager::getEntitiesBegin() {
+std::unordered_map<std::string, Entity>::iterator Manager::begin() {
     return entities.begin();
 }
 
-std::unordered_map<std::string, Entity>::iterator Manager::getEntitiesEnd() {
+std::unordered_map<std::string, Entity>::iterator Manager::end() {
     return entities.end();
 }

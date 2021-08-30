@@ -6,8 +6,8 @@
 
 class Animation {
 public:
-    Animation(const int& index, const int& frames, const int& speed);
-    void updateRect(SDL_Rect& srcRect);
+    Animation(int index, int frames, int speed);
+    void updateRect(SDL_Rect& srcRect) const;
 
 private:
     int index;

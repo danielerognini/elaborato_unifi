@@ -9,26 +9,26 @@
 class Engine {
 public:
     //GameEngine();
-    static Engine& getInstance(const std::string& title = "Title", const int& x = 0, const int& y = 0, const int& width = 1920, const int& height = 1080, const bool& fullscreen = false);
+    static Engine& getInstance(const std::string& title = "Title", int x = 0, int y = 0, int width = 1920, int height = 1080, bool fullscreen = false);
     ~Engine();
     
     void update();
     void render();
     bool drawTexture(const std::string& texturePath, const SDL_Rect& src, const SDL_Rect& dest, const SDL_RendererFlip& flip);
-    bool drawText(const std::string& fontPath, const int& size, const std::string& text, const SDL_Color& color, SDL_Rect& src, SDL_Rect& dest);
+    bool drawText(const std::string& fontPath, int size, const std::string& text, const SDL_Color& color, SDL_Rect& src, SDL_Rect& dest);
     void clean();
     
-    const bool& isRunning();
-    const Uint32& getFrameStart() const;
+    bool isRunning() const;
+    unsigned int getFrameStart() const;
     void updateFrameStart();
     void quit();
     
     SDL_Renderer* getRenderer();
     
-    const int& getScale();
+    int getScale() const;
     SDL_Rect& getCamera();
     
-    bool addManager(const std::string& name, const unsigned int& priority);
+    bool addManager(const std::string& name, unsigned int priority);
     bool removeManager(const std::string& name);
     Manager& getManager(const std::string& name);
     
@@ -39,13 +39,13 @@ private:
     std::unordered_map<std::string, Manager> managers;
     std::list<std::string> sequence;
     
-    Engine(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen);
+    Engine(const std::string& title, int x, int y, int width, int height, bool fullscreen);
     SDL_Window* window;
     SDL_Renderer* renderer; //Because we plan to use always the same renderer it is more convenient to make it static and reference this instead of passing a pointer everytime
     //static SDL_Event event; //create an SDL_Event variable where we are going to poll SDL events into (we want to make it static so that we can access it from anywhere)
     SDL_Rect camera;
     bool running;
-    Uint32 frameStart;
+    unsigned int frameStart;
     
     int scale;
 };
