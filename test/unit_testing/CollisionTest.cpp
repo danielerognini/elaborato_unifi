@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Collision.h"
+#include "Collisions/Collision.h"
 #include "Engine.h"
 
 class CollisionFixture : public ::testing::Test {

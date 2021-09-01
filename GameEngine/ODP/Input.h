@@ -8,7 +8,6 @@
 #include <map>
 #include "SDL2/SDL.h"
 #include "Vector2D.h"
-#include "ControlObserver.h"
 #include "Observer.h"
 
 typedef struct {
@@ -32,8 +31,6 @@ private:
     
     void notify();
     void execute();
-    
-    //std::list<Observer*> observers;
     
     std::list<std::future<void>> asyncCalls;
 };

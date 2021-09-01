@@ -68,7 +68,7 @@ void Input::update() {
 void Input::notify() {
     observers = events[event.type - 1].subEvents.equal_range(events[event.type - 1].findIndex());
     for (auto iter = observers.first; iter != observers.second; iter++) {
-        asyncCalls.push_back(std::async(std::launch::async, &Observer::pushEvent, iter->second, event));
+        asyncCalls.push_back(std::async(std::launch::async, &Observer::pushEvent, iter->second, EventAlert({event, {event.type, events[event.type - 1].findIndex()}})));
     }
 }
 

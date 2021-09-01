@@ -9,7 +9,7 @@ class ControlObserver : public Observer {
 public:
     void update() override;
     
-    ControlObserver(std::list<Signature> signatures, Entity* entity, std::function<void(Entity*)> function);
+    ControlObserver(std::unordered_map<std::string, Signature> signatures, Entity* entity, std::function<void(Entity*)> function);
     ~ControlObserver() override = default;
 
 private:

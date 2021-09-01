@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "../../Activatable.h"
-#include "../../Border.h"
+#include "Collisions/Border.h"
 
 class Collider : public Activatable {
 public:
