@@ -1,6 +1,7 @@
 #include <future>
 #include <map>
 #include <numeric>
+#include <iostream>
 #include "Collision.h"
 #include "Utility.h"
 
@@ -137,6 +138,12 @@ Vector2D Collision::controlColliderCollisions(Collider& reference, const Vector2
     }
     Vector2D result = Vector2D(0, 0);
     if (!referenceIncludedVertices.empty() || !externalIncludedVertices.empty()) {
+        for (auto& referenceIncludedVertex: referenceIncludedVertices) {
+            referenceIncludedVertex += referencePosition;
+        }
+        for (auto& externalIncludedVertex: externalIncludedVertices) {
+            externalIncludedVertex += externalPosition;
+        }
         //result = calculatePolygonCollisionVector(referenceIncludedVertices, externalIncludedVertices, intersections);
         result = Collision::calculateRectCollisionVector(referenceIncludedVertices, externalIncludedVertices, intersections);
     }

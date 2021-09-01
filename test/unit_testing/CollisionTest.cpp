@@ -34,17 +34,12 @@ protected:
 };
 
 TEST_F(CollisionFixture, collisionUpdate) {
-    collisionUpdate(managers);
-    
-    std::cout << "[1, 1]: " << "(" << managers.find("1")->second.getEntity("1").getTransform().getPosition().getX() << ", " << managers.find("1")->second.getEntity("1").getTransform().getPosition().getY() << ")" << std::endl;
-    std::cout << "[1, 2]: " << "(" << managers.find("1")->second.getEntity("2").getTransform().getPosition().getX() << ", " << managers.find("1")->second.getEntity("2").getTransform().getPosition().getY() << ")" << std::endl;
-    std::cout << "[2, 1]: " << "(" << managers.find("2")->second.getEntity("1").getTransform().getPosition().getX() << ", " << managers.find("2")->second.getEntity("1").getTransform().getPosition().getY() << ")" << std::endl;
-    std::cout << "[2, 2]: " << "(" << managers.find("2")->second.getEntity("2").getTransform().getPosition().getX() << ", " << managers.find("2")->second.getEntity("2").getTransform().getPosition().getY() << ")" << std::endl;
+    Collision::collisionUpdate(managers);
     
     EXPECT_TRUE(managers.find("1")->second.getEntity("1").getTransform().getPosition().getX() == 5 && managers.find("1")->second.getEntity("1").getTransform().getPosition().getY() == 2);
-    EXPECT_TRUE(managers.find("1")->second.getEntity("2").getTransform().getPosition().getX() == 10 && managers.find("1")->second.getEntity("2").getTransform().getPosition().getY() == 8);
+    EXPECT_TRUE(managers.find("1")->second.getEntity("2").getTransform().getPosition().getX() == 10 && managers.find("1")->second.getEntity("2").getTransform().getPosition().getY() == 9);
     EXPECT_TRUE(managers.find("2")->second.getEntity("1").getTransform().getPosition().getX() == 1 && managers.find("2")->second.getEntity("1").getTransform().getPosition().getY() == 6);
-    EXPECT_TRUE(managers.find("2")->second.getEntity("2").getTransform().getPosition().getX() == 6 && managers.find("2")->second.getEntity("2").getTransform().getPosition().getY() == 12);
+    EXPECT_TRUE(managers.find("2")->second.getEntity("2").getTransform().getPosition().getX() == 6 && managers.find("2")->second.getEntity("2").getTransform().getPosition().getY() == 10);
 }
 
 
