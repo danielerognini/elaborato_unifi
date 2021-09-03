@@ -7,6 +7,11 @@
 #include "../Activatable.h"
 #include "Components/Text.h"
 
+typedef struct {
+    bool* active;
+    bool* frozen;
+} ManagerStatus;
+
 class Entity : public Activatable {
 public:
     explicit Entity(const std::string& texturePath, bool solid = true, bool active = true);
@@ -38,12 +43,16 @@ public:
     std::unordered_map<std::string, Collider>::iterator begin();
     std::unordered_map<std::string, Collider>::iterator end();
 
+    const ManagerStatus& getManagerStatus() const;
+    void setManagerStatus(const ManagerStatus& managerStatus);
+
 private:
     std::unordered_map<std::string, Collider> colliders;
     Sprite sprite;
     Text text;
     Transform transform;
     bool solid;
+    ManagerStatus managerStatus;
 };
 
 #endif //GAME_ENTITY_H

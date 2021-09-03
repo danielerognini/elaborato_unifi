@@ -31,6 +31,7 @@ void Manager::draw() {
 }
 
 bool Manager::addEntity(const std::string& name, Entity entity) {
+    entity.setManagerStatus({&active, &frozen});
     return entities.emplace(name, std::move(entity)).second;
 }
 
