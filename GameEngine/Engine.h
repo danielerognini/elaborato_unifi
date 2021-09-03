@@ -35,6 +35,10 @@ public:
     void refreshSequence(); //sorts managers by priority using bubble sort
     bool compare(const std::string& prev, const std::string& next);
 
+    unsigned short int getMaxFPS();
+    void setMaxFPS(unsigned short int maxFPS);
+    unsigned short int getMinFrameTime();
+
 private:
     std::unordered_map<std::string, Manager> managers;
     std::list<std::string> sequence;
@@ -46,7 +50,8 @@ private:
     SDL_Rect camera;
     bool running;
     unsigned int frameStart;
-    
+    unsigned short int maxFPS = 60; //the maximum fps our game will run at //not a const cause we may want the user to be able to change this
+
     int scale;
 };
 

@@ -158,3 +158,16 @@ void Engine::updateFrameStart() {
     frameStart = SDL_GetTicks();
 }
 
+unsigned short int Engine::getMaxFPS() {
+    return maxFPS;
+}
+
+void Engine::setMaxFPS(unsigned short maxFPS) {
+    this->maxFPS = maxFPS;
+}
+
+unsigned short int Engine::getMinFrameTime() {
+    return 1000 / getMinFrameTime();
+}
+
+
