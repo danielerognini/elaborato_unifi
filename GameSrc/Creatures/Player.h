@@ -1,8 +1,9 @@
 #ifndef GAME_PLAYER_H
 #define GAME_PLAYER_H
 
+#include <ECS/Entity.h>
 
-class Player {
+class Player : public Entity{
 
 };
 

@@ -1,8 +1,9 @@
 #ifndef GAME_ENEMY_H
 #define GAME_ENEMY_H
 
+#include <ECS/Entity.h>
 
-class Enemy {
+class Enemy : public Entity{
 
 };
 

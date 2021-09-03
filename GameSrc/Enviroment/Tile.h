@@ -1,8 +1,9 @@
 #ifndef GAME_TILE_H
 #define GAME_TILE_H
 
+#include <ECS/Entity.h>
 
-class Tile {
+class Tile : public Entity{
 
 };
 

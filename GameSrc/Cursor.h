@@ -1,8 +1,9 @@
 #ifndef GAME_CURSOR_H
 #define GAME_CURSOR_H
 
+#include <ECS/Entity.h>
 
-class Cursor {
+class Cursor : public Entity{
 
 };
 

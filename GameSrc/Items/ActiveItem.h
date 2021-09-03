@@ -1,8 +1,9 @@
 #ifndef GAME_ACTIVEITEM_H
 #define GAME_ACTIVEITEM_H
 
+#include "Item.h"
 
-class ActiveItem {
+class ActiveItem : public Item{
 
 };
 

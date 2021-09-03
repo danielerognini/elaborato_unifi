@@ -1,8 +1,9 @@
 #ifndef GAME_BUTTON_H
 #define GAME_BUTTON_H
 
+#include "Widget.h"
 
-class Button {
+class Button : public Widget{
 
 };
 

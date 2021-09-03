@@ -1,8 +1,9 @@
 #ifndef GAME_BOSS_H
 #define GAME_BOSS_H
 
+#include "Enemy.h"
 
-class Boss {
+class Boss : public Enemy{
 
 };
 

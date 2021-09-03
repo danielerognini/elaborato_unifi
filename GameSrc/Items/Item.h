@@ -1,8 +1,10 @@
 #ifndef GAME_ITEM_H
 #define GAME_ITEM_H
 
+#include <ECS/Entity.h>
+#include "../Interactable.h"
 
-class Item {
+class Item : public Entity, public Interactable{
 
 };
 

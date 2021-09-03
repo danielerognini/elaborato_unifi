@@ -1,8 +1,9 @@
 #ifndef GAME_WEAPON_H
 #define GAME_WEAPON_H
 
+#include "Item.h"
 
-class Weapon {
+class Weapon : public Item{
 
 };
 

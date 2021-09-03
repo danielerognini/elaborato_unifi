@@ -1,7 +1,9 @@
 #ifndef GAME_BULLET_H
 #define GAME_BULLET_H
 
-class Bullet {
+#include <ECS/Entity.h>
+
+class Bullet : public Entity{
 
 };
 
