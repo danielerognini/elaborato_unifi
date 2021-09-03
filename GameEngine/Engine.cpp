@@ -30,8 +30,7 @@ Engine::Engine(const std::string& title, const int& x, const int& y, const int& 
 }
 
 Engine::~Engine() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    clean();
 }
 
 Engine& Engine::getInstance(const std::string& title, const int& x, const int& y, const int& width, const int& height, const bool& fullscreen) {
@@ -95,7 +94,6 @@ void Engine::clean() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
-    std::cout << "Game cleaned" << std::endl;
 }
 
 const bool& Engine::isRunning() {
