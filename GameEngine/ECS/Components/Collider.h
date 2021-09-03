@@ -4,15 +4,16 @@
 #include <vector>
 #include <memory>
 #include "../../Activatable.h"
-#include "../../Border.h"
+#include "Collisions/Border.h"
 
 class Collider : public Activatable {
 public:
     //borders must be directed and inserted clockwise
-    Collider(std::vector<Border> borders, const bool& active);
+    Collider(std::vector<Border> borders, bool active);
     
-    std::vector<Border>::iterator getBordersBegin();
-    std::vector<Border>::iterator getBordersEnd();
+    std::vector<Border>::iterator begin();
+    std::vector<Border>::iterator end();
+    
     
     //const Vector2D& getCenter();
 

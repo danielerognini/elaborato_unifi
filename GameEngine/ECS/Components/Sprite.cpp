@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite(const std::string& texturePath, const bool& active) : texturePath(texturePath), flip(SDL_FLIP_NONE) {
+Sprite::Sprite(const std::string& texturePath, bool active) : texturePath(texturePath), flip(SDL_FLIP_NONE) {
     this->active = active;
 }
 
@@ -16,7 +16,7 @@ void Sprite::setSrcRect(const SDL_Rect& rect) {
     srcRect = rect;
 }
 
-bool Sprite::addAnimation(const std::string& name, const int& index, const int& frames, const int& speed) {
+bool Sprite::addAnimation(const std::string& name, int index, int frames, int speed) {
     return animations.emplace(name, Animation(index, frames, speed)).second;
 }
 

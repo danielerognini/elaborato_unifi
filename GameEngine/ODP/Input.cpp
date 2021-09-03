@@ -1,5 +1,3 @@
-#include <fstream>
-#include <bitset>
 #include <future>
 #include "Input.h"
 #include "Engine.h"
@@ -9,7 +7,7 @@ Input& Input::getInstance() {
     return instance;
 }
 
-Input::Input() {
+Input::Input() : event(SDL_Event()) {
     std::function<unsigned int()> zero = [&]() { return 0; };
     events[SDL_QUIT].findIndex = zero;
     events[SDL_APP_TERMINATING].findIndex = zero;
@@ -69,28 +67,28 @@ void Input::update() {
 
 void Input::notify() {
     observers = events[event.type - 1].subEvents.equal_range(events[event.type - 1].findIndex());
-    for (std::multimap<unsigned int, Observer*>::iterator iter = observers.first; iter != observers.second; iter++) {
-        asyncCalls.push_back(std::async(std::launch::async, &Observer::update, iter->second, &event));
+    for (auto iter = observers.first; iter != observers.second; iter++) {
+        asyncCalls.push_back(std::async(std::launch::async, &Observer::pushEvent, iter->second, EventAlert({event, {event.type, events[event.type - 1].findIndex()}})));
     }
 }
 
-void Input::append(Observer* observer, const unsigned int& type, const unsigned int& subType) {
+void Input::append(Observer* observer, unsigned int type, unsigned int subType) {
     events[type].subEvents.emplace(subType, observer);
 }
 
-void Input::release(Observer* observer, const unsigned int& type, const unsigned int& subType) {
-    std::pair<std::multimap<unsigned int, Observer*>::iterator, std::multimap<unsigned int, Observer*>::iterator> extremes = events[event.type - 1].subEvents.equal_range(events[event.type - 1].findIndex());
+void Input::release(Observer* observer, unsigned int type, unsigned int subType) {
+    auto extremes = events[type - 1].subEvents.equal_range(subType);
     std::multimap<unsigned int, Observer*>::iterator iter;
     for (iter = extremes.first; iter != extremes.second && iter->second != observer; iter++) {}
-    events[event.type - 1].subEvents.erase(iter);
+    events[type - 1].subEvents.erase(iter);
 }
 
 void Input::execute() {
-    for (std::list<std::future<void>>::iterator iter = asyncCalls.begin(); iter != asyncCalls.end(); iter++) {
-        iter->get();
+    for (auto& asyncCall: asyncCalls) {
+        asyncCall.get();
     }
     asyncCalls.clear();
-    for (std::multimap<unsigned int, Observer*>::iterator iter = observers.first; iter != observers.second; iter++) {
-        iter->second->update(nullptr);
+    for (auto iter = observers.first; iter != observers.second; iter++) {
+        iter->second->update();
     }
 }

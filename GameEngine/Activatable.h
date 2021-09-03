@@ -3,9 +3,10 @@
 
 class Activatable {
 public:
-    const bool& isActive() const;
+    explicit Activatable(bool active = true);
+    bool isActive() const;
     void toggle();
-    void toggle(const bool& status);
+    void toggle(bool status);
     virtual ~Activatable() = 0;
 protected:
     bool active;

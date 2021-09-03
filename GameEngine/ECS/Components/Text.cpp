@@ -21,7 +21,7 @@ void Text::setMessage(const std::string& message) {
     Text::message = message;
 }
 
-void Text::setColor(const uint8_t& r, const uint8_t& g, const uint8_t& b, const uint8_t& a) {
+void Text::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
     color.r = r;
     color.g = g;
     color.b = b;
@@ -40,7 +40,7 @@ const SDL_Color& Text::getColor() const {
     return color;
 }
 
-const int& Text::getSize() const {
+int Text::getSize() const {
     return size;
 }
 
@@ -48,11 +48,11 @@ void Text::setColor1(const SDL_Color& color) {
     this->color = color;
 }
 
-void Text::setSize(const int& size) {
+void Text::setSize(int size) {
     this->size = size;
 }
 
-void Text::setOffset(const int& x, const int& y) {
+void Text::setOffset(int x, int y) {
     offset.setX(x);
     offset.setY(y);
 }

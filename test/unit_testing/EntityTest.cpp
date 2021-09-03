@@ -25,17 +25,17 @@ TEST_F(EntityFixture, resolveCollision) {
     Entity external = Entity("");
     external.getTransform().setPosition(3, 3);
     external.getTransform().setSpeed(1);
-    external.getTransform().setDirection(-M_PI_2 * 3);
+    external.getTransform().setDirection(UP);
     external.getTransform().setMoving(true);
     external.addCollider("2", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
     entity.getTransform().setPosition(1, 2);
     entity.getTransform().setSpeed(1);
-    entity.getTransform().setDirection(M_PI_2);
+    entity.getTransform().setDirection(DOWN);
     entity.getTransform().setMoving(true);
     
-    entity.resolveCollision(external, Vector2D(2, 3));
-    //external.resolveCollision(entity, Vector2D(-2, -3));
+    entity.resolveCollision(external, Vector2D(2, 0));
+    external.resolveCollision(entity, Vector2D(-2, -0));
     
-    EXPECT_TRUE(entity.getTransform().getPosition().getX() == 0 && entity.getTransform().getPosition().getY() == 1);
-    EXPECT_TRUE(external.getTransform().getPosition().getX() == 4 && external.getTransform().getPosition().getY() == 5);
+    EXPECT_TRUE(entity.getTransform().getPosition().getX() == 0 && entity.getTransform().getPosition().getY() == 2);
+    EXPECT_TRUE(external.getTransform().getPosition().getX() == 4 && external.getTransform().getPosition().getY() == 3);
 }

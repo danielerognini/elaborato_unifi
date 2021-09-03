@@ -7,14 +7,14 @@
 
 class ControlObserver : public Observer {
 public:
-    void update(const SDL_Event* event) override;
+    void update() override;
     
-    ControlObserver(std::list<Signature> signatures, Entity* entity, std::function<void(Entity*, const SDL_Event*)> function);
+    ControlObserver(std::unordered_map<std::string, Signature> signatures, Entity* entity, std::function<void(Entity*)> function);
     ~ControlObserver() override = default;
 
 private:
     Entity* entity;
-    std::function<void(Entity*, const SDL_Event*)> function;
+    std::function<void(Entity*)> function;
 };
 
 #endif //GAME_CONTROLOBSERVER_H
