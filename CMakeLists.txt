@@ -29,7 +29,7 @@ set(GAME_SOURCE_FILES
         GameSrc/Items/Weapon.cpp GameSrc/Items/Weapon.h
         GameSrc/Items/RangedWeapon.cpp GameSrc/Items/RangedWeapon.h
         GameSrc/Items/MeleeWeapon.cpp GameSrc/Items/MeleeWeapon.h
-        GameSrc/Inventory.cpp GameSrc/Inventory.h)
+        GameSrc/Inventory.cpp GameSrc/Inventory.h GameSrc/Enviroment/Door.cpp GameSrc/Enviroment/Door.h)
 
 include_directories(./GameEngine)
 

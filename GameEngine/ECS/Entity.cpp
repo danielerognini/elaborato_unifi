@@ -8,8 +8,12 @@ Entity::Entity(const std::string& texturePath, bool solid, bool active) : sprite
 }
 
 void Entity::update() {
-    transform.update();
-    sprite.update();
+    if(transform.isActive()) {
+        transform.update();
+    }
+    if(sprite.isActive()) {
+        sprite.update();
+    }
 }
 
 void Entity::draw() {

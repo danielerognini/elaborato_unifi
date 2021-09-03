@@ -13,7 +13,9 @@ void Manager::flush() {
 void Manager::update() {
     std::list<std::future<void>> asyncCalls;
     for (auto& entity: entities) {
-        asyncCalls.push_back(std::async(std::launch::async, &Entity::update, entity.second));
+        if(entity.isActive()){
+            asyncCalls.push_back(std::async(std::launch::async, &Entity::update, entity.second));
+        }
     }
     for (auto& asyncCall: asyncCalls) {
         asyncCall.get();
@@ -22,7 +24,9 @@ void Manager::update() {
 
 void Manager::draw() {
     for (auto& entity: entities) {
-        entity.second.draw();
+        if(entity.isActive()) {
+            entity.second.draw();
+        }
     }
 }
 
@@ -76,4 +80,12 @@ std::unordered_map<std::string, Entity>::iterator Manager::begin() {
 
 std::unordered_map<std::string, Entity>::iterator Manager::end() {
     return entities.end();
+}
+
+bool Manager::isFrozen() {
+    return frozen;
+}
+
+void Manager::setFrozen(bool frozen) {
+    this->frozen = frozen;
 }

@@ -32,11 +32,15 @@ public:
     
     void setPriority(unsigned int priority);
 
+    bool isFrozen();
+    void setFrozen(bool frozen);
+
 private:
     std::unordered_map<std::string, Entity> entities;
     bool localCollisionsActive;
     bool globalCollisionsActive;
     unsigned int priority;
+    bool frozen;
 };
 
 #endif //GAME_MANAGER_H

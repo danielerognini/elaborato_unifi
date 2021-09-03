@@ -46,7 +46,6 @@ private:
     Engine(const std::string& title, int x, int y, int width, int height, bool fullscreen);
     SDL_Window* window;
     SDL_Renderer* renderer; //Because we plan to use always the same renderer it is more convenient to make it static and reference this instead of passing a pointer everytime
-    //static SDL_Event event; //create an SDL_Event variable where we are going to poll SDL events into (we want to make it static so that we can access it from anywhere)
     SDL_Rect camera;
     bool running;
     unsigned int frameStart;

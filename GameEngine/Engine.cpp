@@ -46,8 +46,11 @@ void Engine::update() {
     for (auto& asyncCall: asyncCalls) {
         asyncCall.get();
     }
+
     for (auto& manager: managers) {
-        asyncCalls.push_back(std::async(std::launch::async, &Manager::update, &manager.second));
+        if(manager.isActive() && !manager.isFrozen()){
+            asyncCalls.push_back(std::async(std::launch::async, &Manager::update, &manager.second));
+        }
     }
     for (auto& asyncCall: asyncCalls) {
         asyncCall.get();
@@ -59,7 +62,9 @@ void Engine::render() {
     SDL_RenderClear(renderer); //clean the previous render buffer
     
     for (auto& manager: managers) {
-        manager.second.draw(); //we use second as a reference to the manager in the iter map to call the method to render the entities
+        if(manager.isActive()) {
+            manager.second.draw(); //we use second as a reference to the manager in the iter map to call the method to render the entities
+        }
     }
 }
 
