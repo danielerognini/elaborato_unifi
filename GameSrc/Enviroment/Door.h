@@ -1,10 +1,15 @@
 #ifndef GAME_DOOR_H
 #define GAME_DOOR_H
 
-#include "Tile.h"
+#include <ECS/Entity.h>
 
-class Door : public Tile{
-
+class Door : public Entity{
+public:
+    void Lock();
+    void Unlock();
+    bool isLocked();
+private:
+    bool locked;
 };
 
 
