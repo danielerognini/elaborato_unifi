@@ -5,8 +5,8 @@
 
 class Door : public Entity{
 public:
-    void Lock();
-    void Unlock();
+    void lock();
+    void unlock();
     bool isLocked();
 private:
     bool locked;

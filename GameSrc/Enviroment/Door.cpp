@@ -1,10 +1,10 @@
 #include "Door.h"
 
-void Door::Lock() {
+void Door::lock() {
     locked = true;
 }
 
-void Door::Unlock() {
+void Door::unlock() {
     locked = false;
 }
 
