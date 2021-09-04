@@ -2,8 +2,7 @@
 #include "../../Utility.h"
 #include <cmath>
 
-Collider::Collider(std::vector<Border> borders, bool active) : borders(std::move(borders))/*, center(calculateCenter())*/{
-    this->active = active;
+Collider::Collider(std::vector<Border> borders, bool active) : Activatable(active), borders(std::move(borders))/*, center(calculateCenter())*/{
 }
 
 std::vector<Border>::iterator Collider::begin() {

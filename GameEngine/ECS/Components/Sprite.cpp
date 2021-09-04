@@ -1,7 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite(const std::string& texturePath, bool active) : texturePath(texturePath), flip(SDL_FLIP_NONE) {
-    this->active = active;
+Sprite::Sprite(const std::string& texturePath, bool active) : Activatable(active), texturePath(texturePath), flip(SDL_FLIP_NONE) {
 }
 
 void Sprite::update() {

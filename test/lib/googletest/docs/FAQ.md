@@ -128,24 +128,20 @@ used for both Google Test and the tests.
 (Answered by Trevor Robinson)
 
 Load the supplied Visual Studio solution file, either `msvc\gtest-md.sln` or
-`msvc\gtest.sln`. Go through the migration wizard to migrate the
-solution and project files to Visual Studio 2008. Select
-`Configuration Manager...` from the `Build` menu. Select `<New...>` from
-the `Active solution platform` dropdown.  Select `x64` from the new
-platform dropdown, leave `Copy settings from` set to `Win32` and
+`msvc\gtest.sln`. Go through the migration wizard to migrate the solution and project files to Visual Studio 2008.
+Select
+`Configuration Manager...` from the `Build` menu. Select `<New...>` from the `Active solution platform` dropdown.
+Select `x64` from the new platform dropdown, leave `Copy settings from` set to `Win32` and
 `Create new project platforms` checked, then click `OK`. You now have
 `Win32` and `x64` platform configurations, selectable from the
-`Standard` toolbar, which allow you to toggle between building 32-bit or
-64-bit binaries (or both at once using Batch Build).
+`Standard` toolbar, which allow you to enable between building 32-bit or 64-bit binaries (or both at once using Batch
+Build).
 
-In order to prevent build output files from overwriting one another,
-you'll need to change the `Intermediate Directory` settings for the
-newly created platform configuration across all the projects. To do
-this, multi-select (e.g. using shift-click) all projects (but not the
-solution) in the `Solution Explorer`. Right-click one of them and
-select `Properties`. In the left pane, select `Configuration Properties`,
-and from the `Configuration` dropdown, select `All Configurations`.
-Make sure the selected platform is `x64`. For the
+In order to prevent build output files from overwriting one another, you'll need to change the `Intermediate Directory`
+settings for the newly created platform configuration across all the projects. To do this, multi-select (e.g. using
+shift-click) all projects (but not the solution) in the `Solution Explorer`. Right-click one of them and
+select `Properties`. In the left pane, select `Configuration Properties`, and from the `Configuration` dropdown,
+select `All Configurations`. Make sure the selected platform is `x64`. For the
 `Intermediate Directory` setting, change the value from
 `$(PlatformName)\$(ConfigurationName)` to
 `$(OutDir)\$(ProjectName)`. Click `OK` and then build the

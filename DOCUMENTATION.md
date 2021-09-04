@@ -29,17 +29,21 @@ Look at the [engine](#engine) class to know how it works.
 
 -------
 ### Activatable
-This class makes possible to add a toggleable state to any object. 
+This class makes possible to add a toggleable state to any object.
 
-This is very useful in case of objects that we want to be stored in memory but that we don't want to use in a certain moment. The deactivated object will remain in a sort of **"ghost state"** until the object's **toggle** function is called.
+This is very useful in case of objects that we want to be stored in memory but that we don't want to use in a certain
+moment. The deactivated object will remain in a sort of **"ghost state"** until the object's **enable** function is
+called.
 
-The **toggle** function can be called to switch the state of an activatable object. You can also pass a value to the function to switch directly to the state that you want, independently of the state that the object was in:
+The **enable** function can be called to switch the state of an activatable object. You can also pass a value to the
+function to switch directly to the state that you want, independently of the state that the object was in:
+
 ```C++
 //Assuming the active variable of actObj is set to false
 
-actObj.toggle(); //this switches it to true
-actObj.toggle(true); //this switches it to true once again
-actObj.toggle(); //this switches it to false
+actObj.enable(); //this switches it to true
+actObj.enable(true); //this switches it to true once again
+actObj.enable(); //this switches it to false
 ```
 
 To read the state of the object you can use the isActive function, that will return a bool&.

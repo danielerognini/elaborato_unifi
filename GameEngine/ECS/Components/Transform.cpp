@@ -36,9 +36,7 @@ void Transform::setMoving(bool moving) {
     this->moving = moving;
 }
 
-Transform::Transform(int x, int y, Direction direction, int speed, bool moving, bool active) : position(Vector2D(x, y)), direction(direction), speed(speed), moving(moving) {
-    this->active = active;
-    lastMovement = 0;
+Transform::Transform(int x, int y, Direction direction, int speed, bool moving, bool active) : Activatable(active), position(Vector2D(x, y)), direction(direction), speed(speed), moving(moving), lastMovement(0) {
 }
 
 const Vector2D& Transform::getPosition() const {

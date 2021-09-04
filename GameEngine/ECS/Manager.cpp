@@ -44,7 +44,7 @@ Entity& Manager::getEntity(const std::string& name) {
     if (result == entities.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
     }
-    return result->second;
+    return result->second.get();
 }
 
 bool Manager::isLocalCollisionsActive() const {
@@ -71,8 +71,7 @@ void Manager::setPriority(unsigned int priority) {
     this->priority = priority;
 }
 
-Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive) {
-    this->active = active;
+Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : Activatable(active), priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive) {
 }
 
 std::unordered_map<std::string, Entity>::iterator Manager::begin() {

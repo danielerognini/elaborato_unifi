@@ -1,7 +1,6 @@
 #include "Text.h"
 
-Text::Text(bool active) {
-    this->active = active;
+Text::Text(bool active) : Activatable(active) {
     rect.x = 0;
     rect.y = 0;
 }

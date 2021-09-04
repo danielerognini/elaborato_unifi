@@ -5,8 +5,8 @@ class Activatable {
 public:
     explicit Activatable(bool active = true);
     bool isActive() const;
-    void toggle();
-    void toggle(bool status);
+    virtual void enable();
+    virtual void disable();
     virtual ~Activatable() = 0;
 protected:
     bool active;

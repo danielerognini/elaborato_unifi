@@ -17,8 +17,8 @@ public:
     bool removeEntity(const std::string& name);
     Entity& getEntity(const std::string& name);
     
-    std::unordered_map<std::string, Entity>::iterator begin();
-    std::unordered_map<std::string, Entity>::iterator end();
+    std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator begin();
+    std::unordered_map<std::string, std::unique_ptr<Entity>>::iterator end();
     
     bool isLocalCollisionsActive() const;
     
@@ -36,7 +36,7 @@ public:
     void setFrozen(bool frozen);
 
 private:
-    std::unordered_map<std::string, Entity> entities;
+    std::unordered_map<std::string, std::unique_ptr<Entity>> entities;
     bool localCollisionsActive;
     bool globalCollisionsActive;
     unsigned int priority;

@@ -4,14 +4,13 @@ bool Activatable::isActive() const {
     return active;
 }
 
-void Activatable::toggle() {
-    active = !active;
+void Activatable::enable() {
+    active = true;
 }
 
-void Activatable::toggle(bool status) {
-    active = status;
+void Activatable::disable() {
+    active = false;
 }
-
-Activatable::~Activatable() {}
 
 Activatable::Activatable(bool active) : active(active) {}
+
