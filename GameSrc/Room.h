@@ -6,7 +6,7 @@
 
 class Room : public Activatable {
 public:
-    Room(const std::string& name, unsigned int priorityOffset, bool discovered, bool active);
+    Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active);
     ~Room();
     void enable() override;
     void disable() override;

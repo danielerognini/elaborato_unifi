@@ -1,8 +1,10 @@
 #include <string>
 #include "Engine.h"
 #include "Room.h"
+#include "Enviroment/Door.h"
 
-Room::Room(const std::string& name, unsigned int priorityOffset, bool discovered, bool active) : name(name) {
+Room::Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active) : name(name) {
+    //TODO: template room file parsing.
     std::list<std::string> layersName = {name + "_enviroment", name + "_doors", name + "_enemies", name + "_NPCs", name + "_pets", name + "_players", name + "_items", name + "_bullets"};
     for (int i = 0; i < layersName.size(); i++) {
         Engine::getInstance().addManager(*std::next(layersName.begin(), i), i + priorityOffset);
@@ -49,13 +51,13 @@ void Room::discover() {
 void Room::lock() {
     std::shared_ptr<Manager> doors = layers.find(name + "_doors")->second;
     for (auto& door: *doors) {
-        // door lock
+        dynamic_cast<Door*>(door.second.get())->lock();
     }
 }
 
 void Room::unlock() {
     std::shared_ptr<Manager> doors = layers.find(name + "_doors")->second;
     for (auto& door: *doors) {
-        // door unlock
+        dynamic_cast<Door*>(door.second.get())->unlock();
     }
 }
