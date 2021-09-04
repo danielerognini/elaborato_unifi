@@ -5,7 +5,7 @@
 
 class Barrier : public CollisionArea{
 public:
-    Barrier(bool solid = true, bool active = true);
+    explicit Barrier(bool solid = true, bool active = true);
 private:
 };
 

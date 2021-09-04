@@ -1,5 +1,5 @@
 #include "Barrier.h"
 
-Barrier::Barrier(bool solid, bool active) : Entity("", solid, active){
+Barrier::Barrier(bool solid, bool active) : CollisionArea(solid, active){
 
 }

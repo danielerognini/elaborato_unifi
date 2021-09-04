@@ -3,7 +3,7 @@
 
 #include <ECS/Entity.h>
 
-class CollisionArea : Entity{
+class CollisionArea : public Entity{
 public:
     CollisionArea(bool solid = true, bool active = true);
 private:

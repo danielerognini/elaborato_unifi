@@ -1,13 +1,27 @@
 #include "Door.h"
+#include "../Room.h"
 
 void Door::lock() {
-    locked = true;
+    setSolid(true);
+    //TODO: change door animation
 }
 
 void Door::unlock() {
-    locked = false;
+    setSolid(false);
+    //TODO: change door animation
 }
 
-bool Door::isLocked() {
-    return locked;
+void Door::resolveCollision(const Entity &externalEntity, const Vector2D &collisionVector) {
+    if(isSolid()){
+        Entity::resolveCollision(externalEntity, collisionVector);
+    }
+    else{
+        if(!room->isDiscovered()) {
+            //TODO: push the player trough the door
+            lock();
+        }
+        else {
+            unlock();
+        }
+    }
 }

@@ -4,7 +4,10 @@
 #include "CollisionArea.h"
 
 class Chasm : public CollisionArea{
-
+public:
+    explicit Chasm(bool solid = true, bool active = true);
+    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) override;
+private:
 };
 
 
