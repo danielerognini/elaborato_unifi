@@ -21,7 +21,7 @@ set(GAME_SOURCE_FILES
         GameSrc/Scheduler.cpp GameSrc/Scheduler.h
         GameSrc/Interactable.cpp GameSrc/Interactable.h
         GameSrc/Enviroment/Tile.cpp GameSrc/Enviroment/Tile.h
-        GameSrc/Enviroment/Wall.cpp GameSrc/Enviroment/Wall.h
+        GameSrc/Enviroment/Barrier.cpp GameSrc/Enviroment/Barrier.h
         GameSrc/Items/Item.cpp GameSrc/Items/Item.h
         GameSrc/Items/PassiveItem.cpp GameSrc/Items/PassiveItem.h
         GameSrc/Items/ActiveItem.cpp GameSrc/Items/ActiveItem.h
@@ -29,7 +29,7 @@ set(GAME_SOURCE_FILES
         GameSrc/Items/Weapon.cpp GameSrc/Items/Weapon.h
         GameSrc/Items/RangedWeapon.cpp GameSrc/Items/RangedWeapon.h
         GameSrc/Items/MeleeWeapon.cpp GameSrc/Items/MeleeWeapon.h
-        GameSrc/Inventory.cpp GameSrc/Inventory.h GameSrc/Enviroment/Door.cpp GameSrc/Enviroment/Door.h)
+        GameSrc/Inventory.cpp GameSrc/Inventory.h GameSrc/Enviroment/Door.cpp GameSrc/Enviroment/Door.h GameSrc/Enviroment/Chasm.cpp GameSrc/Enviroment/Chasm.h GameSrc/Enviroment/CollisionArea.cpp GameSrc/Enviroment/CollisionArea.h)
 
 include_directories(./GameEngine)
 
