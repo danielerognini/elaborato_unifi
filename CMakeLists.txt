@@ -11,7 +11,6 @@ set(GAME_SOURCE_FILES
         GameSrc/Bullet.cpp GameSrc/Bullet.h
         GameSrc/Creatures/NPC.cpp GameSrc/Creatures/NPC.h
         GameSrc/Creatures/Player.cpp GameSrc/Creatures/Player.h
-        GameSrc/UI/Widget.cpp GameSrc/UI/Widget.h
         GameSrc/UI/Button.cpp GameSrc/UI/Button.h
         GameSrc/UI/Window.cpp GameSrc/UI/Window.h
         GameSrc/Creatures/Enemy.cpp GameSrc/Creatures/Enemy.h
@@ -29,7 +28,11 @@ set(GAME_SOURCE_FILES
         GameSrc/Items/Weapon.cpp GameSrc/Items/Weapon.h
         GameSrc/Items/RangedWeapon.cpp GameSrc/Items/RangedWeapon.h
         GameSrc/Items/MeleeWeapon.cpp GameSrc/Items/MeleeWeapon.h
-        GameSrc/Inventory.cpp GameSrc/Inventory.h GameSrc/Enviroment/Door.cpp GameSrc/Enviroment/Door.h GameSrc/Enviroment/Chasm.cpp GameSrc/Enviroment/Chasm.h GameSrc/Enviroment/CollisionArea.cpp GameSrc/Enviroment/CollisionArea.h)
+        GameSrc/Inventory.cpp GameSrc/Inventory.h
+        GameSrc/Enviroment/Door.cpp GameSrc/Enviroment/Door.h
+        GameSrc/Enviroment/Chasm.cpp GameSrc/Enviroment/Chasm.h
+        GameSrc/Enviroment/CollisionArea.cpp GameSrc/Enviroment/CollisionArea.h
+        GameSrc/UI/Menu.cpp GameSrc/UI/Menu.h)
 
 include_directories(./GameEngine)
 
