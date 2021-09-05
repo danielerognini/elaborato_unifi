@@ -1,7 +1,12 @@
 #ifndef GAME_INVENTORY_H
 #define GAME_INVENTORY_H
 
-class Inventory {
+#include "UI/Menu.h"
+
+class Inventory : Menu {
+public:
+    Inventory();
+private:
 
 };
 
