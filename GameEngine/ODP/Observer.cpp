@@ -1,6 +1,7 @@
 #include "Observer.h"
 
 #include <utility>
+#include <unordered_map>
 #include "Input.h"
 
 void Observer::append(const Signature& signature) {
@@ -17,7 +18,7 @@ Observer::~Observer() {
     }
 }
 
-Observer::Observer(std::unordered_map<std::string, Signature> signatures) {
+Observer::Observer(const std::unordered_map<std::string, Signature>& signatures, std::function<void()> function) : function(std::move(funciton)) {
     for (auto& signature: signatures) {
         addSignature(signature.first, signature.second);
     }
@@ -27,7 +28,7 @@ void Observer::pushEvent(EventAlert eventAlert) {
     buffer.push_back(eventAlert);
 }
 
-bool Observer::addSignature(std::string name, Signature signature) {
+bool Observer::addSignature(const std::string& name, Signature signature) {
     bool result = signatures.emplace(name, signature).second;
     if (result) {
         append(signature);
@@ -35,7 +36,7 @@ bool Observer::addSignature(std::string name, Signature signature) {
     return result;
 }
 
-bool Observer::removeSignature(std::string name) {
+bool Observer::removeSignature(const std::string& name) {
     auto iter = signatures.find(name);
     bool result = iter != signatures.end();
     if (result) {
@@ -46,7 +47,7 @@ bool Observer::removeSignature(std::string name) {
     return result;
 }
 
-const Signature& Observer::getSignature(std::string name) const {
+const Signature& Observer::getSignature(const std::string& name) const {
     auto result = signatures.find(name);
     if (result == signatures.end()) {
         throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
@@ -54,11 +55,15 @@ const Signature& Observer::getSignature(std::string name) const {
     return result->second;
 }
 
-bool Observer::modifySignature(std::string name, Signature signature) {
+bool Observer::modifySignature(const std::string& name, Signature signature) {
     auto iter = signatures.find(name);
     bool result = iter != signatures.end();
     if (result) {
         iter->second = signature;
     }
     return false;
+}
+
+void Observer::update() {
+    function();
 }

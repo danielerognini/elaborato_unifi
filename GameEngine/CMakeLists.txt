@@ -17,9 +17,9 @@ set(ENGINE_SOURCE_FILES
         Collisions/Collision.cpp Collisions/Collision.h
         Utility.h
         ECS/Components/Text.cpp ECS/Components/Text.h
-        ODP/ControlObserver.cpp ODP/ControlObserver.h
+        ODP/EntityObserver.cpp ODP/EntityObserver.h
         ODP/Observer.cpp ODP/Observer.h
-        Collisions/Border.cpp Collisions/Border.h ODP/SystemObserver.cpp ODP/SystemObserver.h)
+        Collisions/Border.cpp Collisions/Border.h)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)

@@ -4,7 +4,7 @@
   - [Activatable](#activatable)
   - [Border](#border)
   - [Collision](#collision)
-  - [ControlObserver](#controlobserver)
+  - [EntityObserver](#controlobserver)
   - [Engine](#engine)
   - [Input](#input)
   - [Observer](#observer)
@@ -71,7 +71,8 @@ Because an entity can be composed by one or more colliders, the algorithm calcul
 > Note: This algorithm has been created and completely implemented only by us to fit the particular needs of our code. We do not suggest to rely completely on our algorithm because of it's untested reliability.
 
 -------
-### ControlObserver
+
+### EntityObserver
 // TODO
 
 -------

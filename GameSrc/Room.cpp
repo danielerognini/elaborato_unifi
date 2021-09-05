@@ -5,6 +5,8 @@
 
 Room::Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active) : name(name) {
     //TODO: template room file parsing.
+    dimension = Vector2D(0, 0); //TODO: replace with data parsed from template
+    position = Vector2D(0, 0);
     std::list<std::string> layersNames = {name + "_enviroment", name + "_doors", name + "_enemies", name + "_NPCs", name + "_pets", name + "_players", name + "_items", name + "_bullets"};
     for (int i = 0; i < layersNames.size(); i++) {
         Engine::getInstance().addManager(*std::next(layersNames.begin(), i), i + priorityOffset);
@@ -60,4 +62,16 @@ void Room::unlock() {
     for (auto& door: *doors) {
         dynamic_cast<Door*>(door.second.get())->unlock();
     }
+}
+
+void Room::setPosition(const Vector2D& position) {
+    this->position = position;
+}
+
+const Vector2D& Room::getPosition() {
+    return position;
+}
+
+const Vector2D& Room::getDimension() {
+    return dimension;
 }

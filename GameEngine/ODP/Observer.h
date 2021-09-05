@@ -17,18 +17,19 @@ typedef struct {
 
 class Observer {
 public:
-    explicit Observer(std::unordered_map<std::string, Signature> signatures);
-    virtual ~Observer();
+    Observer(const std::unordered_map<std::string, Signature>& signatures, std::function<void()> function);
+    virtual ~Observer() = 0;
     void pushEvent(EventAlert eventAlert);
-    virtual void update() = 0;
-    bool addSignature(std::string name, Signature signature);
-    bool removeSignature(std::string name);
-    const Signature& getSignature(std::string name) const;
-    bool modifySignature(std::string name, Signature signature);
+    virtual void update();
+    bool addSignature(const std::string& name, Signature signature);
+    bool removeSignature(const std::string& name);
+    const Signature& getSignature(const std::string& name) const;
+    bool modifySignature(const std::string& name, Signature signature);
 
 private:
     std::unordered_map<std::string, Signature> signatures;
     std::list<EventAlert> buffer;
+    std::function<void()> function;
     
     void append(const Signature& signature);
     void release(const Signature& signature);
