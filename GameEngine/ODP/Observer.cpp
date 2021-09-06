@@ -18,33 +18,16 @@ Observer::~Observer() {
     }
 }
 
-Observer::Observer(const std::unordered_map<std::string, Signature>& signatures, std::function<void()> function) : function(std::move(funciton)) {
+Observer::Observer(const std::map<std::string, Signature>& signatures, std::function<void()> function) : Activatable(true), function(std::move(funciton)) {
     for (auto& signature: signatures) {
-        addSignature(signature.first, signature.second);
+        if (signatures.emplace(name, signature).second) {
+            append(signature);
+        }
     }
 }
 
 void Observer::pushEvent(EventAlert eventAlert) {
     buffer.push_back(eventAlert);
-}
-
-bool Observer::addSignature(const std::string& name, Signature signature) {
-    bool result = signatures.emplace(name, signature).second;
-    if (result) {
-        append(signature);
-    }
-    return result;
-}
-
-bool Observer::removeSignature(const std::string& name) {
-    auto iter = signatures.find(name);
-    bool result = iter != signatures.end();
-    if (result) {
-        Signature signature = iter->second;
-        signatures.erase(name);
-        release(signature);
-    }
-    return result;
 }
 
 const Signature& Observer::getSignature(const std::string& name) const {
