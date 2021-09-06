@@ -2,15 +2,18 @@
 #define GAME_WIDGET_H
 
 #include <ECS/Entity.h>
+#include <functional>
 
 class Widget : public Entity {
 public:
-    Widget(const std::string& texturePath, bool active = false);
-
-    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) override;
-
+    explicit Widget(const std::function<void()>& onClick, const std::string& texturePath);
     void update() override;
+    void onClick();
+
 private:
+    bool hovered;
+    std::function<void()> click;
+    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) final;
     bool checkCursorHover();
     void onHover(bool hovered);
 };

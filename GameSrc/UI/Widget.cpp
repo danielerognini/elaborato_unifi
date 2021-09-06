@@ -1,14 +1,7 @@
 #include "Widget.h"
 #include "../Cursor.h"
 
-void checkCursorHover();
-
-Widget::Widget(const std::string& texturePath, bool active) : Entity(texturePath, false, active) {
-
-}
-
-void Widget::resolveCollision(const Entity &externalEntity, const Vector2D &collisionVector) {
-
+Widget::Widget(const std::function<void()>& onClick, const std::string& texturePath) : Entity(texturePath, false, true), hovered(false) {
 }
 
 bool Widget::checkCursorHover() {
@@ -26,10 +19,24 @@ bool Widget::checkCursorHover() {
 }
 
 void Widget::onHover(bool hovered) {
-    //this function is used to make hovered things do something
+    static std::string currentAnimation = getSprite().getCurrentAnimation();
+    if (hovered != this->hovered && hovered) {
+        this->hovered = hovered;
+        getSprite().setCurrentAnimation("hover");
+    } else if (hovered != this->hovered && this->hovered) {
+        this->hovered = hovered;
+        getSprite().setCurrentAnimation(currentAnimation);
+    }
 }
 
 void Widget::update() {
     Entity::update();
     onHover(checkCursorHover());
+}
+
+void Widget::resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) {
+}
+
+void Widget::onClick() {
+    click();
 }

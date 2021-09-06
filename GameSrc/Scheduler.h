@@ -1,12 +1,17 @@
 #ifndef GAME_SCHEDULER_H
 #define GAME_SCHEDULER_H
 
+#include <memory>
+#include "ODP/Observer.h"
+
 class Scheduler {
 public:
     Scheduler();
     ~Scheduler() = default;
+    void flush();
 
 private:
+    std::list<std::unique_ptr<Observer>> observers;
 };
 
 

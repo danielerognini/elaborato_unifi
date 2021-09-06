@@ -2,7 +2,7 @@
 #define GAME_CURSOR_H
 
 #include <ECS/Entity.h>
-#include "../test/lib/googletest/xcode/Samples/FrameworkSample/widget.h"
+#include "UI/Widget.h"
 
 class Cursor : public Entity {
 public:

@@ -1,7 +1,7 @@
 #include "Cursor.h"
 
 //TODO: insert real texturePath
-Cursor::Cursor() : Entity("") {}
+Cursor::Cursor() : Entity(""), currentHoveredWidget(nullptr) {}
 
 Cursor& Cursor::getInstance() {
     static Cursor cursor = Cursor();
@@ -14,6 +14,6 @@ void Cursor::setCurrentHoveredWidget(Widget* currentHoveredWidget) {
 
 void Cursor::click() {
     if (currentHoveredWidget != nullptr) {
-        //currentHoveredWidget->click();
+        currentHoveredWidget->onClick();
     }
 }
