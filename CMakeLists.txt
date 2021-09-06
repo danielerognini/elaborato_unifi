@@ -11,8 +11,7 @@ set(GAME_SOURCE_FILES
         GameSrc/Bullet.cpp GameSrc/Bullet.h
         GameSrc/Creatures/NPC.cpp GameSrc/Creatures/NPC.h
         GameSrc/Creatures/Player.cpp GameSrc/Creatures/Player.h
-        GameSrc/UI/Button.cpp GameSrc/UI/Button.h
-        GameSrc/UI/Window.cpp GameSrc/UI/Window.h
+        GameSrc/UI/Widget.cpp GameSrc/UI/Widget.h
         GameSrc/Creatures/Enemy.cpp GameSrc/Creatures/Enemy.h
         GameSrc/Creatures/Minion.cpp GameSrc/Creatures/Minion.h
         GameSrc/Creatures/Boss.cpp GameSrc/Creatures/Boss.h
