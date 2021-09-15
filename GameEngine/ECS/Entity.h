@@ -35,16 +35,18 @@ public:
     virtual void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector);
 
     virtual bool isSolid() const;
-
+    
     virtual void setSolid(bool solid);
-
+    
     virtual bool isCollidersActive();
-
+    
     virtual std::unordered_map<std::string, Collider>::iterator begin();
     virtual std::unordered_map<std::string, Collider>::iterator end();
-
+    
     virtual const ManagerStatus& getManagerStatus() const;
     virtual void setManagerStatus(const ManagerStatus& managerStatus);
+    
+    bool operator==(Entity entity);
 
 private:
     std::unordered_map<std::string, Collider> colliders;

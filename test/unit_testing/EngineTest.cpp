@@ -5,7 +5,7 @@ class EngineFixture : public ::testing::Test {
 protected:
     EngineFixture() : engine(Engine::getInstance()) {}
 
-    virtual void SetUp() {
+    void SetUp() override {
         engine.addManager("1", 1);
         engine.addManager("2", 2);
     }

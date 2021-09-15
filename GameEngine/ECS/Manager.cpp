@@ -5,7 +5,7 @@
 void Manager::flush() {
     for (auto& entity: entities) {
         if (!entity.second.isActive()) {
-            removeEntity(entity.first);
+            removeEntity(entity);
         }
     }
 }
@@ -14,7 +14,7 @@ void Manager::update() {
     std::list<std::future<void>> asyncCalls;
     for (auto& entity: entities) {
         if(entity.isActive()){
-            asyncCalls.push_back(std::async(std::launch::async, &Entity::update, entity.second));
+            asyncCalls.push_back(std::async(std::launch::async, &Entity::update, entity));
         }
     }
     for (auto& asyncCall: asyncCalls) {
@@ -25,26 +25,18 @@ void Manager::update() {
 void Manager::draw() {
     for (auto& entity: entities) {
         if(entity.isActive()) {
-            entity.second.draw();
+            entity.draw();
         }
     }
 }
 
-bool Manager::addEntity(const std::string& name, Entity entity) {
+bool Manager::addEntity(Entity entity) {
     entity.setManagerStatus({&active, &frozen});
-    return entities.emplace(name, std::move(entity)).second;
+    return entities.emplace(std::move(entity)).second;
 }
 
-bool Manager::removeEntity(const std::string& name) {
-    return entities.erase(name);
-}
-
-Entity& Manager::getEntity(const std::string& name) {
-    auto result = entities.find(name);
-    if (result == entities.end()) {
-        throw std::runtime_error("\"" + name + "\" key does not exists in this unordered_map");
-    }
-    return result->second.get();
+bool Manager::removeEntity(const Entity& entity) {
+    return entities.erase(ptr);
 }
 
 bool Manager::isLocalCollisionsActive() const {
@@ -71,7 +63,7 @@ void Manager::setPriority(unsigned int priority) {
     this->priority = priority;
 }
 
-Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : Activatable(active), priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive) {
+Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : Activatable(active), priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive), frozen(false) {
 }
 
 std::unordered_map<std::string, Entity>::iterator Manager::begin() {
@@ -88,4 +80,8 @@ bool Manager::isFrozen() {
 
 void Manager::setFrozen(bool frozen) {
     this->frozen = frozen;
+}
+
+bool Manager::find(const Entity& entity) {
+    return entities.find(entity) != entities.end();
 }

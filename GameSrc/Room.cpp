@@ -53,14 +53,14 @@ void Room::discover() {
 void Room::lock() {
     std::shared_ptr<Manager> doors = layers.find(name + "_doors")->second;
     for (auto& door: *doors) {
-        dynamic_cast<Door*>(door.second.get())->lock();
+        dynamic_cast<Door*>(door.get())->lock();
     }
 }
 
 void Room::unlock() {
     std::shared_ptr<Manager> doors = layers.find(name + "_doors")->second;
     for (auto& door: *doors) {
-        dynamic_cast<Door*>(door.second.get())->unlock();
+        dynamic_cast<Door*>(door.get())->unlock();
     }
 }
 

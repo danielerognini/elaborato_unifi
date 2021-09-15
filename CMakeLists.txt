@@ -33,7 +33,8 @@ set(GAME_SOURCE_FILES
         GameSrc/Enviroment/CollisionArea.cpp GameSrc/Enviroment/CollisionArea.h
         GameSrc/UI/Menu.cpp GameSrc/UI/Menu.h)
 
-include_directories(./GameEngine)
+include_directories(GameEngine test)
+add_subdirectory(./test)
 
 add_executable(Game ${GAME_SOURCE_FILES})
 target_link_libraries(Game GameEngine)

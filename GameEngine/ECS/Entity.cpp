@@ -93,10 +93,14 @@ void Entity::setText(const Text& text) {
     Entity::text = text;
 }
 
-const ManagerStatus &Entity::getManagerStatus() const {
+const ManagerStatus& Entity::getManagerStatus() const {
     return managerStatus;
 }
 
-void Entity::setManagerStatus(const ManagerStatus &managerStatus) {
+void Entity::setManagerStatus(const ManagerStatus& managerStatus) {
     this->managerStatus = managerStatus;
+}
+
+bool Entity::operator==(Entity entity) {
+    return this == &entity;
 }

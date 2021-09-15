@@ -1,5 +1,5 @@
 #include "Inventory.h"
 
-Inventory::Inventory() : Menu() {
-
+Inventory::Inventory() : Menu("", 0, true) {
+    //TODO: implement
 }

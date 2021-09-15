@@ -8,7 +8,6 @@
 
 class Engine {
 public:
-    //GameEngine();
     static Engine& getInstance(const std::string& title = "Title", int x = 0, int y = 0, int width = 1920, int height = 1080, bool fullscreen = false);
     ~Engine();
     

@@ -10,36 +10,55 @@ protected:
         managers.emplace("1", Manager(1));
         managers.emplace("2", Manager(2));
     
-        managers.find("1")->second.addEntity("1", std::move(Entity("")));
-        managers.find("1")->second.getEntity("1").addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
-        managers.find("1")->second.getEntity("1").getTransform().setPosition(4, 2);
-        managers.find("1")->second.getEntity("1").getTransform().setMoving(true);
-        managers.find("1")->second.getEntity("1").getTransform().setSpeed(1);
-        managers.find("1")->second.addEntity("2", std::move(Entity("")));
-        managers.find("1")->second.getEntity("2").addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
-        managers.find("1")->second.getEntity("2").getTransform().setPosition(9, 9);
-        managers.find("1")->second.getEntity("2").getTransform().setMoving(true);
-        managers.find("1")->second.getEntity("2").getTransform().setSpeed(1);
-        managers.find("2")->second.addEntity("1", std::move(Entity("")));
-        managers.find("2")->second.getEntity("1").addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
-        managers.find("2")->second.getEntity("1").getTransform().setPosition(1, 5);
-        managers.find("2")->second.getEntity("1").getTransform().setMoving(true);
-        managers.find("2")->second.getEntity("1").getTransform().setSpeed(1);
-        managers.find("2")->second.addEntity("2", std::move(Entity("")));
-        managers.find("2")->second.getEntity("2").addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
-        managers.find("2")->second.getEntity("2").getTransform().setPosition(7, 10);
-        managers.find("2")->second.getEntity("2").getTransform().setMoving(true);
-        managers.find("2")->second.getEntity("2").getTransform().setSpeed(1);
+        Entity e1 = Entity("");
+        e1.addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
+        e1.getTransform().setPosition(4, 2);
+        e1.getTransform().setMoving(true);
+        e1.getTransform().setSpeed(1);
+        e1.getText().setMessage("1");
+        managers.find("1")->second.addEntity(std::move(e1));
+        Entity e2 = Entity("");
+        e2.addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
+        e2.getTransform().setPosition(9, 9);
+        e2.getTransform().setMoving(true);
+        e2.getTransform().setSpeed(1);
+        e2.getText().setMessage("2");
+        managers.find("1")->second.addEntity(e2);
+        Entity e3 = Entity("");
+        e3.addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
+        e3.getTransform().setPosition(1, 5);
+        e3.getTransform().setMoving(true);
+        e3.getTransform().setSpeed(1);
+        e3.getText().setMessage("3");
+        managers.find("2")->second.addEntity(e3);
+        Entity e4 = Entity("");
+        e4.addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
+        e4.getTransform().setPosition(7, 10);
+        e4.getTransform().setMoving(true);
+        e4.getTransform().setSpeed(1);
+        e4.getText().setMessage("4");
+        managers.find("2")->second.addEntity(e4);
     }
 };
 
 TEST_F(CollisionFixture, collisionUpdate) {
     Collision::collisionUpdate(managers);
     
-    EXPECT_TRUE(managers.find("1")->second.getEntity("1").getTransform().getPosition().getX() == 5 && managers.find("1")->second.getEntity("1").getTransform().getPosition().getY() == 2);
-    EXPECT_TRUE(managers.find("1")->second.getEntity("2").getTransform().getPosition().getX() == 10 && managers.find("1")->second.getEntity("2").getTransform().getPosition().getY() == 9);
-    EXPECT_TRUE(managers.find("2")->second.getEntity("1").getTransform().getPosition().getX() == 1 && managers.find("2")->second.getEntity("1").getTransform().getPosition().getY() == 6);
-    EXPECT_TRUE(managers.find("2")->second.getEntity("2").getTransform().getPosition().getX() == 6 && managers.find("2")->second.getEntity("2").getTransform().getPosition().getY() == 10);
+    for (auto& entity: managers.find("1")->second) {
+        if (entity->getText().getMessage() == "1") {
+            EXPECT_TRUE(entity->getTransform().getPosition().getX() == 5 && entity->getTransform().getPosition().getY() == 2);
+        } else if (entity->getText().getMessage() == "2") {
+            EXPECT_TRUE(entity->getTransform().getPosition().getX() == 10 && entity->getTransform().getPosition().getY() == 9);
+        }
+    }
+    
+    for (auto& entity: managers.find("2")->second) {
+        if (entity->getText().getMessage() == "3") {
+            EXPECT_TRUE(entity->getTransform().getPosition().getX() == 1 && entity->getTransform().getPosition().getY() == 6);
+        } else if (entity->getText().getMessage() == "4") {
+            EXPECT_TRUE(entity->getTransform().getPosition().getX() == 6 && entity->getTransform().getPosition().getY() == 10);
+        }
+    }
 }
 
 

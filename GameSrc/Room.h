@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include "ECS/Manager.h"
 
 class Room : public Activatable {
 public:

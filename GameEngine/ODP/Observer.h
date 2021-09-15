@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <functional>
 #include <list>
+#include <unordered_map>
 #include <map>
 #include "Activatable.h"
 
