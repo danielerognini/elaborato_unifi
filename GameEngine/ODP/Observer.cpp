@@ -50,3 +50,7 @@ bool Observer::modifySignature(const std::string& name, Signature signature) {
 void Observer::update() {
     function();
 }
+
+int Observer::hasTarget() const {
+    return true;
+}
