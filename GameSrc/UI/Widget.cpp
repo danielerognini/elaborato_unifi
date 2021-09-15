@@ -22,7 +22,7 @@ void Widget::onHover(bool hovered) {
     static std::string currentAnimation = getSprite().getCurrentAnimation();
     if (hovered != this->hovered && hovered) {
         this->hovered = hovered;
-        getSprite().setCurrentAnimation("hover");
+        getSprite().setCurrentAnimation("hover"); //maybe its temporary
     } else if (hovered != this->hovered && this->hovered) {
         this->hovered = hovered;
         getSprite().setCurrentAnimation(currentAnimation);
