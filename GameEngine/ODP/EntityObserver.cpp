@@ -11,3 +11,7 @@ void EntityObserver::update() {
     }
 }
 
+bool EntityObserver::hasTarget() {
+    return entity->isActive();
+}
+

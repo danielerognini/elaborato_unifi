@@ -14,6 +14,7 @@ public:
     
     std::map<std::string, std::shared_ptr<Manager>>::iterator begin();
     std::map<std::string, std::shared_ptr<Manager>>::iterator end();
+    Manager& getLayer(std::string layer);
     
     bool isDiscovered() const;
     void discover();

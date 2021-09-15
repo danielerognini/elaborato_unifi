@@ -51,3 +51,6 @@ void Observer::update() {
     function();
 }
 
+int Observer::hasTarget() const {
+    return true;
+}

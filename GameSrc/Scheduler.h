@@ -8,7 +8,7 @@ class Scheduler {
 public:
     Scheduler();
     ~Scheduler() = default;
-    void flush();
+    void update();
 
 private:
     std::list<std::unique_ptr<Observer>> observers;

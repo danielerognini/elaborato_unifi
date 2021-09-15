@@ -17,15 +17,16 @@ typedef struct {
     Signature signature;
 } EventAlert;
 
-class Observer : public Activatable {
+class Observer {
 public:
 
     Observer(const std::map<std::string, Signature>& signatures, std::function<void()> function);
-    ~Observer() override = default;
+    ~Observer();
     void pushEvent(EventAlert eventAlert);
     virtual void update();
     const Signature& getSignature(const std::string& name) const;
     bool modifySignature(const std::string& name, Signature signature);
+    virtual bool hasTarget() const;
 
 private:
     std::unordered_map<std::string, Signature> signatures;

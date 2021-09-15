@@ -75,3 +75,7 @@ const Vector2D& Room::getPosition() {
 const Vector2D& Room::getDimension() {
     return dimension;
 }
+
+Manager& Room::getLayer(std::string layer) {
+    return *layers.find(layer)->second;
+}

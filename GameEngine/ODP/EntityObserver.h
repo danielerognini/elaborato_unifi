@@ -10,6 +10,7 @@ public:
     EntityObserver(const std::unordered_map<std::string, Signature>& signatures, Entity* entity, const std::function<void()>& function);
     ~EntityObserver() override = default;
     void update() override;
+    bool hasTarget() override;
 
 private:
     Entity* entity;
