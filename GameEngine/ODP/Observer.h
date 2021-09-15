@@ -19,6 +19,7 @@ typedef struct {
 
 class Observer : public Activatable {
 public:
+
     Observer(const std::map<std::string, Signature>& signatures, std::function<void()> function);
     ~Observer() override = default;
     void pushEvent(EventAlert eventAlert);
