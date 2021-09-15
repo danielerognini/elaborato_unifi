@@ -6,12 +6,17 @@
 
 class Door : public Entity{
 public:
+    Door(const std::string& texturePath, Room* room, Room* hallway, Border doorStep, Direction pushDirection);
     void lock();
     void unlock();
     void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) override;
 private:
-    std::shared_ptr<Room> room;
-    std::shared_ptr<Room> hallway;
+    Room* room;
+    Room* hallway;
+
+    Border doorStep;
+
+    Direction pushDirection; //Hallway to room
 };
 
 

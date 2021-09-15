@@ -20,6 +20,7 @@ typedef struct {
 
 class Observer {
 public:
+
     Observer(const std::map<std::string, Signature>& signatures, std::function<void()> function);
     ~Observer();
     void pushEvent(EventAlert eventAlert);

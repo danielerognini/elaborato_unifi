@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-Entity::Entity(const std::string& texturePath, bool solid, bool active) : Activatable(active), sprite(Sprite(texturePath)), transform(Transform()), solid(solid) {
+Entity::Entity(const std::string& texturePath, bool solid) : Activatable(true), sprite(Sprite(texturePath)), transform(Transform()), solid(solid) {
 }
 
 void Entity::update() {

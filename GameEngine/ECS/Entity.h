@@ -14,7 +14,7 @@ typedef struct {
 
 class Entity : public Activatable {
 public:
-    explicit Entity(const std::string& texturePath, bool solid = true, bool active = true);
+    explicit Entity(const std::string& texturePath, bool solid = true);
     
     virtual Collider& getCollider(const std::string& name);
 

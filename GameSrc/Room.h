@@ -27,6 +27,8 @@ public:
     void lock();
     void unlock();
 
+    const std::string& getName();
+
 private:
     bool discovered;
     std::string name;
