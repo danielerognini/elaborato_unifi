@@ -100,7 +100,3 @@ const ManagerStatus& Entity::getManagerStatus() const {
 void Entity::setManagerStatus(const ManagerStatus& managerStatus) {
     this->managerStatus = managerStatus;
 }
-
-bool Entity::operator==(Entity entity) {
-    return this == &entity;
-}

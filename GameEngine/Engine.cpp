@@ -48,7 +48,7 @@ void Engine::update() {
     }
 
     for (auto& manager: managers) {
-        if(manager.isActive() && !manager.isFrozen()){
+        if (manager.second.isActive() && !manager.second.isFrozen()) {
             asyncCalls.push_back(std::async(std::launch::async, &Manager::update, &manager.second));
         }
     }
@@ -62,7 +62,7 @@ void Engine::render() {
     SDL_RenderClear(renderer); //clean the previous render buffer
     
     for (auto& manager: managers) {
-        if(manager.isActive()) {
+        if (manager.second.isActive()) {
             manager.second.draw(); //we use second as a reference to the manager in the iter map to call the method to render the entities
         }
     }

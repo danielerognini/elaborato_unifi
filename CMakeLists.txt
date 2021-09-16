@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(Game)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
 set(GAME_SOURCE_FILES
         GameSrc/Map.cpp GameSrc/Map.h
@@ -35,6 +35,7 @@ set(GAME_SOURCE_FILES
 
 include_directories(GameEngine test)
 add_subdirectory(./test)
+add_subdirectory(./GameEngine)
 
 add_executable(Game ${GAME_SOURCE_FILES})
 target_link_libraries(Game GameEngine)

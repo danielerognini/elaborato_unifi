@@ -5,7 +5,7 @@
 
 class CollisionArea : public Entity{
 public:
-    CollisionArea(bool solid = true, bool active = true);
+    CollisionArea(bool solid = true);
 private:
     Sprite& getSprite() override;
     Text& getText() override;

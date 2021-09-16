@@ -45,8 +45,6 @@ public:
     
     virtual const ManagerStatus& getManagerStatus() const;
     virtual void setManagerStatus(const ManagerStatus& managerStatus);
-    
-    bool operator==(Entity entity);
 
 private:
     std::unordered_map<std::string, Collider> colliders;

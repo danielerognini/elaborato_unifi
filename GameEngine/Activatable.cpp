@@ -1,5 +1,7 @@
 #include "Activatable.h"
 
+Activatable::Activatable(bool active) : active(active) {}
+
 bool Activatable::isActive() const {
     return active;
 }
@@ -12,5 +14,6 @@ void Activatable::disable() {
     active = false;
 }
 
-Activatable::Activatable(bool active) : active(active) {}
+Activatable::~Activatable() {
+}
 

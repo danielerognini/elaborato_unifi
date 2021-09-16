@@ -1,7 +1,7 @@
 #include "Widget.h"
 #include "../Cursor.h"
 
-Widget::Widget(const std::function<void()>& onClick, const std::string& texturePath) : Entity(texturePath, false, true), hovered(false) {
+Widget::Widget(const std::function<void()>& onClick, const std::string& texturePath) : Entity(texturePath, false), hovered(false) {
 }
 
 bool Widget::checkCursorHover() {

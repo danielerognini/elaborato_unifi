@@ -4,8 +4,8 @@
 
 void Manager::flush() {
     for (auto& entity: entities) {
-        if (!entity.second.isActive()) {
-            removeEntity(entity);
+        if (!entity->isActive()) {
+            removeEntity(entity.get());
         }
     }
 }
@@ -13,8 +13,8 @@ void Manager::flush() {
 void Manager::update() {
     std::list<std::future<void>> asyncCalls;
     for (auto& entity: entities) {
-        if(entity.isActive()){
-            asyncCalls.push_back(std::async(std::launch::async, &Entity::update, entity));
+        if (entity->isActive()) {
+            asyncCalls.push_back(std::async(std::launch::async, &Entity::update, entity.get()));
         }
     }
     for (auto& asyncCall: asyncCalls) {
@@ -24,19 +24,19 @@ void Manager::update() {
 
 void Manager::draw() {
     for (auto& entity: entities) {
-        if(entity.isActive()) {
-            entity.draw();
+        if (entity->isActive()) {
+            entity->draw();
         }
     }
 }
 
-bool Manager::addEntity(Entity entity) {
-    entity.setManagerStatus({&active, &frozen});
-    return entities.emplace(std::move(entity)).second;
+bool Manager::addEntity(Entity* entity) {
+    entity->setManagerStatus({&active, &frozen});
+    return entities.emplace(entity).second;
 }
 
-bool Manager::removeEntity(const Entity& entity) {
-    return entities.erase(ptr);
+bool Manager::removeEntity(Entity* entity) {
+    return entities.erase(tmp_ptr<Entity>(entity));
 }
 
 bool Manager::isLocalCollisionsActive() const {
@@ -66,11 +66,11 @@ void Manager::setPriority(unsigned int priority) {
 Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : Activatable(active), priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive), frozen(false) {
 }
 
-std::unordered_map<std::string, Entity>::iterator Manager::begin() {
+std::unordered_set<u_ptr<Entity>>::iterator Manager::begin() {
     return entities.begin();
 }
 
-std::unordered_map<std::string, Entity>::iterator Manager::end() {
+std::unordered_set<u_ptr<Entity>>::iterator Manager::end() {
     return entities.end();
 }
 
@@ -82,6 +82,6 @@ void Manager::setFrozen(bool frozen) {
     this->frozen = frozen;
 }
 
-bool Manager::find(const Entity& entity) {
-    return entities.find(entity) != entities.end();
+bool Manager::find(Entity* entity) {
+    return entities.find(tmp_ptr<Entity>(entity)) != entities.end();
 }

@@ -18,10 +18,10 @@ Observer::~Observer() {
     }
 }
 
-Observer::Observer(const std::map<std::string, Signature>& signatures, std::function<void()> function) : Activatable(true), function(std::move(funciton)) {
+Observer::Observer(const std::map<std::string, Signature>& signatures, std::function<void()> function) : function(std::move(function)) {
     for (auto& signature: signatures) {
-        if (signatures.emplace(name, signature).second) {
-            append(signature);
+        if (this->signatures.emplace(signature.first, signature.second).second) {
+            append(signature.second);
         }
     }
 }
@@ -51,6 +51,6 @@ void Observer::update() {
     function();
 }
 
-int Observer::hasTarget() const {
+bool Observer::hasTarget() const {
     return true;
 }

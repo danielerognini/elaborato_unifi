@@ -1,7 +1,6 @@
 #include "Chasm.h"
 
-Chasm::Chasm(bool solid, bool active) : CollisionArea(solid, active) {
-
+Chasm::Chasm(bool solid) : CollisionArea(solid) {
 }
 
 void Chasm::resolveCollision(const Entity &externalEntity, const Vector2D &collisionVector) {

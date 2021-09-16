@@ -7,10 +7,9 @@
 
 class EntityObserver : public Observer {
 public:
-    EntityObserver(const std::unordered_map<std::string, Signature>& signatures, Entity* entity, const std::function<void()>& function);
-    ~EntityObserver() override = default;
+    EntityObserver(const std::map<std::string, Signature>& signatures, Entity* entity, const std::function<void()>& function);
     void update() override;
-    bool hasTarget() override;
+    bool hasTarget() const override;
 
 private:
     Entity* entity;

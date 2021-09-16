@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "../Activatable.h"
+#include "Utility.h"
 #include <unordered_set>
 
 class Manager : public Activatable {
@@ -13,13 +14,13 @@ public:
     void update();
     void draw();
     
-    bool addEntity(Entity entity);
-    bool removeEntity(const Entity& entity);
+    bool addEntity(Entity* entity);
+    bool removeEntity(Entity* entity);
     
-    std::unordered_set<std::unique_ptr<Entity>>::iterator begin();
-    std::unordered_set<std::unique_ptr<Entity>>::iterator end();
+    std::unordered_set<u_ptr<Entity>>::iterator begin();
+    std::unordered_set<u_ptr<Entity>>::iterator end();
     
-    bool find(const Entity& entity);
+    bool find(Entity* entity);
     
     bool isLocalCollisionsActive() const;
     
@@ -37,7 +38,7 @@ public:
     void setFrozen(bool frozen);
 
 private:
-    std::unordered_set<std::unique_ptr<Entity>> entities;
+    std::unordered_set<u_ptr<Entity>> entities;
     bool localCollisionsActive;
     bool globalCollisionsActive;
     unsigned int priority;

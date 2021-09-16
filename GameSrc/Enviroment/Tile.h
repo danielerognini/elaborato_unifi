@@ -5,7 +5,7 @@
 
 class Tile : public Entity{
 public:
-    Tile(const std::string& texturePath, bool active = true);
+    Tile(const std::string& texturePath);
 
 private:
     Collider& getCollider(const std::string& name) override;

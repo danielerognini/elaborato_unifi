@@ -20,10 +20,10 @@ void Collision::collisionUpdate(std::unordered_map<std::string, Manager>& manage
             for (auto subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
                 if (subIter->second.isGlobalCollisionsActive()) {
                     for (auto subSubIter = iter->second.begin(); subSubIter != iter->second.end(); subSubIter++) {
-                        if (subSubIter->second.isCollidersActive()) {
+                        if ((*subSubIter)->isCollidersActive()) {
                             for (auto& subSubSubIter: subIter->second) {
-                                if (subSubIter->second.isCollidersActive()) {
-                                    Collision::resolveEntityCollisions(subSubIter->second, subSubSubIter.second);
+                                if ((*subSubIter)->isCollidersActive()) {
+                                    Collision::resolveEntityCollisions(**subSubIter, *subSubSubIter);
                                 }
                             }
                         }
@@ -38,10 +38,10 @@ void Collision::resolveLocalCollisions(std::unordered_map<std::string, Manager>:
     if (iter->second.isLocalCollisionsActive()) {
         
         for (auto subIter = iter->second.begin(); std::next(subIter, 1) != iter->second.end(); subIter++) {
-            if (subIter->second.isCollidersActive()) {
+            if ((*subIter)->isCollidersActive()) {
                 for (auto subSubIter = std::next(subIter, 1); subSubIter != iter->second.end(); subSubIter++) {
-                    if (subSubIter->second.isCollidersActive()) {
-                        Collision::resolveEntityCollisions(subIter->second, subSubIter->second);
+                    if ((*subSubIter)->isCollidersActive()) {
+                        Collision::resolveEntityCollisions(**subIter, **subSubIter);
                     }
                 }
             }

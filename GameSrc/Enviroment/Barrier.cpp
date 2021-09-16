@@ -1,5 +1,4 @@
 #include "Barrier.h"
 
-Barrier::Barrier(bool solid, bool active) : CollisionArea(solid, active){
-
+Barrier::Barrier(bool solid) : CollisionArea(solid) {
 }

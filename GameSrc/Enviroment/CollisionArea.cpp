@@ -1,7 +1,6 @@
 #include "CollisionArea.h"
 
-CollisionArea::CollisionArea(bool solid, bool active) : Entity("", solid, active){
-
+CollisionArea::CollisionArea(bool solid) : Entity("", solid) {
 }
 
 Sprite &CollisionArea::getSprite() {

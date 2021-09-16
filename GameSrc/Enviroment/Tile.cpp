@@ -12,8 +12,7 @@ bool Tile::removeCollider(const std::string &name) {
     return Entity::removeCollider(name);
 }
 
-Tile::Tile(const std::string &texturePath, bool active) : Entity(texturePath, false, active) {
-
+Tile::Tile(const std::string& texturePath) : Entity(texturePath, false) {
 }
 
 Text &Tile::getText() {

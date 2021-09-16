@@ -3,7 +3,7 @@
 #include "Room.h"
 #include "Enviroment/Door.h"
 
-Room::Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active) : name(name) {
+Room::Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active) : Activatable(active), name(name) {
     //TODO: template room file parsing.
     dimension = Vector2D(0, 0); //TODO: replace with data parsed from template
     position = Vector2D(0, 0);
