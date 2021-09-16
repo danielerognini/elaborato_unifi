@@ -38,7 +38,7 @@ const Signature& Observer::getSignature(const std::string& name) const {
     return result->second;
 }
 
-bool Observer::modifySignature(const std::string& name, Signature signature) {
+bool Observer::changeSignature(const std::string& name, Signature signature) {
     auto iter = signatures.find(name);
     bool result = iter != signatures.end();
     if (result) {

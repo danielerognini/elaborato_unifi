@@ -26,7 +26,7 @@ public:
     void pushEvent(EventAlert eventAlert);
     virtual void update();
     const Signature& getSignature(const std::string& name) const;
-    bool modifySignature(const std::string& name, Signature signature);
+    bool changeSignature(const std::string& name, Signature signature);
     virtual bool hasTarget() const;
 
 private:

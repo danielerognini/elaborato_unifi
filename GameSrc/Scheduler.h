@@ -2,16 +2,22 @@
 #define GAME_SCHEDULER_H
 
 #include <memory>
+#include "Utility.h"
 #include "ODP/Observer.h"
 
 class Scheduler {
 public:
-    Scheduler();
+    static Scheduler& getInstance();
     ~Scheduler() = default;
     void update();
+    
+    void addObserver(Observer* observer);
+    void remapEvent(const std::string& event, Signature signature);
 
 private:
-    std::list<std::unique_ptr<Observer>> observers;
+    std::unordered_map<std::string, Signature> events;
+    std::list<u_ptr<Observer>> observers;
+    Scheduler();
 };
 
 
