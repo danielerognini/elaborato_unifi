@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "ECS/Components/Sprite.h"
+#include "ecs/components/Sprite.h"
 
 class SpriteFixture : public ::testing::Test {
 protected:

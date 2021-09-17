@@ -15,6 +15,7 @@ public:
     
     void addObserver(Observer* observer);
     void remapEvent(const std::string& event, Signature signature);
+    Signature getSignature(const std::string& event);
 
 private:
     std::unordered_map<std::string, Signature> events;

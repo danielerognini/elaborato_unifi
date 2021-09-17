@@ -52,3 +52,7 @@ void Scheduler::remapEvent(const std::string& event, Signature signature) {
         observer->changeSignature(event, signature);
     }
 }
+
+Signature Scheduler::getSignature(const std::string& event) {
+    return events[event];
+}

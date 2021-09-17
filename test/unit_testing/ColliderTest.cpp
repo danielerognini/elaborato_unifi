@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "ECS/Components/Collider.h"
+#include "ecs/components/Collider.h"
 #include "iostream"
 
 

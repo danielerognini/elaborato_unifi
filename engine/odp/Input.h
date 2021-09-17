@@ -4,7 +4,7 @@
 #include <future>
 #include <memory>
 #include <list>
-#include <array>
+#include <unordered_map>
 #include <map>
 #include "SDL2/SDL.h"
 #include "Vector2D.h"
@@ -28,8 +28,7 @@ public:
 private:
     Input();
     SDL_Event event;
-    std::array<EventWrapper, 47> events;
-    std::pair<std::multimap<unsigned int, Observer*>::iterator, std::multimap<unsigned int, Observer*>::iterator> observers;
+    std::unordered_map<unsigned int, EventWrapper> events;
     
     void notify();
     void execute();

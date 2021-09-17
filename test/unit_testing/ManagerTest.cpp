@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "ECS/Manager.h"
+#include "ecs/Manager.h"
 
 class ManagerFixture : public ::testing::Test {
 protected:
@@ -11,21 +11,21 @@ protected:
     Entity* e4 = new Entity("");
     
     virtual void SetUp() {
-        manager.addEntity(std::move(*e1));
-        manager.addEntity(std::move(*e2));
+        manager.addEntity(e1);
+        manager.addEntity(e2);
     }
     
     Manager manager;
 };
 
 TEST_F(ManagerFixture, addEntity) {
-    EXPECT_TRUE(manager.addEntity(std::move(*e3)));
-    EXPECT_TRUE(manager.addEntity(std::move(*e4)));
-    EXPECT_FALSE(manager.addEntity(std::move(*e4)));
+    EXPECT_TRUE(manager.addEntity(e3));
+    EXPECT_TRUE(manager.addEntity(e4));
+    EXPECT_FALSE(manager.addEntity(e4));
 }
 
 TEST_F(ManagerFixture, removeEntity) {
-    EXPECT_TRUE(manager.removeEntity(*e1));
-    EXPECT_TRUE(manager.removeEntity(*e2));
-    EXPECT_FALSE(manager.removeEntity(*e2));
+    EXPECT_TRUE(manager.removeEntity(e1));
+    EXPECT_TRUE(manager.removeEntity(e2));
+    EXPECT_FALSE(manager.removeEntity(e2));
 }

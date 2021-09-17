@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "ECS/Entity.h"
+#include "ecs/Entity.h"
 #include <iostream>
 
 class EntityFixture : public ::testing::Test{

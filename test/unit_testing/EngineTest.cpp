@@ -10,7 +10,7 @@ protected:
         engine.addManager("2", 2);
     }
 
-    Engine engine;
+    Engine& engine;
 };
 
 

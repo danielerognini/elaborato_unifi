@@ -9,8 +9,6 @@
 class Manager : public Activatable {
 public:
     explicit Manager(unsigned int priority, bool localCollisionsActive = true, bool globalCollisionsActive = true, bool active = false);
-    Manager(const Manager& manager) = delete;
-    bool operator=(const Manager& manager) = delete;
     
     void flush();
     void update();
