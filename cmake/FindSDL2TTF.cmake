@@ -131,7 +131,7 @@ IF(SDL2TTF_LIBRARY_TEMP)
     ENDIF(NOT SDL2TTF_BUILDING_LIBRARY)
 
     # For OS X, SDL2TTF uses Cocoa as a backend so it must link to Cocoa.
-    # CMake doesn't display the -framework Cocoa string in the UI even
+    # CMake doesn't display the -framework Cocoa string in the ui even
     # though it actually is there if I modify a pre-used variable.
     # I think it has something to do with the CACHE STRING.
     # So I use a temporary variable until the end so I can set the

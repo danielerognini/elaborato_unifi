@@ -1,41 +1,41 @@
 cmake_minimum_required(VERSION 3.19)
-project(Game)
+project(game)
 
 set(CMAKE_CXX_STANDARD 20)
 
 set(GAME_SOURCE_FILES
-        GameSrc/Map.cpp GameSrc/Map.h
-        GameSrc/Room.cpp GameSrc/Room.h
-        GameSrc/Game.cpp
-        GameSrc/Cursor.cpp GameSrc/Cursor.h
-        GameSrc/Bullet.cpp GameSrc/Bullet.h
-        GameSrc/Creatures/NPC.cpp GameSrc/Creatures/NPC.h
-        GameSrc/Creatures/Player.cpp GameSrc/Creatures/Player.h
-        GameSrc/UI/Widget.cpp GameSrc/UI/Widget.h
-        GameSrc/Creatures/Enemy.cpp GameSrc/Creatures/Enemy.h
-        GameSrc/Creatures/Minion.cpp GameSrc/Creatures/Minion.h
-        GameSrc/Creatures/Boss.cpp GameSrc/Creatures/Boss.h
-        GameSrc/Creatures/Pet.cpp GameSrc/Creatures/Pet.h
-        GameSrc/Scheduler.cpp GameSrc/Scheduler.h
-        GameSrc/Interactable.cpp GameSrc/Interactable.h
-        GameSrc/Enviroment/Tile.cpp GameSrc/Enviroment/Tile.h
-        GameSrc/Enviroment/Barrier.cpp GameSrc/Enviroment/Barrier.h
-        GameSrc/Items/Item.cpp GameSrc/Items/Item.h
-        GameSrc/Items/PassiveItem.cpp GameSrc/Items/PassiveItem.h
-        GameSrc/Items/ActiveItem.cpp GameSrc/Items/ActiveItem.h
-        GameSrc/Items/QuestItem.cpp GameSrc/Items/QuestItem.h
-        GameSrc/Items/Weapon.cpp GameSrc/Items/Weapon.h
-        GameSrc/Items/RangedWeapon.cpp GameSrc/Items/RangedWeapon.h
-        GameSrc/Items/MeleeWeapon.cpp GameSrc/Items/MeleeWeapon.h
-        GameSrc/Inventory.cpp GameSrc/Inventory.h
-        GameSrc/Enviroment/Door.cpp GameSrc/Enviroment/Door.h
-        GameSrc/Enviroment/Chasm.cpp GameSrc/Enviroment/Chasm.h
-        GameSrc/Enviroment/CollisionArea.cpp GameSrc/Enviroment/CollisionArea.h
-        GameSrc/UI/Menu.cpp GameSrc/UI/Menu.h)
+        game/Map.cpp game/Map.h
+        game/Room.cpp game/Room.h
+        game/Game.cpp
+        game/Cursor.cpp game/Cursor.h
+        game/Bullet.cpp game/Bullet.h
+        game/creatures/NPC.cpp game/creatures/NPC.h
+        game/creatures/Player.cpp game/creatures/Player.h
+        game/ui/Widget.cpp game/ui/Widget.h
+        game/creatures/Enemy.cpp game/creatures/Enemy.h
+        game/creatures/Minion.cpp game/creatures/Minion.h
+        game/creatures/Boss.cpp game/creatures/Boss.h
+        game/creatures/Pet.cpp game/creatures/Pet.h
+        game/Scheduler.cpp game/Scheduler.h
+        game/Interactable.cpp game/Interactable.h
+        game/enviroment/Tile.cpp game/enviroment/Tile.h
+        game/enviroment/Barrier.cpp game/enviroment/Barrier.h
+        game/items/Item.cpp game/items/Item.h
+        game/items/PassiveItem.cpp game/items/PassiveItem.h
+        game/items/ActiveItem.cpp game/items/ActiveItem.h
+        game/items/QuestItem.cpp game/items/QuestItem.h
+        game/items/Weapon.cpp game/items/Weapon.h
+        game/items/RangedWeapon.cpp game/items/RangedWeapon.h
+        game/items/MeleeWeapon.cpp game/items/MeleeWeapon.h
+        game/Inventory.cpp game/Inventory.h
+        game/enviroment/Door.cpp game/enviroment/Door.h
+        game/enviroment/Chasm.cpp game/enviroment/Chasm.h
+        game/enviroment/CollisionArea.cpp game/enviroment/CollisionArea.h
+        game/ui/Menu.cpp game/ui/Menu.h)
 
-include_directories(GameEngine test)
+include_directories(engine test)
 add_subdirectory(./test)
-add_subdirectory(./GameEngine)
+add_subdirectory(./engine)
 
-add_executable(Game ${GAME_SOURCE_FILES})
-target_link_libraries(Game GameEngine)
+add_executable(game ${GAME_SOURCE_FILES})
+target_link_libraries(game engine)

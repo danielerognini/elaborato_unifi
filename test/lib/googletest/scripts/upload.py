@@ -28,7 +28,7 @@ Supported version control systems:
 It is important for Git/Mercurial users to specify a tree/node/branch to diff
 against by using the '--rev' option.
 """
-# This code is derived from appcfg.py in the App Engine SDK (open source),
+# This code is derived from appcfg.py in the App engine SDK (open source),
 # and from ASPN recipe #146306.
 
 import cookielib
