@@ -34,7 +34,7 @@ void Widget::update() {
     onHover(checkCursorHover());
 }
 
-void Widget::resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) {
+void Widget::resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) {
 }
 
 void Widget::onClick() {

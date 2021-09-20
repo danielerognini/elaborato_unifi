@@ -12,11 +12,10 @@ void Door::unlock() {
     //TODO: change door animation
 }
 
-void Door::resolveCollision(const Entity &externalEntity, const Vector2D &collisionVector) {
-    if(isSolid()){
+void Door::resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) {
+    if (isSolid()) {
         Entity::resolveCollision(externalEntity, collisionVector);
-    }
-    else{
+    } else {
         /*
         if(!room->isDiscovered()) {
             //TODO: push the player trough the door

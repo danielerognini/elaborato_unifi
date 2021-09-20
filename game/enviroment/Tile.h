@@ -18,7 +18,7 @@ private:
 
     void setText(const Text& text) override;
 
-    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) override;
+    void resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) override;
 
     bool isSolid() const override;
 

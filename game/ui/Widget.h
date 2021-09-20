@@ -13,7 +13,7 @@ public:
 private:
     bool hovered;
     std::function<void()> click;
-    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) final;
+    void resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) final;
     bool checkCursorHover();
     void onHover(bool hovered);
 };

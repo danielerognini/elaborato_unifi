@@ -171,7 +171,7 @@ void Engine::setMaxFPS(unsigned short maxFPS) {
 }
 
 unsigned short int Engine::getMinFrameTime() {
-    return 1000 / getMinFrameTime();
+    return 1000 / maxFPS;
 }
 
 

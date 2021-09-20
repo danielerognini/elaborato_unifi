@@ -32,7 +32,7 @@ public:
     virtual void update();
     virtual void draw();
 
-    virtual void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector);
+    virtual void resolveCollision(Entity* externalEntity, const Vector2D& collisionVector);
 
     virtual bool isSolid() const;
     

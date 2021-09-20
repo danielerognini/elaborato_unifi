@@ -7,12 +7,15 @@
 class Animation {
 public:
     Animation(int index, int frames, int speed);
-    void updateRect(SDL_Rect& srcRect) const;
+    void updateRect(SDL_Rect& srcRect);
+    void restartAnimation();
+    unsigned short int getFrames();
 
 private:
-    int index;
-    int frames;
-    int speed;
+    unsigned short int index;
+    unsigned short int frames;
+    unsigned short int speed;
+    unsigned short int currentFrame;
 };
 
 #endif //GAME_ANIMATION_H

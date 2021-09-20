@@ -46,4 +46,9 @@ myset.insert(u_ptr<int>(raw));
 auto it = myset.find(tmp_ptr(raw));
 */
 
+template<typename Base, typename T>
+inline bool isInstanceOf(const T*) {
+    return std::is_base_of<Base, T>::value;
+}
+
 #endif //GAME_UTILITY_H

@@ -9,7 +9,7 @@
 
 class Sprite : public Activatable {
 public:
-    explicit Sprite(const std::string& texturePath, bool active = true);
+    explicit Sprite(const std::string& texturePath, const std::string& currentAnimation, bool active = true);
     
     void update();
     
@@ -25,6 +25,8 @@ public:
     const std::string& getCurrentAnimation();
     void setCurrentAnimation(const std::string& name);
     
+    void playAnimation(const std::string& animation, const std::string& nextAnimation = "");
+    
     const SDL_RendererFlip& getFlip();
     void setFlip(const SDL_RendererFlip& flip);
 
@@ -33,6 +35,9 @@ private:
     SDL_Rect srcRect;
     
     std::string currentAnimation;
+    std::string nextAnimation;
+    unsigned short int animationFrames;
+    bool temporary;
     std::unordered_map<std::string, Animation> animations;
     
     SDL_RendererFlip flip;

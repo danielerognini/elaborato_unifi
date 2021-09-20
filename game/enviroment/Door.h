@@ -9,7 +9,7 @@ public:
     Door(const std::string& texturePath, Room* room, Room* hallway, Border doorStep, Direction pushDirection);
     void lock();
     void unlock();
-    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) override;
+    void resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) override;
 private:
     Room* room;
     Room* hallway;

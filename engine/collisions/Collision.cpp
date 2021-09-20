@@ -51,8 +51,8 @@ void Collision::resolveLocalCollisions(std::unordered_map<std::string, Manager>:
 
 void Collision::resolveEntityCollisions(Entity& entity1, Entity& entity2) {
     Vector2D vector = Collision::controlEntityCollisions(entity1, entity2);
-    entity1.resolveCollision(entity2, vector);
-    entity2.resolveCollision(entity1, vector * (-1));
+    entity1.resolveCollision(&entity2, vector);
+    entity2.resolveCollision(&entity1, vector * (-1));
 }
 
 Vector2D Collision::controlEntityCollisions(Entity& reference, Entity& external) {

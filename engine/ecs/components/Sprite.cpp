@@ -1,10 +1,15 @@
 #include "Sprite.h"
 
-Sprite::Sprite(const std::string& texturePath, bool active) : Activatable(active), texturePath(texturePath), flip(SDL_FLIP_NONE) {
+Sprite::Sprite(const std::string& texturePath, const std::string& currentAnimation, bool active) : Activatable(active), texturePath(texturePath), currentAnimation(currentAnimation), animationFrames(0), temporary(false), flip(SDL_FLIP_NONE) {
 }
 
 void Sprite::update() {
     animations.find(currentAnimation)->second.updateRect(srcRect);
+    if (temporary && --animationFrames == 0) {
+        currentAnimation = nextAnimation;
+        nextAnimation = "";
+        temporary = false;
+    }
 }
 
 const SDL_Rect& Sprite::getSrcRect() {
@@ -45,4 +50,15 @@ void Sprite::setTexturePath(const std::string& texturePath) {
 
 void Sprite::setFlip(const SDL_RendererFlip& flip) {
     this->flip = flip;
+}
+
+void Sprite::playAnimation(const std::string& animation, const std::string& nextAnimation) {
+    this->nextAnimation = nextAnimation;
+    if (this->nextAnimation.empty()) {
+        this->nextAnimation = currentAnimation;
+    }
+    currentAnimation = animation;
+    animationFrames = animations.find(currentAnimation)->second.getFrames();
+    temporary = true;
+    animations.find(currentAnimation)->second.restartAnimation();
 }

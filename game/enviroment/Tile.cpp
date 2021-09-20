@@ -23,7 +23,7 @@ void Tile::setText(const Text &text) {
     Entity::setText(text);
 }
 
-void Tile::resolveCollision(const Entity &externalEntity, const Vector2D &collisionVector) {
+void Tile::resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) {
     Entity::resolveCollision(externalEntity, collisionVector);
 }
 

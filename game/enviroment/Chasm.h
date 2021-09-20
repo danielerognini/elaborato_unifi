@@ -6,7 +6,7 @@
 class Chasm : public CollisionArea{
 public:
     explicit Chasm(bool solid = true);
-    void resolveCollision(const Entity& externalEntity, const Vector2D& collisionVector) override;
+    void resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) override;
 private:
 };
 
