@@ -1,0 +1,20 @@
+#This document serves as an example to build a room for the game; it will support any theme imported in the assets and will be used by the room class to generate a room from a template.
+#Different templates will be provided in the rooms folder to generate different rooms inside hte dungeon.
+#Note that even if we used the "#" character to indicate comments in this file, this feature won't be supported in an actual template for the room class.
+#Empty lines are necessary to the parser to distinguish the purpose of the lines when it reads them. DO NOT pu an empty line between lines of the same type (those where "--multiple lines--" is specified in the comments).
+#Note: after a "@", if you want to specify a different group of colliders, you don't have to put an empty line; just continue specifying groups of colliders and after the last group put a @ and then an empty line to specify to the parser that the next line won't have colliders in it.
+
+w h #dimensions (the dimensions of the room)
+
+i f x y #tiles (used to define the index and frame number of the texture in the sprite sheet and it's coordinates inside the room) --multiple lines--
+
+ax ay bx by i#colliders (used to define the vertices of the borders of the colliders inside a room) --multiple lines--
+@ #this line is necessary to group the previous borders into a single collider
+
+n s e w #doors (used to define which sides of the room have a door)
+
+x y #spawn points (used to spawn the enemies) --multiple lines--
+
+i x y r #nodes (used to move the enemies around the map) --multiple lines--
+
+i1 i2 i3 #link (one row per node, it defines the index of the connected nodes) --multiple lines--

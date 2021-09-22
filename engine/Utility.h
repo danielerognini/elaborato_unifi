@@ -38,17 +38,4 @@ u_ptr<T> tmp_ptr(T* ptr) {
     return u_ptr<T>(ptr, deleter<T>(false));
 }
 
-/*
-int* raw = new int(42);
-std::unordered_set<u_ptr<int>> myset;
-myset.insert(u_ptr<int>(raw));
-
-auto it = myset.find(tmp_ptr(raw));
-*/
-
-template<typename Base, typename T>
-inline bool isInstanceOf(const T*) {
-    return std::is_base_of<Base, T>::value;
-}
-
 #endif //GAME_UTILITY_H

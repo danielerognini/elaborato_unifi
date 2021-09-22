@@ -7,10 +7,10 @@
 #include "../Activatable.h"
 #include "components/Text.h"
 
-typedef struct {
+struct ManagerStatus {
     bool* active;
     bool* frozen;
-} ManagerStatus;
+};
 
 class Entity : public Activatable {
 public:

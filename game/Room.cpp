@@ -1,11 +1,12 @@
 #include <string>
+#include <fstream>
+#include <sstream>
 #include "Engine.h"
 #include "Room.h"
 #include "enviroment/Door.h"
 
 Room::Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active) : Activatable(active), name(name) {
-    //TODO: template room file parsing.
-    dimension = Vector2D(0, 0); //TODO: replace with data parsed from template
+    parseFile();
     position = Vector2D(0, 0);
     std::list<std::string> layersNames = {name + "_enviroment", name + "_doors", name + "_enemies", name + "_NPCs", name + "_items", name + "_bullets"};
     for (int i = 0; i < layersNames.size(); i++) {
@@ -82,4 +83,105 @@ Manager& Room::getLayer(std::string layer) {
 
 const std::string &Room::getName() {
     return name;
+}
+
+void Room::parseFile() {
+    //TODO: implement validator
+    std::ifstream file("");
+    std::stringstream line;
+    std::string str;
+    std::__cxx11::list<std::vector<Border>> colliders;
+    Vector2D pVertex;
+    Vector2D nVertex;
+    bool innerSide;
+    std::unordered_map<std::string, Node> roomNodes;
+    std::string nodeIndex;
+    auto nextField = [&]() { return static_cast<bool>(getline(line, str, ' ')); };
+    
+    if (file) {
+        getline(file, str);
+        line << str + " ";
+        nextField();
+        dimension.setX(std::stoi(str));
+        nextField();
+        dimension.setY(std::stoi(str));
+        getline(file, str);
+        line.clear();
+    }
+    while (!str.empty() && getline(file, str)) {
+        line << str + " ";
+        tiles.emplace_back(RoomTile());
+        nextField();
+        tiles.back().index = std::stoul(str);
+        nextField();
+        tiles.back().frame = std::stoul(str);
+        nextField();
+        tiles.back().offset.setX(std::stoi(str));
+        nextField();
+        tiles.back().offset.setY(std::stoi(str));
+        line.clear();
+    }
+    while (!str.empty() && getline(file, str)) {
+        line << str + " ";
+        if (str == "@") {
+            colliders.emplace_back(std::vector<Border>());
+        } else {
+            nextField();
+            pVertex.setX(std::stoi(str));
+            nextField();
+            pVertex.setY(std::stoi(str));
+            nextField();
+            nVertex.setX(std::stoi(str));
+            nextField();
+            nVertex.setY(std::stoi(str));
+            nextField();
+            innerSide = static_cast<bool>(std::stoi(str));
+            colliders.back().emplace_back(pVertex, nVertex, innerSide);
+        }
+        line.clear();
+    }
+    
+    getline(file, str);
+    line << str + " ";
+    nextField();
+    doorSides.nord = static_cast<bool>(std::stoi(str));
+    nextField();
+    doorSides.sud = static_cast<bool>(std::stoi(str));
+    nextField();
+    doorSides.east = static_cast<bool>(std::stoi(str));
+    nextField();
+    doorSides.west = static_cast<bool>(std::stoi(str));
+    line.clear();
+    
+    while (!str.empty() && getline(file, str)) {
+        line << str + " ";
+        spawnPoints.emplace_back(Vector2D());
+        nextField();
+        spawnPoints.back().setX(std::stoi(str));
+        nextField();
+        spawnPoints.back().setY(std::stoi(str));
+        line.clear();
+    }
+    while (!str.empty() && getline(file, str)) {
+        line << str + " ";
+        nextField();
+        roomNodes[nodeIndex = str] = Node();
+        nextField();
+        roomNodes[nodeIndex].position.setX(std::stoi(str));
+        nextField();
+        roomNodes[nodeIndex].position.setY(std::stoi(str));
+        nextField();
+        roomNodes[nodeIndex].range = std::stoul(str);
+        line.clear();
+    }
+    while (!str.empty() && getline(file, str)) {
+        line << str + " ";
+        nextField();
+        nodeIndex = str;
+        while (nextField()) {
+            roomNodes[nodeIndex].linkedNodes.emplace_back(&roomNodes[str]);
+        }
+        nodes.emplace_back(roomNodes[nodeIndex]);
+    }
+    file.close();
 }

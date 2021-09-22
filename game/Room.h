@@ -5,6 +5,25 @@
 #include <string>
 #include "ecs/Manager.h"
 
+struct Doors {
+    bool nord = false;
+    bool sud = false;
+    bool east = false;
+    bool west = false;
+};
+
+struct Node {
+    Vector2D position;
+    unsigned short int range = 0;
+    std::list<Node*> linkedNodes;
+};
+
+struct RoomTile {
+    unsigned short int index = 0;
+    unsigned short int frame = 0;
+    Vector2D offset;
+};
+
 class Room : public Activatable {
 public:
     Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active);
@@ -26,7 +45,7 @@ public:
     
     void lock();
     void unlock();
-
+    
     const std::string& getName();
 
 private:
@@ -35,6 +54,11 @@ private:
     std::map<std::string, std::shared_ptr<Manager>> layers;
     Vector2D position;
     Vector2D dimension;
+    std::list<Node> nodes;
+    Doors doorSides;
+    std::list<Vector2D> spawnPoints;
+    std::list<RoomTile> tiles;
+    void parseFile();
 };
 
 

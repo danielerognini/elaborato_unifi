@@ -31,7 +31,8 @@ set(GAME_SOURCE_FILES
         game/enviroment/Door.cpp game/enviroment/Door.h
         game/enviroment/Chasm.cpp game/enviroment/Chasm.h
         game/enviroment/CollisionArea.cpp game/enviroment/CollisionArea.h
-        game/ui/Menu.cpp game/ui/Menu.h)
+        game/ui/Menu.cpp game/ui/Menu.h
+        game/Utils.h)
 
 include_directories(engine test)
 add_subdirectory(./test)

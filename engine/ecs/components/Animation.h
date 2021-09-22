@@ -6,10 +6,10 @@
 
 class Animation {
 public:
-    Animation(int index, int frames, int speed);
+    Animation(int index, int frames, int speed, bool frozen = false);
     void updateRect(SDL_Rect& srcRect);
     void restartAnimation();
-    unsigned short int getFrames();
+    unsigned short int getFrames() const;
 
 private:
     unsigned short int index;

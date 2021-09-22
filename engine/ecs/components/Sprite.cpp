@@ -21,7 +21,7 @@ void Sprite::setSrcRect(const SDL_Rect& rect) {
 }
 
 bool Sprite::addAnimation(const std::string& name, int index, int frames, int speed) {
-    return animations.emplace(name, Animation(index, frames, speed)).second;
+    return animations.emplace(name, Animation(index, frames, speed, false)).second;
 }
 
 bool Sprite::removeAnimation(const std::string& name) {

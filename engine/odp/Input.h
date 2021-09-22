@@ -10,10 +10,10 @@
 #include "Vector2D.h"
 #include "Observer.h"
 
-typedef struct {
+struct EventWrapper {
     std::function<unsigned int()> findIndex;
     std::multimap<unsigned int, Observer*> subEvents;
-} EventWrapper;
+};
 
 class Input {
 public:

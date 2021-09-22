@@ -8,15 +8,15 @@
 #include <map>
 #include "Activatable.h"
 
-typedef struct {
+struct Signature {
     unsigned int event;
     unsigned int subEvent;
-} Signature;
+};
 
-typedef struct {
+struct EventAlert {
     SDL_Event event;
     Signature signature;
-} EventAlert;
+};
 
 class Observer {
 public:
