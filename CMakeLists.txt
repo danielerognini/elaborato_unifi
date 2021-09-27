@@ -32,7 +32,7 @@ set(GAME_SOURCE_FILES
         game/enviroment/Chasm.cpp game/enviroment/Chasm.h
         game/enviroment/CollisionArea.cpp game/enviroment/CollisionArea.h
         game/ui/Menu.cpp game/ui/Menu.h
-        game/Utils.h)
+        game/Utils.h game/Factory.cpp game/Factory.h)
 
 include_directories(engine test)
 add_subdirectory(./test)

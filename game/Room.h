@@ -47,6 +47,8 @@ public:
     void unlock();
     
     const std::string& getName();
+    
+    void placeRoom();
 
 private:
     bool discovered;

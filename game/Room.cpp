@@ -8,7 +8,7 @@
 Room::Room(const std::string& name, const std::string& roomTemplate, unsigned int priorityOffset, bool discovered, bool active) : Activatable(active), name(name) {
     parseFile();
     position = Vector2D(0, 0);
-    std::list<std::string> layersNames = {name + "_enviroment", name + "_doors", name + "_enemies", name + "_NPCs", name + "_items", name + "_bullets"};
+    std::list<std::string> layersNames = {name + "_enviroment", name + "_colliders", name + "_doors", name + "_enemies", name + "_NPCs", name + "_items", name + "_bullets"};
     for (int i = 0; i < layersNames.size(); i++) {
         Engine::getInstance().addManager(*std::next(layersNames.begin(), i), i + priorityOffset);
         layers.emplace(*std::next(layersNames.begin(), i), &Engine::getInstance().getManager(*std::next(layersNames.begin(), i)));
@@ -184,4 +184,8 @@ void Room::parseFile() {
         nodes.emplace_back(roomNodes[nodeIndex]);
     }
     file.close();
+}
+
+void Room::placeRoom() {
+    //TODO: needs factory to implement this
 }
