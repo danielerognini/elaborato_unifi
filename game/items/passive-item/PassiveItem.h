@@ -1,7 +1,7 @@
 #ifndef GAME_PASSIVEITEM_H
 #define GAME_PASSIVEITEM_H
 
-#include "Item.h"
+#include "../Item.h"
 
 class PassiveItem : public Item{
 

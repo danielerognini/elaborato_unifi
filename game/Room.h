@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "ecs/Manager.h"
+#include "Factory.h"
 
 struct Doors {
     bool nord = false;
@@ -12,10 +13,15 @@ struct Doors {
     bool west = false;
 };
 
-struct Node {
+struct RoomNode {
     Vector2D position;
     unsigned short int range = 0;
-    std::list<Node*> linkedNodes;
+    std::list<RoomNode*> linkedNodes;
+};
+
+struct Node {
+    Vector2D position;
+    std::unordered_map<Node*, Node*> map;
 };
 
 struct RoomTile {
@@ -51,11 +57,15 @@ public:
     void placeRoom();
 
 private:
+    void calculateShorthestPath();
+    
+    Biome biome;
     bool discovered;
     std::string name;
     std::map<std::string, std::shared_ptr<Manager>> layers;
     Vector2D position;
     Vector2D dimension;
+    std::list<RoomNode> protoNodes;
     std::list<Node> nodes;
     Doors doorSides;
     std::list<Vector2D> spawnPoints;

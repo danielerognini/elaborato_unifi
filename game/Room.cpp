@@ -11,7 +11,7 @@ Room::Room(const std::string& name, const std::string& roomTemplate, unsigned in
     std::list<std::string> layersNames = {name + "_enviroment", name + "_colliders", name + "_doors", name + "_enemies", name + "_NPCs", name + "_items", name + "_bullets"};
     for (int i = 0; i < layersNames.size(); i++) {
         Engine::getInstance().addManager(*std::next(layersNames.begin(), i), i + priorityOffset);
-        layers.emplace(*std::next(layersNames.begin(), i), &Engine::getInstance().getManager(*std::next(layersNames.begin(), i)));
+        layers.emplace(std::next(layersNames.begin(), i)->substr(name.length() + 1), &Engine::getInstance().getManager(*std::next(layersNames.begin(), i)));
     }
 }
 
@@ -94,7 +94,7 @@ void Room::parseFile() {
     Vector2D pVertex;
     Vector2D nVertex;
     bool innerSide;
-    std::unordered_map<std::string, Node> roomNodes;
+    std::unordered_map<std::string, RoomNode> roomNodes;
     std::string nodeIndex;
     auto nextField = [&]() { return static_cast<bool>(getline(line, str, ' ')); };
     
@@ -165,7 +165,7 @@ void Room::parseFile() {
     while (!str.empty() && getline(file, str)) {
         line << str + " ";
         nextField();
-        roomNodes[nodeIndex = str] = Node();
+        roomNodes[nodeIndex = str] = RoomNode();
         nextField();
         roomNodes[nodeIndex].position.setX(std::stoi(str));
         nextField();
@@ -181,11 +181,19 @@ void Room::parseFile() {
         while (nextField()) {
             roomNodes[nodeIndex].linkedNodes.emplace_back(&roomNodes[str]);
         }
-        nodes.emplace_back(roomNodes[nodeIndex]);
+        protoNodes.emplace_back(roomNodes[nodeIndex]);
     }
     file.close();
 }
 
 void Room::placeRoom() {
-    //TODO: needs factory to implement this
+    for (auto& tile: tiles) {
+        layers["enviroment"]->addEntity(Factory::createTile(tile.index, tile.frame, biome, position + tile.offset));
+    }
+}
+
+void Room::calculateShorthestPath() {
+    for (auto& protoNode: protoNodes) {
+        //TODO: implement dijkstra algorithm
+    }
 }

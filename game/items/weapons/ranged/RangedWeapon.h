@@ -1,7 +1,7 @@
 #ifndef GAME_RANGEDWEAPON_H
 #define GAME_RANGEDWEAPON_H
 
-#include "Weapon.h"
+#include "../Weapon.h"
 
 class RangedWeapon : public Weapon{
 

@@ -1,7 +1,7 @@
 #ifndef GAME_MINION_H
 #define GAME_MINION_H
 
-#include "Enemy.h"
+#include "../Enemy.h"
 
 class Minion : public Enemy{
 

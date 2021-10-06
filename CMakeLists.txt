@@ -9,30 +9,30 @@ set(GAME_SOURCE_FILES
         game/Game.cpp
         game/Cursor.cpp game/Cursor.h
         game/Bullet.cpp game/Bullet.h
-        game/creatures/NPC.cpp game/creatures/NPC.h
-        game/creatures/Player.cpp game/creatures/Player.h
+        game/creatures/npcs/NPC.cpp game/creatures/npcs/NPC.h
+        game/creatures/players/Player.cpp game/creatures/players/Player.h
         game/ui/Widget.cpp game/ui/Widget.h
-        game/creatures/Enemy.cpp game/creatures/Enemy.h
-        game/creatures/Minion.cpp game/creatures/Minion.h
-        game/creatures/Boss.cpp game/creatures/Boss.h
-        game/creatures/Pet.cpp game/creatures/Pet.h
+        game/creatures/enemies/Enemy.cpp game/creatures/enemies/Enemy.h
+        game/creatures/enemies/minions/Minion.cpp game/creatures/enemies/minions/Minion.h
+        game/creatures/enemies/bosses/Boss.cpp game/creatures/enemies/bosses/Boss.h
+        game/creatures/pets/Pet.cpp game/creatures/pets/Pet.h
         game/Scheduler.cpp game/Scheduler.h
         game/Interactable.cpp game/Interactable.h
         game/enviroment/Tile.cpp game/enviroment/Tile.h
         game/enviroment/Barrier.cpp game/enviroment/Barrier.h
         game/items/Item.cpp game/items/Item.h
-        game/items/PassiveItem.cpp game/items/PassiveItem.h
-        game/items/ActiveItem.cpp game/items/ActiveItem.h
-        game/items/QuestItem.cpp game/items/QuestItem.h
-        game/items/Weapon.cpp game/items/Weapon.h
-        game/items/RangedWeapon.cpp game/items/RangedWeapon.h
-        game/items/MeleeWeapon.cpp game/items/MeleeWeapon.h
+        game/items/passive-item/PassiveItem.cpp game/items/passive-item/PassiveItem.h
+        game/items/active-item/ActiveItem.cpp game/items/active-item/ActiveItem.h
+        game/items/quest-item/QuestItem.cpp game/items/quest-item/QuestItem.h
+        game/items/weapons/Weapon.cpp game/items/weapons/Weapon.h
+        game/items/weapons/ranged/RangedWeapon.cpp game/items/weapons/ranged/RangedWeapon.h
+        game/items/weapons/melee/MeleeWeapon.cpp game/items/weapons/melee/MeleeWeapon.h
         game/Inventory.cpp game/Inventory.h
         game/enviroment/Door.cpp game/enviroment/Door.h
         game/enviroment/Chasm.cpp game/enviroment/Chasm.h
         game/enviroment/CollisionArea.cpp game/enviroment/CollisionArea.h
         game/ui/Menu.cpp game/ui/Menu.h
-        game/Utils.h game/Factory.cpp game/Factory.h)
+        game/Utils.h game/Factory.cpp game/Factory.h game/creatures/enemies/minions/Slime.cpp game/creatures/enemies/minions/Slime.h game/creatures/pets/Gatu.cpp game/creatures/pets/Gatu.h game/creatures/pets/Gerry.cpp game/creatures/pets/Gerry.h)
 
 include_directories(engine test)
 add_subdirectory(./test)

@@ -1,7 +1,7 @@
 #ifndef GAME_QUESTITEM_H
 #define GAME_QUESTITEM_H
 
-#include "Item.h"
+#include "../Item.h"
 
 class QuestItem : public Item{
 

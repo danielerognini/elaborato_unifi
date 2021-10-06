@@ -42,23 +42,23 @@ class GTestXMLTestCase(gtest_test_utils.TestCase):
 
 
   def AssertEquivalentNodes(self, expected_node, actual_node):
-    """
-    Asserts that actual_node (a DOM node object) is equivalent to
-    expected_node (another DOM node object), in that either both of
-    them are CDATA nodes and have the same value, or both are DOM
-    elements and actual_node meets all of the following conditions:
+      """
+      Asserts that actual_node (a DOM node object) is equivalent to
+      expected_node (another DOM node object), in that either both of
+      them are CDATA roomNodes and have the same value, or both are DOM
+      elements and actual_node meets all of the following conditions:
 
-    *  It has the same tag name as expected_node.
-    *  It has the same set of attributes as expected_node, each with
-       the same value as the corresponding attribute of expected_node.
-       Exceptions are any attribute named "time", which needs only be
-       convertible to a floating-point number and any attribute named
-       "type_param" which only has to be non-empty.
-    *  It has an equivalent set of child nodes (including elements and
-       CDATA sections) as expected_node.  Note that we ignore the
-       order of the children as they are not guaranteed to be in any
-       particular order.
-    """
+      *  It has the same tag name as expected_node.
+      *  It has the same set of attributes as expected_node, each with
+         the same value as the corresponding attribute of expected_node.
+         Exceptions are any attribute named "time", which needs only be
+         convertible to a floating-point number and any attribute named
+         "type_param" which only has to be non-empty.
+      *  It has an equivalent set of child roomNodes (including elements and
+         CDATA sections) as expected_node.  Note that we ignore the
+         order of the children as they are not guaranteed to be in any
+         particular order.
+      """
 
     if expected_node.nodeType == Node.CDATA_SECTION_NODE:
       self.assertEquals(Node.CDATA_SECTION_NODE, actual_node.nodeType)
@@ -109,19 +109,19 @@ class GTestXMLTestCase(gtest_test_utils.TestCase):
   }
 
   def _GetChildren(self, element):
-    """
-    Fetches all of the child nodes of element, a DOM Element object.
-    Returns them as the values of a dictionary keyed by the IDs of the
-    children.  For <testsuites>, <testsuite>, <testcase>, and <property>
-    elements, the ID is the value of their "name" attribute; for <failure>
-    elements, it is the value of the "message" attribute; for <properties>
-    elements, it is the value of their parent's "name" attribute plus the
-    literal string "properties"; CDATA sections and non-whitespace
-    text nodes are concatenated into a single CDATA section with ID
-    "detail".  An exception is raised if any element other than the above
-    four is encountered, if two child elements with the same identifying
-    attributes are encountered, or if any other type of node is encountered.
-    """
+      """
+      Fetches all of the child roomNodes of element, a DOM Element object.
+      Returns them as the values of a dictionary keyed by the IDs of the
+      children.  For <testsuites>, <testsuite>, <testcase>, and <property>
+      elements, the ID is the value of their "name" attribute; for <failure>
+      elements, it is the value of the "message" attribute; for <properties>
+      elements, it is the value of their parent's "name" attribute plus the
+      literal string "properties"; CDATA sections and non-whitespace
+      text roomNodes are concatenated into a single CDATA section with ID
+      "detail".  An exception is raised if any element other than the above
+      four is encountered, if two child elements with the same identifying
+      attributes are encountered, or if any other type of node is encountered.
+      """
 
     children = {}
     for child in element.childNodes:
