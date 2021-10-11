@@ -3,8 +3,13 @@
 
 #include "Room.h"
 
-enum TemplateType {
+enum RoomType {
     SPAWN, BOSS, ENCOUNTER, LOOT
+};
+
+struct RoomPlaceholder {
+    bool linked = false;
+    RoomType type;
 };
 
 class Map {
@@ -13,10 +18,13 @@ public:
 private:
     unsigned short int x;
     unsigned short int y;
-    std::vector<std::vector<u_ptr<Room>>> grid;
+    std::vector<std::vector<u_ptr<RoomPlaceholder>>> grid;
     unsigned short int roomNumber;
+    unsigned short int lootChance{20};
     
-    std::string getRoomTemplate(TemplateType type, const std::string& name);
+    std::string getRoomTemplate(RoomType type, const std::string& name);
+    void placeRooms();
+    void reserveMatrix();
 };
 
 
