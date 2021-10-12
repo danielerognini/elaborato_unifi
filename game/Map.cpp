@@ -63,8 +63,8 @@ void Map::placeRooms() {
         }
     }
     unsigned int spawnIndex = random<int>(1, static_cast<int>(positions[0].size()));
-    grid[0][random<int>(1, static_cast<int>(positions[0].size()))].reset(new RoomPlaceholder{.type = BOSS});
-    grid[grid.size() - 1][spawnIndex].reset(new RoomPlaceholder{.type = SPAWN});
+    grid[0][random<int>(1, static_cast<int>(positions[0].size()))].reset(new RoomPlaceholder(BOSS));
+    grid[grid.size() - 1][spawnIndex].reset(new RoomPlaceholder(SPAWN));
     unsigned int maxRoomsPerRow = ceil(static_cast<float>(roomNumber) / static_cast<float>(grid.size() - 2));
     std::vector<unsigned int> columnOccupations(grid.size() - 2, 0);
     unsigned int roomPlaced = 0;
@@ -76,8 +76,57 @@ void Map::placeRooms() {
                 rowRooms = random<unsigned int>(1, maxRoomsPerRow);
                 for (int j = 0; j < rowRooms; j++) {
                     rand = random<unsigned int>(0, positions[i].size() - 1);
-                    grid[i][positions[i][rand]].reset(new RoomPlaceholder{.type = (random<unsigned short int>(1, 100) <= lootChance ? LOOT : ENCOUNTER)});
+                    grid[i][positions[i][rand]].reset(new RoomPlaceholder(random<unsigned short int>(1, 100) <= lootChance ? LOOT : ENCOUNTER));
                     positions[i].erase(std::next(positions[i].begin(), rand));
+                }
+            }
+        }
+    }
+}
+
+void Map::linkRooms(unsigned int row, unsigned int column) {
+    auto proximity = [](int t, unsigned short int& x, unsigned short int& y) {
+        x = ceil(cos(t * M_PI_2));
+        y = ceil(sin(t * M_PI_2));
+    };
+    unsigned short int x;
+    unsigned short int y;
+    for (int i = 0; i < 8; i++) {
+        proximity(i, x, y);
+        x += row;
+        y += column;
+        if (x <= grid.size() && x >= 0 && y <= grid[x].size() && y >= 0) {
+            if (grid[x][y] != nullptr) {
+                if (!grid[x][y]->linked && grid[x][y]->type != HALLWAY) {
+                    grid[row][column]->linked = true;
+                    grid[x][y]->linked = true;
+                    if (x > row) {
+                        if (y > column) {
+                            //TODO: bottom right link
+                        } else if (y < column) {
+                            //TODO: bottom left link
+                        } else {
+                            grid[row][column]->doors.sud = true;
+                            grid[x][y]->doors.nord = true;
+                        }
+                    } else if (x < row) {
+                        if (y > column) {
+                            //TODO: top right link
+                        } else if (y < column) {
+                            //TODO: top left link
+                        } else {
+                            grid[row][column]->doors.nord = true;
+                            grid[x][y]->doors.sud = true;
+                        }
+                    } else {
+                        if (y > column) {
+                            grid[row][column]->doors.east = true;
+                            grid[x][y]->doors.west = true;
+                        } else {
+                            grid[row][column]->doors.west = true;
+                            grid[x][y]->doors.east = true;
+                        }
+                    }
                 }
             }
         }
