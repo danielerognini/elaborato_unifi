@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-Entity::Entity(const std::string& texturePath, bool solid) : Activatable(true), sprite(Sprite(texturePath, <#initializer#>, false)), transform(Transform()), solid(solid) {
+Entity::Entity(const std::string& texturePath, bool solid) : Activatable(true), sprite(Sprite(texturePath, false)), transform(Transform()), solid(solid) {
 }
 
 void Entity::update() {
@@ -57,9 +57,9 @@ bool Entity::removeCollider(const std::string& name) {
 }
 
 void Entity::resolveCollision(Entity* externalEntity, const Vector2D& collisionVector) {
-    if (externalEntity.isSolid()) {
-        double speedCoefficient = transform.isMoving() ? externalEntity.transform.isMoving() ? static_cast<double>(transform.getSpeed()) / (transform.getSpeed() + externalEntity.transform.getSpeed()) : 1 : 0;
-        transform.setPosition(transform.getPosition().getX() - (static_cast<int>(round(static_cast<float>(collisionVector.getX() * speedCoefficient))) - (collisionVector.getX() % 2 == 1 && collisionVector.getX() > 0 && transform.getSpeed() == externalEntity.transform.getSpeed() ? 1 : 0)), transform.getPosition().getY() - (static_cast<int>(round(static_cast<float>(collisionVector.getY() * speedCoefficient))) - (collisionVector.getY() % 2 == 1 && collisionVector.getY() > 0 && transform.getSpeed() == externalEntity.transform.getSpeed() ? 1 : 0)));
+    if (externalEntity->isSolid()) {
+        double speedCoefficient = transform.isMoving() ? externalEntity->transform.isMoving() ? static_cast<double>(transform.getSpeed()) / (transform.getSpeed() + externalEntity->transform.getSpeed()) : 1 : 0;
+        transform.setPosition(transform.getPosition().getX() - (static_cast<int>(round(static_cast<float>(collisionVector.getX() * speedCoefficient))) - (collisionVector.getX() % 2 == 1 && collisionVector.getX() > 0 && transform.getSpeed() == externalEntity->transform.getSpeed() ? 1 : 0)), transform.getPosition().getY() - (static_cast<int>(round(static_cast<float>(collisionVector.getY() * speedCoefficient))) - (collisionVector.getY() % 2 == 1 && collisionVector.getY() > 0 && transform.getSpeed() == externalEntity->transform.getSpeed() ? 1 : 0)));
     }
 }
 

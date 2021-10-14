@@ -3,7 +3,7 @@
 
 class SpriteFixture : public ::testing::Test {
 protected:
-    SpriteFixture() : sprite(Sprite("", <#initializer#>, true)) {}
+    SpriteFixture() : sprite(Sprite("", true)) {}
 
     virtual void SetUp() {
         sprite.addAnimation("1", 0, 1, 0);

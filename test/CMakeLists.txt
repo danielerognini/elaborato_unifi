@@ -10,4 +10,4 @@ set(TEST_SOURCE_FILES runAllTests.cpp unit_testing/SpriteTest.cpp unit_testing/C
 
 add_executable(Test ${TEST_SOURCE_FILES})
 
-target_link_libraries(Test gtest gtest_main GameEngine)
+target_link_libraries(Test gtest gtest_main engine)

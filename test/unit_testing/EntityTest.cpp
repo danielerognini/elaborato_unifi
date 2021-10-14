@@ -4,8 +4,9 @@
 
 class EntityFixture : public ::testing::Test{
 protected:
-    EntityFixture () : entity(Entity("")) {}
-    virtual void SetUp() {
+    EntityFixture() : entity(Entity("")) {}
+    
+    void SetUp() override {
         entity.addCollider("1", std::move(std::vector<Border>({Border(Vector2D(0, 0), Vector2D(4, 0), true), Border(Vector2D(4, 0), Vector2D(4, 4), true), Border(Vector2D(4, 4), Vector2D(0, 4), true), Border(Vector2D(0, 4), Vector2D(0, 0), true)})), true);
     }
     Entity entity;
@@ -33,8 +34,8 @@ TEST_F(EntityFixture, resolveCollision) {
     entity.getTransform().setDirection(DOWN);
     entity.getTransform().setMoving(true);
     
-    entity.resolveCollision(external, Vector2D(2, 0));
-    external.resolveCollision(entity, Vector2D(-2, -0));
+    entity.resolveCollision(&external, Vector2D(2, 0));
+    external.resolveCollision(&entity, Vector2D(-2, -0));
     
     EXPECT_TRUE(entity.getTransform().getPosition().getX() == 0 && entity.getTransform().getPosition().getY() == 2);
     EXPECT_TRUE(external.getTransform().getPosition().getX() == 4 && external.getTransform().getPosition().getY() == 3);

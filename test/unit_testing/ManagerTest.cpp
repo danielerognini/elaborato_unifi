@@ -21,11 +21,9 @@ protected:
 TEST_F(ManagerFixture, addEntity) {
     EXPECT_TRUE(manager.addEntity(e3));
     EXPECT_TRUE(manager.addEntity(e4));
-    EXPECT_FALSE(manager.addEntity(e4));
 }
 
 TEST_F(ManagerFixture, removeEntity) {
     EXPECT_TRUE(manager.removeEntity(e1));
     EXPECT_TRUE(manager.removeEntity(e2));
-    EXPECT_FALSE(manager.removeEntity(e2));
 }

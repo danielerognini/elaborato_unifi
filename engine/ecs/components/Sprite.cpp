@@ -1,14 +1,17 @@
 #include "Sprite.h"
 
-Sprite::Sprite(const std::string& texturePath, const std::string& currentAnimation, bool active) : Activatable(active), texturePath(texturePath), currentAnimation(currentAnimation), animationFrames(0), temporary(false), flip(SDL_FLIP_NONE) {
+Sprite::Sprite(const std::string& texturePath, bool active) : Activatable(active), texturePath(texturePath), animationFrames(0), temporary(false), flip(SDL_FLIP_NONE) {
 }
 
 void Sprite::update() {
-    animations.find(currentAnimation)->second.updateRect(srcRect);
-    if (temporary && --animationFrames == 0) {
-        currentAnimation = nextAnimation;
-        nextAnimation = "";
-        temporary = false;
+    auto animation = animations.find(currentAnimation);
+    if (animation != animations.end()) {
+        animations.find(currentAnimation)->second.updateRect(srcRect);
+        if (temporary && --animationFrames == 0) {
+            currentAnimation = nextAnimation;
+            nextAnimation = "";
+            temporary = false;
+        }
     }
 }
 

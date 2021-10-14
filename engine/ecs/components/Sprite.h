@@ -9,7 +9,7 @@
 
 class Sprite : public Activatable {
 public:
-    explicit Sprite(const std::string& texturePath, const std::string& currentAnimation, bool active = true);
+    explicit Sprite(const std::string& texturePath, bool active);
     
     void update();
     
