@@ -19,4 +19,11 @@ T random(T range_from, T range_to) {
     return distr(generator);
 }
 
+template<typename T>
+struct U_ptrComparator {
+    bool operator()(const u_ptr<T>& ptr1, const u_ptr<T>& ptr2) const {
+        return ptr1.get() == ptr2.get();
+    }
+};
+
 #endif //GAME_UTILS_H

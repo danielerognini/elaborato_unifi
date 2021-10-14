@@ -13,6 +13,7 @@ struct RoomPlaceholder {
     }
     
     bool linked = false;
+    bool iterated = false;
     Doors doors;
     RoomType type;
 };
@@ -24,11 +25,13 @@ private:
     std::vector<std::vector<u_ptr<RoomPlaceholder>>> grid;
     unsigned short int roomNumber;
     unsigned short int lootChance{20};
+    unsigned short int linkingChance{33};
     
     std::string getRoomTemplate(RoomType type, const std::string& name);
     void reserveMatrix();
     void placeRooms();
     void linkRooms(unsigned int row, unsigned int column);
+    void calcAdjacentRoom(int t, unsigned short int& x, unsigned short int& y);
 };
 
 

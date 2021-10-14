@@ -31,8 +31,12 @@ void Manager::draw() {
 }
 
 bool Manager::addEntity(Entity* entity) {
-    entity->setManagerStatus({&active, &frozen});
-    return entities.emplace(entity).second;
+    bool result = false;
+    if (entities.find(tmp_ptr<Entity>(entity)) == entities.end()) {
+        entity->setManagerStatus({&active, &frozen});
+        result = entities.emplace(entity).second;
+    }
+    return result;
 }
 
 bool Manager::removeEntity(Entity* entity) {
@@ -66,11 +70,11 @@ void Manager::setPriority(unsigned int priority) {
 Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : Activatable(active), priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive), frozen(false) {
 }
 
-std::unordered_set<u_ptr<Entity>>::iterator Manager::begin() {
+std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator Manager::begin() {
     return entities.begin();
 }
 
-std::unordered_set<u_ptr<Entity>>::iterator Manager::end() {
+std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator Manager::end() {
     return entities.end();
 }
 

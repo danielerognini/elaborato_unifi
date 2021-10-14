@@ -144,9 +144,9 @@ void Room::parseFile() {
     getline(file, str);
     line << str + " ";
     nextField();
-    doorSides.nord = static_cast<bool>(std::stoi(str));
+    doorSides.north = static_cast<bool>(std::stoi(str));
     nextField();
-    doorSides.sud = static_cast<bool>(std::stoi(str));
+    doorSides.south = static_cast<bool>(std::stoi(str));
     nextField();
     doorSides.east = static_cast<bool>(std::stoi(str));
     nextField();

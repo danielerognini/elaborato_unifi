@@ -7,8 +7,8 @@
 #include "Factory.h"
 
 struct Doors {
-    bool nord = false;
-    bool sud = false;
+    bool north = false;
+    bool south = false;
     bool east = false;
     bool west = false;
 };
