@@ -3,8 +3,8 @@
 
 #include <functional>
 #include <ecs/Entity.h>
-#include "../Inventory.h"
-#include "../Interactable.h"
+#include "../../Inventory.h"
+#include "../../Interactable.h"
 
 class Player : public Entity {
 public:
