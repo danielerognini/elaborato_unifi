@@ -8,7 +8,7 @@
 
 class Player : public Entity {
 public:
-    Player(const std::string& texturePath, int speed, unsigned short int hp, unsigned short int mana, unsigned short int accuracy, double critRate, std::function<void()> specialAbility, std::function<void()> passiveAbility);
+    Player(const std::string& texturePath, int speed, unsigned short int hp, unsigned short int mana, unsigned short int accuracy, double critRate, std::function<void(Entity*)> specialAbility, std::function<void(Entity*)> passiveAbility);
     unsigned short int getHP();
     void setHP(unsigned short int hp);
     void addHP(unsigned short int hp);
@@ -28,8 +28,8 @@ private:
     Inventory inventory;
     Interactable* interactable;
     
-    std::function<void()> specialAbility;
-    std::function<void()> passiveAbility;
+    std::function<void(Entity*)> specialAbility;
+    std::function<void(Entity*)> passiveAbility;
 };
 
 

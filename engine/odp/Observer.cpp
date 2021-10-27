@@ -49,6 +49,7 @@ bool Observer::changeSignature(const std::string& name, Signature signature) {
 
 void Observer::update() {
     function();
+    buffer.clear();
 }
 
 bool Observer::hasTarget() const {

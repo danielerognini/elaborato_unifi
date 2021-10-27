@@ -1,5 +1,5 @@
+#include <odp/EntityObserver.h>
 #include "Factory.h"
-
 Boss* Factory::createBoss(BossType type, const Vector2D& position) {
     return nullptr;
 }
@@ -25,7 +25,15 @@ Pet* Factory::createPet(PetType type, const Vector2D& position) {
 }
 
 Player* Factory::createPlayer(PlayerType type, const Vector2D& position) {
-    return nullptr;
+    Scheduler& scheduler = Scheduler::getInstance();
+    Player* player;
+    switch (type) {
+        case DOM_PROGRAMMER:
+            break;
+        case PLAYER_SIZE:
+            break;
+    }
+    return player;
 }
 
 Barrier* Factory::createBarrier(std::vector<Border> borders, const Vector2D& position) {

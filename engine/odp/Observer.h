@@ -11,6 +11,10 @@
 struct Signature {
     unsigned int event;
     unsigned int subEvent;
+    
+    bool operator==(Signature signature) const {
+        return (this->event == signature.event) && (this->subEvent == signature.subEvent);
+    }
 };
 
 struct EventAlert {
