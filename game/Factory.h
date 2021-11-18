@@ -86,7 +86,7 @@ public:
     
     static Chasm* createChasm(std::vector<Border> borders, const Vector2D& position);
     
-    static Door* createDoor(DoorType type, Biome biome, const Vector2D& position);
+    //static Door* createDoor(DoorType type, Biome biome, const Vector2D& position);
     
     static Tile* createTile(unsigned int index, unsigned int frame, Biome biome, const Vector2D& position);
     

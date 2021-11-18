@@ -59,7 +59,7 @@ public:
 private:
     void calculateShorthestPath();
     
-    Biome biome;
+    //Biome biome;
     bool discovered;
     std::string name;
     std::map<std::string, std::shared_ptr<Manager>> layers;

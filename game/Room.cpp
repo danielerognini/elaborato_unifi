@@ -54,14 +54,14 @@ void Room::discover() {
 void Room::lock() {
     std::shared_ptr<Manager> doors = layers.find(name + "_doors")->second;
     for (auto& door: *doors) {
-        dynamic_cast<Door*>(door.get())->lock();
+        //dynamic_cast<Door*>(door.get())->lock();
     }
 }
 
 void Room::unlock() {
     std::shared_ptr<Manager> doors = layers.find(name + "_doors")->second;
     for (auto& door: *doors) {
-        dynamic_cast<Door*>(door.get())->unlock();
+        //dynamic_cast<Door*>(door.get())->unlock();
     }
 }
 
@@ -188,7 +188,7 @@ void Room::parseFile() {
 
 void Room::placeRoom() {
     for (auto& tile: tiles) {
-        layers["enviroment"]->addEntity(Factory::createTile(tile.index, tile.frame, biome, position + tile.offset));
+        //layers["enviroment"]->addEntity(Factory::createTile(tile.index, tile.frame, biome, position + tile.offset));
     }
 }
 

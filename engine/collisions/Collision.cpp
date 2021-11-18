@@ -14,16 +14,17 @@ void Collision::collisionUpdate(std::unordered_map<std::string, Manager>& manage
     for (auto& asyncCall: asyncCalls) {
         asyncCall.get();
     }
-    
-    for (auto iter = managers.begin(); std::next(iter, 1) != managers.end(); iter++) {
-        if (iter->second.isGlobalCollisionsActive()) {
-            for (auto subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
-                if (subIter->second.isGlobalCollisionsActive()) {
-                    for (auto subSubIter = iter->second.begin(); subSubIter != iter->second.end(); subSubIter++) {
-                        if ((*subSubIter)->isCollidersActive()) {
-                            for (auto& subSubSubIter: subIter->second) {
-                                if ((*subSubIter)->isCollidersActive()) {
-                                    Collision::resolveEntityCollisions(**subSubIter, *subSubSubIter);
+    if (!managers.empty()) {
+        for (auto iter = managers.begin(); std::next(iter, 1) != managers.end(); iter++) {
+            if (iter->second.isGlobalCollisionsActive()) {
+                for (auto subIter = std::next(iter, 1); subIter != managers.end(); subIter++) {
+                    if (subIter->second.isGlobalCollisionsActive()) {
+                        for (auto subSubIter = iter->second.begin(); subSubIter != iter->second.end(); subSubIter++) {
+                            if ((*subSubIter)->isCollidersActive()) {
+                                for (auto& subSubSubIter: subIter->second) {
+                                    if ((*subSubIter)->isCollidersActive()) {
+                                        Collision::resolveEntityCollisions(**subSubIter, *subSubSubIter);
+                                    }
                                 }
                             }
                         }
@@ -35,8 +36,7 @@ void Collision::collisionUpdate(std::unordered_map<std::string, Manager>& manage
 }
 
 void Collision::resolveLocalCollisions(std::unordered_map<std::string, Manager>::iterator iter) {
-    if (iter->second.isLocalCollisionsActive()) {
-        
+    if (iter->second.isLocalCollisionsActive() && iter->second.begin() != iter->second.end()) {
         for (auto subIter = iter->second.begin(); std::next(subIter, 1) != iter->second.end(); subIter++) {
             if ((*subIter)->isCollidersActive()) {
                 for (auto subSubIter = std::next(subIter, 1); subSubIter != iter->second.end(); subSubIter++) {

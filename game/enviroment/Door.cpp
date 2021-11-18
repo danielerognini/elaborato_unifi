@@ -1,5 +1,5 @@
 #include "Door.h"
-
+/*
 Door::Door(const std::string &texturePath, Room *room, Room *hallway, Border doorStep, Direction pushDirection) : Entity(texturePath, false), room(room), hallway(hallway), pushDirection(pushDirection), doorStep(doorStep) {}
 
 void Door::lock() {
@@ -36,7 +36,8 @@ void Door::resolveCollision(Entity* externalEntity, const Vector2D& collisionVec
             }
             unlock();
         }
-        */
+        *//*
         getSprite().setCurrentAnimation("open");
     }
 }
+*/

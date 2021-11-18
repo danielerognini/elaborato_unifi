@@ -26,14 +26,17 @@ int main() {
         
         //update all objects
         engine.update();
-        
+    
         //render changes to display
         engine.render();
-
+    
         //limiting framerates
         frameDelay = engine.getMinFrameTime() - (SDL_GetTicks() - engine.getFrameStart());
-        if(frameDelay > 0){
+        if (frameDelay > 0) {
             SDL_Delay(frameDelay);
+        }
+        if (engine.getFrameStart() >= 5000) {
+            engine.quit();
         }
     }
 

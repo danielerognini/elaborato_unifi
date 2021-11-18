@@ -3,11 +3,7 @@
 #include "Manager.h"
 
 void Manager::flush() {
-    for (auto& entity: entities) {
-        if (!entity->isActive()) {
-            removeEntity(entity.get());
-        }
-    }
+    std::erase_if(entities, [](u_ptr<Entity>& entity) { return !entity->isActive(); });
 }
 
 void Manager::update() {
@@ -30,17 +26,23 @@ void Manager::draw() {
     }
 }
 
-bool Manager::addEntity(Entity* entity) {
-    bool result = false;
-    if (entities.find(tmp_ptr<Entity>(entity)) == entities.end()) {
-        entity->setManagerStatus({&active, &frozen});
-        result = entities.emplace(entity).second;
-    }
-    return result;
+void Manager::addEntity(Entity* entity) {
+    entity->setManagerStatus({&active, &frozen});
+    entities.emplace_back(entity);
 }
 
-bool Manager::removeEntity(Entity* entity) {
-    return entities.erase(tmp_ptr<Entity>(entity));
+bool Manager::removeEntity(Entity* entity, bool release) {
+    bool result = false;
+    for (auto iter = entities.begin(); iter != entities.end() && !result; iter++) {
+        if (iter->get() == entity) {
+            if (release) {
+                iter->release();
+            }
+            entities.erase(iter);
+            result = true;
+        }
+    }
+    return result;
 }
 
 bool Manager::isLocalCollisionsActive() const {
@@ -70,11 +72,11 @@ void Manager::setPriority(unsigned int priority) {
 Manager::Manager(unsigned int priority, bool localCollisionsActive, bool globalCollisionsActive, bool active) : Activatable(active), priority(priority), localCollisionsActive(localCollisionsActive), globalCollisionsActive(globalCollisionsActive), frozen(false) {
 }
 
-std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator Manager::begin() {
+std::list<u_ptr<Entity>>::iterator Manager::begin() {
     return entities.begin();
 }
 
-std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator Manager::end() {
+std::list<u_ptr<Entity>>::iterator Manager::end() {
     return entities.end();
 }
 
@@ -87,5 +89,11 @@ void Manager::setFrozen(bool frozen) {
 }
 
 bool Manager::find(Entity* entity) {
-    return entities.find(tmp_ptr<Entity>(entity)) != entities.end();
+    bool result = false;
+    for (auto iter = entities.begin(); iter != entities.end() && !result; iter++) {
+        if (iter->get() == entity) {
+            result = true;
+        }
+    }
+    return result;
 }

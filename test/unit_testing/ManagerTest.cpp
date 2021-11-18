@@ -18,10 +18,12 @@ protected:
     Manager manager;
 };
 
-TEST_F(ManagerFixture, addEntity) {
-    EXPECT_TRUE(manager.addEntity(e3));
-    EXPECT_TRUE(manager.addEntity(e4));
-    EXPECT_FALSE(manager.addEntity(e4));
+TEST_F(ManagerFixture, find) {
+    manager.addEntity(e3);
+    EXPECT_TRUE(manager.find(e3));
+    EXPECT_FALSE(manager.find(e4));
+    manager.addEntity(e4);
+    EXPECT_TRUE(manager.find(e4));
 }
 
 TEST_F(ManagerFixture, removeEntity) {

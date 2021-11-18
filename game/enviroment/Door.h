@@ -5,6 +5,7 @@
 #include "../Room.h"
 
 class Door : public Entity{
+    /*
 public:
     Door(const std::string& texturePath, Room* room, Room* hallway, Border doorStep, Direction pushDirection);
     void lock();
@@ -17,6 +18,7 @@ private:
     Border doorStep;
 
     Direction pushDirection; //Hallway to room
+     */
 };
 
 

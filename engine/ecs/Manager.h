@@ -15,11 +15,13 @@ public:
     void update();
     void draw();
     
-    bool addEntity(Entity* entity);
-    bool removeEntity(Entity* entity);
+    void addEntity(Entity* entity);
+    bool removeEntity(Entity* entity, bool release = false);
     
-    std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator begin();
-    std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator end();
+    //std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator begin();
+    std::list<u_ptr<Entity>>::iterator begin();
+    //std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator end();
+    std::list<u_ptr<Entity>>::iterator end();
     
     bool find(Entity* entity);
     
@@ -34,12 +36,13 @@ public:
     unsigned int getPriority() const;
     
     void setPriority(unsigned int priority);
-
+    
     bool isFrozen();
     void setFrozen(bool frozen);
 
 private:
-    std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>> entities;
+    std::list<u_ptr<Entity>> entities;
+    //std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>> entities;
     bool localCollisionsActive;
     bool globalCollisionsActive;
     unsigned int priority;

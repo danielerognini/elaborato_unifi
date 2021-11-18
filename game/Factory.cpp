@@ -44,9 +44,9 @@ Chasm* Factory::createChasm(std::vector<Border> borders, const Vector2D& positio
     return nullptr;
 }
 
-Door* Factory::createDoor(DoorType type, Biome biome, const Vector2D& position) {
+/*Door* Factory::createDoor(DoorType type, Biome biome, const Vector2D& position) {
     return nullptr;
-}
+}*/
 
 Tile* Factory::createTile(unsigned int index, unsigned int frame, Biome biome, const Vector2D& position) {
     return nullptr;
