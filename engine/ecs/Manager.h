@@ -5,7 +5,6 @@
 #include "../Activatable.h"
 #include "Utility.h"
 #include "../../game/Utils.h"
-#include <unordered_set>
 
 class Manager : public Activatable {
 public:
@@ -18,9 +17,7 @@ public:
     void addEntity(Entity* entity);
     bool removeEntity(Entity* entity, bool release = false);
     
-    //std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator begin();
     std::list<u_ptr<Entity>>::iterator begin();
-    //std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>>::iterator end();
     std::list<u_ptr<Entity>>::iterator end();
     
     bool find(Entity* entity);
@@ -42,7 +39,6 @@ public:
 
 private:
     std::list<u_ptr<Entity>> entities;
-    //std::unordered_set<u_ptr<Entity>, std::hash<u_ptr<Entity>>, U_ptrComparator<Entity>> entities;
     bool localCollisionsActive;
     bool globalCollisionsActive;
     unsigned int priority;
