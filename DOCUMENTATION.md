@@ -73,7 +73,7 @@ Because an entity can be composed by one or more colliders, the algorithm calcul
 -------
 
 ### EntityObserver
-// TODO
+<!-- // TODO -->
 
 -------
 ### Engine
@@ -103,7 +103,7 @@ The way updates are managed is:
 
 -------
 ### Input
-// TODO
+<!-- // TODO -->
 
 -------
 ### Observer
